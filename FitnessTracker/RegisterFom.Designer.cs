@@ -46,7 +46,7 @@
             this.reg_showPass.AutoSize = true;
             this.reg_showPass.BackColor = System.Drawing.SystemColors.ControlDark;
             this.reg_showPass.Location = new System.Drawing.Point(518, 503);
-            this.reg_showPass.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.reg_showPass.Margin = new System.Windows.Forms.Padding(4);
             this.reg_showPass.Name = "reg_showPass";
             this.reg_showPass.Size = new System.Drawing.Size(151, 24);
             this.reg_showPass.TabIndex = 12;
@@ -56,18 +56,19 @@
             // reg_registerBtn
             // 
             this.reg_registerBtn.Location = new System.Drawing.Point(292, 520);
-            this.reg_registerBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.reg_registerBtn.Margin = new System.Windows.Forms.Padding(4);
             this.reg_registerBtn.Name = "reg_registerBtn";
             this.reg_registerBtn.Size = new System.Drawing.Size(151, 59);
             this.reg_registerBtn.TabIndex = 11;
             this.reg_registerBtn.Text = "SIGNUP";
             this.reg_registerBtn.UseVisualStyleBackColor = true;
+            this.reg_registerBtn.Click += new System.EventHandler(this.reg_registerBtn_Click);
             // 
             // reg_userName
             // 
             this.reg_userName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.reg_userName.Location = new System.Drawing.Point(211, 295);
-            this.reg_userName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.reg_userName.Margin = new System.Windows.Forms.Padding(4);
             this.reg_userName.Multiline = true;
             this.reg_userName.Name = "reg_userName";
             this.reg_userName.Size = new System.Drawing.Size(328, 42);
@@ -77,7 +78,7 @@
             // 
             this.reg_email.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.reg_email.Location = new System.Drawing.Point(211, 146);
-            this.reg_email.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.reg_email.Margin = new System.Windows.Forms.Padding(4);
             this.reg_email.Multiline = true;
             this.reg_email.Name = "reg_email";
             this.reg_email.Size = new System.Drawing.Size(328, 42);
@@ -146,7 +147,7 @@
             // 
             this.reg_password.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.reg_password.Location = new System.Drawing.Point(211, 437);
-            this.reg_password.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.reg_password.Margin = new System.Windows.Forms.Padding(4);
             this.reg_password.Multiline = true;
             this.reg_password.Name = "reg_password";
             this.reg_password.PasswordChar = '*';
@@ -182,7 +183,7 @@
             this.Controls.Add(this.label2);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "RegisterFom";
             this.Text = "RegisterFom";
             this.Load += new System.EventHandler(this.RegisterFom_Load);

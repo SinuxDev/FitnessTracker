@@ -97,12 +97,13 @@
             this.login_btn.TabIndex = 5;
             this.login_btn.Text = "LOGIN";
             this.login_btn.UseVisualStyleBackColor = true;
+            this.login_btn.Click += new System.EventHandler(this.login_btn_Click);
             // 
             // login_showPass
             // 
             this.login_showPass.AutoSize = true;
             this.login_showPass.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.login_showPass.Location = new System.Drawing.Point(447, 293);
+            this.login_showPass.Location = new System.Drawing.Point(456, 276);
             this.login_showPass.Name = "login_showPass";
             this.login_showPass.Size = new System.Drawing.Size(125, 20);
             this.login_showPass.TabIndex = 6;
