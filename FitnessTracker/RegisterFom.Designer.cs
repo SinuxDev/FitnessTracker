@@ -28,54 +28,54 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.reg_showPass = new System.Windows.Forms.CheckBox();
+            this.reg_registerBtn = new System.Windows.Forms.Button();
+            this.reg_userName = new System.Windows.Forms.TextBox();
+            this.reg_email = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.reg_loginHere = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.reg_password = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // checkBox1
+            // reg_showPass
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.checkBox1.Location = new System.Drawing.Point(448, 402);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(125, 20);
-            this.checkBox1.TabIndex = 12;
-            this.checkBox1.Text = "Show Password";
-            this.checkBox1.UseVisualStyleBackColor = false;
+            this.reg_showPass.AutoSize = true;
+            this.reg_showPass.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.reg_showPass.Location = new System.Drawing.Point(448, 402);
+            this.reg_showPass.Name = "reg_showPass";
+            this.reg_showPass.Size = new System.Drawing.Size(125, 20);
+            this.reg_showPass.TabIndex = 12;
+            this.reg_showPass.Text = "Show Password";
+            this.reg_showPass.UseVisualStyleBackColor = false;
             // 
-            // button1
+            // reg_registerBtn
             // 
-            this.button1.Location = new System.Drawing.Point(226, 417);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(113, 41);
-            this.button1.TabIndex = 11;
-            this.button1.Text = "SiGNUP";
-            this.button1.UseVisualStyleBackColor = true;
+            this.reg_registerBtn.Location = new System.Drawing.Point(226, 417);
+            this.reg_registerBtn.Name = "reg_registerBtn";
+            this.reg_registerBtn.Size = new System.Drawing.Size(121, 47);
+            this.reg_registerBtn.TabIndex = 11;
+            this.reg_registerBtn.Text = "SIGNUP";
+            this.reg_registerBtn.UseVisualStyleBackColor = true;
             // 
-            // textBox2
+            // reg_userName
             // 
-            this.textBox2.Location = new System.Drawing.Point(226, 239);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(227, 34);
-            this.textBox2.TabIndex = 10;
+            this.reg_userName.Location = new System.Drawing.Point(226, 239);
+            this.reg_userName.Multiline = true;
+            this.reg_userName.Name = "reg_userName";
+            this.reg_userName.Size = new System.Drawing.Size(263, 34);
+            this.reg_userName.TabIndex = 10;
             // 
-            // textBox1
+            // reg_email
             // 
-            this.textBox1.Location = new System.Drawing.Point(226, 133);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(227, 34);
-            this.textBox1.TabIndex = 9;
+            this.reg_email.Location = new System.Drawing.Point(226, 133);
+            this.reg_email.Multiline = true;
+            this.reg_email.Name = "reg_email";
+            this.reg_email.Size = new System.Drawing.Size(263, 34);
+            this.reg_email.TabIndex = 9;
             // 
             // label3
             // 
@@ -97,21 +97,23 @@
             this.label2.TabIndex = 7;
             this.label2.Text = "Email Address";
             // 
-            // label5
+            // reg_loginHere
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(444, 488);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(98, 22);
-            this.label5.TabIndex = 14;
-            this.label5.Text = "Login Here";
+            this.reg_loginHere.AutoSize = true;
+            this.reg_loginHere.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.reg_loginHere.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.reg_loginHere.Location = new System.Drawing.Point(444, 502);
+            this.reg_loginHere.Name = "reg_loginHere";
+            this.reg_loginHere.Size = new System.Drawing.Size(98, 22);
+            this.reg_loginHere.TabIndex = 14;
+            this.reg_loginHere.Text = "Login Here";
+            this.reg_loginHere.Click += new System.EventHandler(this.reg_loginHere_Click);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(175, 488);
+            this.label4.Location = new System.Drawing.Point(189, 502);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(228, 22);
             this.label4.TabIndex = 13;
@@ -128,13 +130,14 @@
             this.label1.TabIndex = 15;
             this.label1.Text = "Get Started!!";
             // 
-            // textBox3
+            // reg_password
             // 
-            this.textBox3.Location = new System.Drawing.Point(226, 345);
-            this.textBox3.Multiline = true;
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(227, 34);
-            this.textBox3.TabIndex = 17;
+            this.reg_password.Location = new System.Drawing.Point(226, 345);
+            this.reg_password.Multiline = true;
+            this.reg_password.Name = "reg_password";
+            this.reg_password.PasswordChar = '*';
+            this.reg_password.Size = new System.Drawing.Size(263, 34);
+            this.reg_password.TabIndex = 17;
             // 
             // label6
             // 
@@ -151,15 +154,15 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(732, 612);
-            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.reg_password);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.label5);
+            this.Controls.Add(this.reg_loginHere);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.checkBox1);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.reg_showPass);
+            this.Controls.Add(this.reg_registerBtn);
+            this.Controls.Add(this.reg_userName);
+            this.Controls.Add(this.reg_email);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Name = "RegisterFom";
@@ -171,17 +174,16 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button reg_registerBtn;
+        private System.Windows.Forms.TextBox reg_userName;
+        private System.Windows.Forms.TextBox reg_email;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label reg_loginHere;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox reg_password;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.CheckBox reg_showPass;
     }
 }

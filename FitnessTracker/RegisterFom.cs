@@ -21,5 +21,12 @@ namespace FitnessTracker
         {
 
         }
+
+        private void reg_loginHere_Click(object sender, EventArgs e)
+        {
+            Login login = new Login();
+            login.Show();
+            this.Hide();
+        }
     }
 }

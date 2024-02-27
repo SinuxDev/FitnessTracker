@@ -19,7 +19,14 @@ namespace FitnessTracker
 
         private void Login_Load(object sender, EventArgs e)
         {
+            
+        }
 
+        private void login_registerHere_Click(object sender, EventArgs e)
+        {
+            RegisterFom registerFom = new RegisterFom();
+            registerFom.Show();
+            this.Hide();
         }
     }
 }
