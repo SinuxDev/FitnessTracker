@@ -50,18 +50,52 @@ namespace FitnessTracker
             //open the db connection
             db.openConnection();
 
-            //Query Execute
-            if (command.ExecuteNonQuery() == 1)
+            if (checkUsername())
             {
-                MessageBox.Show("Account Created!!");
+                MessageBox.Show("This Username is already exists, select A different One");
             }
             else
             {
-                MessageBox.Show("ERROR");
+                //Query Execute
+                if (command.ExecuteNonQuery() == 1)
+                {
+                    MessageBox.Show("Account Created!!");
+                }
+                else
+                {
+                    MessageBox.Show("ERROR");
+                }
             }
 
             //close the db connection
             db.closeConnection();
+        }
+
+        //check if the username already exists
+        public Boolean checkUsername()
+        {
+            connectdb db = new connectdb();
+
+            String username = reg_userName.Text;
+            
+            DataTable table = new DataTable();
+            MySqlDataAdapter adapter = new MySqlDataAdapter();
+            MySqlCommand command = new MySqlCommand("SELECT * FROM `users` WHERE `username` = @usn", db.getConnection());
+
+            command.Parameters.Add("@usn", MySqlDbType.VarChar).Value = username;
+
+            adapter.SelectCommand = command;
+            adapter.Fill(table);
+
+            //check the user exists in the database 
+            if (table.Rows.Count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private void reg_firstName_TextChanged(object sender, EventArgs e)
