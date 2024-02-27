@@ -10,14 +10,14 @@ using System.Windows.Forms;
 
 namespace FitnessTracker
 {
-    public partial class Login : Form
+    public partial class RegisterFom : Form
     {
-        public Login()
+        public RegisterFom()
         {
             InitializeComponent();
         }
 
-        private void Login_Load(object sender, EventArgs e)
+        private void RegisterFom_Load(object sender, EventArgs e)
         {
 
         }
