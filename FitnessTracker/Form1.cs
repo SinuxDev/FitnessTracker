@@ -58,5 +58,10 @@ namespace FitnessTracker
                 MessageBox.Show("No");
             }
         }
+
+        private void login_closeLableClick_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

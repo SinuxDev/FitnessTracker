@@ -37,6 +37,7 @@
             this.login_showPass = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
             this.login_registerHere = new System.Windows.Forms.Label();
+            this.login_closeLableClick = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -74,24 +75,22 @@
             // 
             this.login_username.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.login_username.Location = new System.Drawing.Point(345, 138);
-            this.login_username.Multiline = true;
             this.login_username.Name = "login_username";
-            this.login_username.Size = new System.Drawing.Size(227, 34);
+            this.login_username.Size = new System.Drawing.Size(227, 27);
             this.login_username.TabIndex = 3;
             // 
             // login_password
             // 
             this.login_password.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.login_password.Location = new System.Drawing.Point(345, 204);
-            this.login_password.Multiline = true;
             this.login_password.Name = "login_password";
             this.login_password.PasswordChar = '*';
-            this.login_password.Size = new System.Drawing.Size(227, 34);
+            this.login_password.Size = new System.Drawing.Size(227, 27);
             this.login_password.TabIndex = 4;
             // 
             // login_btn
             // 
-            this.login_btn.Location = new System.Drawing.Point(345, 336);
+            this.login_btn.Location = new System.Drawing.Point(345, 323);
             this.login_btn.Name = "login_btn";
             this.login_btn.Size = new System.Drawing.Size(113, 41);
             this.login_btn.TabIndex = 5;
@@ -115,7 +114,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.label4.Location = new System.Drawing.Point(211, 408);
+            this.label4.Location = new System.Drawing.Point(181, 397);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(209, 22);
             this.label4.TabIndex = 7;
@@ -126,18 +125,31 @@
             this.login_registerHere.AutoSize = true;
             this.login_registerHere.Cursor = System.Windows.Forms.Cursors.Hand;
             this.login_registerHere.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.login_registerHere.Location = new System.Drawing.Point(452, 408);
+            this.login_registerHere.Location = new System.Drawing.Point(451, 397);
             this.login_registerHere.Name = "login_registerHere";
             this.login_registerHere.Size = new System.Drawing.Size(121, 22);
             this.login_registerHere.TabIndex = 8;
             this.login_registerHere.Text = "Register Here";
             this.login_registerHere.Click += new System.EventHandler(this.login_registerHere_Click);
             // 
+            // login_closeLableClick
+            // 
+            this.login_closeLableClick.AutoSize = true;
+            this.login_closeLableClick.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.login_closeLableClick.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.login_closeLableClick.Location = new System.Drawing.Point(735, 18);
+            this.login_closeLableClick.Name = "login_closeLableClick";
+            this.login_closeLableClick.Size = new System.Drawing.Size(40, 39);
+            this.login_closeLableClick.TabIndex = 9;
+            this.login_closeLableClick.Text = "X";
+            this.login_closeLableClick.Click += new System.EventHandler(this.login_closeLableClick_Click);
+            // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(808, 528);
+            this.Controls.Add(this.login_closeLableClick);
             this.Controls.Add(this.login_registerHere);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.login_showPass);
@@ -147,7 +159,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Login";
             this.Text = "Login";
             this.Load += new System.EventHandler(this.Login_Load);
@@ -167,6 +179,7 @@
         private System.Windows.Forms.CheckBox login_showPass;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label login_registerHere;
+        private System.Windows.Forms.Label login_closeLableClick;
     }
 }
 
