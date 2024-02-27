@@ -72,6 +72,7 @@
             // 
             // login_username
             // 
+            this.login_username.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.login_username.Location = new System.Drawing.Point(345, 138);
             this.login_username.Multiline = true;
             this.login_username.Name = "login_username";
@@ -80,6 +81,7 @@
             // 
             // login_password
             // 
+            this.login_password.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.login_password.Location = new System.Drawing.Point(345, 204);
             this.login_password.Multiline = true;
             this.login_password.Name = "login_password";
