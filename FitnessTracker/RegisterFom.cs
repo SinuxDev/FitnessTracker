@@ -50,21 +50,30 @@ namespace FitnessTracker
             //open the db connection
             db.openConnection();
 
-            if (checkUsername())
+            // check the textboxes has input vlaues
+            if (!checkTextBoxesValues())
             {
-                MessageBox.Show("This Username is already exists, select A different One");
-            }
-            else
-            {
-                //Query Execute
-                if (command.ExecuteNonQuery() == 1)
+                // check if the username exists or not 
+                if (checkUsername())
                 {
-                    MessageBox.Show("Account Created!!");
+                    MessageBox.Show("This Username is already exists, select A different One");
                 }
                 else
                 {
-                    MessageBox.Show("ERROR");
+                    //Query Execute
+                    if (command.ExecuteNonQuery() == 1)
+                    {
+                        MessageBox.Show("Account Created!!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("ERROR");
+                    }
                 }
+            }
+            else
+            {
+                MessageBox.Show("Enter Your Information First");
             }
 
             //close the db connection
@@ -89,6 +98,27 @@ namespace FitnessTracker
 
             //check the user exists in the database 
             if (table.Rows.Count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        //check if the textboxes has values
+        public Boolean checkTextBoxesValues()
+        {
+            String fname = reg_firstName.Text;
+            String lname = reg_lastName.Text;
+            String email = reg_email.Text;
+            String userName = reg_userName.Text;
+            String password = reg_password.Text;
+
+            if(fname.Equals("first name") || lname.Equals("last name") || 
+               email.Equals("email address") || userName.Equals("username") 
+               || password.Equals("password") )
             {
                 return true;
             }
