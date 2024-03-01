@@ -51,11 +51,24 @@ namespace FitnessTracker
             //check the user exists or not 
             if(table.Rows.Count > 0)
             {
-                MessageBox.Show("Yes");
+                this.Hide();
+                MainForm mainForm = new MainForm();
+                mainForm.Show();
             }
             else
             {
-                MessageBox.Show("No");
+                if (username.Trim().Equals(""))
+                {
+                    MessageBox.Show("Enter Your Username to Login","Empty Username",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                }
+                else if (password.Trim().Equals(""))
+                {
+                    MessageBox.Show("Enter Your Password to Login", "Empty Password", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    MessageBox.Show("Wrong Username or Password", "Wrong Data", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 

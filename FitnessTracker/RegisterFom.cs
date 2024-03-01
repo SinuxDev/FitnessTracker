@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
-using System.Data;
 
 
 namespace FitnessTracker
@@ -53,27 +52,35 @@ namespace FitnessTracker
             // check the textboxes has input vlaues
             if (!checkTextBoxesValues())
             {
-                // check if the username exists or not 
-                if (checkUsername())
+                // check if the password are equals with confirm password
+                if (reg_password.Text.Equals(reg_confirmPassword.Text))
                 {
-                    MessageBox.Show("This Username is already exists, select A different One");
-                }
-                else
-                {
-                    //Query Execute
-                    if (command.ExecuteNonQuery() == 1)
+                    // check if the username exists or not 
+                    if (checkUsername())
                     {
-                        MessageBox.Show("Account Created!!");
+                        MessageBox.Show("This Username is already exists, select A different One","Duplicate Username",MessageBoxButtons.OKCancel,MessageBoxIcon.Error);
                     }
                     else
                     {
-                        MessageBox.Show("ERROR");
+                        //Query Execute
+                        if (command.ExecuteNonQuery() == 1)
+                        {
+                            MessageBox.Show("Your Account have been created!!","Account",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("ERROR");
+                        }
                     }
+                }
+                else
+                {
+                    MessageBox.Show("Your Password are not match","Password Error",MessageBoxButtons.OKCancel,MessageBoxIcon.Error);
                 }
             }
             else
             {
-                MessageBox.Show("Enter Your Information First");
+                MessageBox.Show("Enter Your Information First","Empty Data",MessageBoxButtons.OKCancel,MessageBoxIcon.Error);
             }
 
             //close the db connection
@@ -259,7 +266,8 @@ namespace FitnessTracker
 
         private void reg_closeLabelClick_Click(object sender, EventArgs e)
         {
-            this.Close();
+            //this.Close();
+            Application.Exit();
         }
     }
 }
