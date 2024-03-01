@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 
-
 namespace FitnessTracker
 {
     public partial class RegisterFom : Form
@@ -38,7 +37,10 @@ namespace FitnessTracker
         {
             //add new User
             connectdb db = new connectdb();
-            MySqlCommand command = new MySqlCommand("INSERT INTO `users`(`firstname`, `lastname`, `emailaddress`, `username`, `password`) VALUES (@fn, @ln, @email, @usn, @pass)", db.getConnection());
+            MySqlCommand command = new MySqlCommand(
+                "INSERT INTO `users`(`firstname`, `lastname`, `emailaddress`, `username`, `password`) VALUES (@fn, @ln, @email, @usn, @pass)",
+                db.getConnection()
+            );
 
             command.Parameters.Add("@fn", MySqlDbType.VarChar).Value = reg_firstName.Text;
             command.Parameters.Add("@ln", MySqlDbType.VarChar).Value = reg_lastName.Text;
@@ -61,14 +63,23 @@ namespace FitnessTracker
                         // check if the username exists or not 
                         if (checkUsername())
                         {
-                            MessageBox.Show("This Username is already exists, select A different One", "Duplicate Username", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+                            MessageBox.Show(
+                                "This Username is already exists, select A different One",
+                                "Duplicate Username",
+                                MessageBoxButtons.OKCancel,
+                                MessageBoxIcon.Error
+                            );
                         }
                         else
                         {
                             //Query Execute
                             if (command.ExecuteNonQuery() == 1)
                             {
-                                MessageBox.Show("Your Account have been created!!", "Account", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                MessageBox.Show(
+                                    "Your Account have been created!!",
+                                    "Account",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Information);
                             }
                             else
                             {
@@ -78,7 +89,11 @@ namespace FitnessTracker
                     }
                     else
                     {
-                        MessageBox.Show("Your Password are not match", "Password Error", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+                        MessageBox.Show(
+                            "Your Password are not match",
+                            "Password Error",
+                            MessageBoxButtons.OKCancel,
+                            MessageBoxIcon.Error);
                     }
                 }
                 else
@@ -290,6 +305,5 @@ namespace FitnessTracker
             //this.Close();
             Application.Exit();
         }
-
     }
 }

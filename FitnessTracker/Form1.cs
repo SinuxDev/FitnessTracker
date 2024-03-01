@@ -1,4 +1,3 @@
-﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,8 +21,6 @@ namespace FitnessTracker
         private void Login_Load(object sender, EventArgs e)
         {
             
-        }
-
         //show the Register Form
         private void login_registerHere_Click(object sender, EventArgs e)
         {
@@ -88,6 +85,5 @@ namespace FitnessTracker
         {
             this.Close();
         }
-
     }
 }
