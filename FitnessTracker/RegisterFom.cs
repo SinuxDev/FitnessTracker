@@ -52,30 +52,38 @@ namespace FitnessTracker
             // check the textboxes has input vlaues
             if (!checkTextBoxesValues())
             {
-                // check if the password are equals with confirm password
-                if (reg_password.Text.Equals(reg_confirmPassword.Text))
+                //check if the password meet the requirement
+                if (ValidatePassword())
                 {
-                    // check if the username exists or not 
-                    if (checkUsername())
+                    // check if the password are equals with confirm password
+                    if (reg_password.Text.Equals(reg_confirmPassword.Text))
                     {
-                        MessageBox.Show("This Username is already exists, select A different One","Duplicate Username",MessageBoxButtons.OKCancel,MessageBoxIcon.Error);
-                    }
-                    else
-                    {
-                        //Query Execute
-                        if (command.ExecuteNonQuery() == 1)
+                        // check if the username exists or not 
+                        if (checkUsername())
                         {
-                            MessageBox.Show("Your Account have been created!!","Account",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                            MessageBox.Show("This Username is already exists, select A different One", "Duplicate Username", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
                         }
                         else
                         {
-                            MessageBox.Show("ERROR");
+                            //Query Execute
+                            if (command.ExecuteNonQuery() == 1)
+                            {
+                                MessageBox.Show("Your Account have been created!!", "Account", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                            else
+                            {
+                                MessageBox.Show("ERROR");
+                            }
                         }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Your Password are not match", "Password Error", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Your Password are not match","Password Error",MessageBoxButtons.OKCancel,MessageBoxIcon.Error);
+                    MessageBox.Show("Passwrod must be at least 12 characters and contain at least one upper case and lower case", "Invalid Passsword", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
@@ -133,6 +141,19 @@ namespace FitnessTracker
             {
                 return false;
             }
+        }
+
+        // check if the password meet the requirement
+        public Boolean ValidatePassword()
+        {
+            String password = reg_password.Text;
+
+            if(password.Length < 12 || !password.Any(char.IsLower) || !password.Any(char.IsUpper))
+            {
+                return false;
+            }
+
+            return true;
         }
 
         private void reg_firstName_TextChanged(object sender, EventArgs e)
