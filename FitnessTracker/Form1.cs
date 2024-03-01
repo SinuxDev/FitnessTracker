@@ -13,6 +13,7 @@ namespace FitnessTracker
 {
     public partial class Login : Form
     {
+        private int failedLoginAttempt = 0;
         public Login()
         {
             InitializeComponent();
@@ -57,17 +58,28 @@ namespace FitnessTracker
             }
             else
             {
-                if (username.Trim().Equals(""))
+                //Increment failed login attempts 
+                failedLoginAttempt++;
+
+                //Check if maximum failed attempts reached
+                if(failedLoginAttempt >= 3)
                 {
-                    MessageBox.Show("Enter Your Username to Login","Empty Username",MessageBoxButtons.OK,MessageBoxIcon.Error);
-                }
-                else if (password.Trim().Equals(""))
-                {
-                    MessageBox.Show("Enter Your Password to Login", "Empty Password", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Maximum failed to login attempt reached","Are you hacker",MessageBoxButtons.OK,MessageBoxIcon.Warning);
                 }
                 else
                 {
-                    MessageBox.Show("Wrong Username or Password", "Wrong Data", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    if (username.Trim().Equals(""))
+                    {
+                        MessageBox.Show("Enter Your Username to Login", "Empty Username", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else if (password.Trim().Equals(""))
+                    {
+                        MessageBox.Show("Enter Your Password to Login", "Empty Password", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Wrong Username or Password", "Wrong Data", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
         }
