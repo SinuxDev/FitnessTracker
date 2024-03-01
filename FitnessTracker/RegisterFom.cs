@@ -269,5 +269,6 @@ namespace FitnessTracker
             //this.Close();
             Application.Exit();
         }
+
     }
 }

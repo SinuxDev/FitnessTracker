@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.reg_showPass = new System.Windows.Forms.CheckBox();
             this.reg_registerBtn = new System.Windows.Forms.Button();
             this.reg_loginHere = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -41,18 +40,6 @@
             this.reg_password = new System.Windows.Forms.TextBox();
             this.reg_closeLabelClick = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
-            // reg_showPass
-            // 
-            this.reg_showPass.AutoSize = true;
-            this.reg_showPass.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.reg_showPass.Location = new System.Drawing.Point(461, 421);
-            this.reg_showPass.Margin = new System.Windows.Forms.Padding(4);
-            this.reg_showPass.Name = "reg_showPass";
-            this.reg_showPass.Size = new System.Drawing.Size(151, 24);
-            this.reg_showPass.TabIndex = 12;
-            this.reg_showPass.Text = "Show Password";
-            this.reg_showPass.UseVisualStyleBackColor = false;
             // 
             // reg_registerBtn
             // 
@@ -203,7 +190,6 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.reg_loginHere);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.reg_showPass);
             this.Controls.Add(this.reg_registerBtn);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
@@ -222,7 +208,6 @@
         private System.Windows.Forms.Label reg_loginHere;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.CheckBox reg_showPass;
         private System.Windows.Forms.TextBox reg_firstName;
         private System.Windows.Forms.TextBox reg_lastName;
         private System.Windows.Forms.TextBox reg_email;

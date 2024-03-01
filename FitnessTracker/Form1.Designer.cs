@@ -34,7 +34,6 @@
             this.login_username = new System.Windows.Forms.TextBox();
             this.login_password = new System.Windows.Forms.TextBox();
             this.login_btn = new System.Windows.Forms.Button();
-            this.login_showPass = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
             this.login_registerHere = new System.Windows.Forms.Label();
             this.login_closeLableClick = new System.Windows.Forms.Label();
@@ -98,17 +97,6 @@
             this.login_btn.UseVisualStyleBackColor = true;
             this.login_btn.Click += new System.EventHandler(this.login_btn_Click);
             // 
-            // login_showPass
-            // 
-            this.login_showPass.AutoSize = true;
-            this.login_showPass.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.login_showPass.Location = new System.Drawing.Point(456, 276);
-            this.login_showPass.Name = "login_showPass";
-            this.login_showPass.Size = new System.Drawing.Size(125, 20);
-            this.login_showPass.TabIndex = 6;
-            this.login_showPass.Text = "Show Password";
-            this.login_showPass.UseVisualStyleBackColor = false;
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -139,7 +127,7 @@
             this.login_closeLableClick.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.login_closeLableClick.Location = new System.Drawing.Point(735, 18);
             this.login_closeLableClick.Name = "login_closeLableClick";
-            this.login_closeLableClick.Size = new System.Drawing.Size(40, 39);
+            this.login_closeLableClick.Size = new System.Drawing.Size(39, 38);
             this.login_closeLableClick.TabIndex = 9;
             this.login_closeLableClick.Text = "X";
             this.login_closeLableClick.Click += new System.EventHandler(this.login_closeLableClick_Click);
@@ -152,7 +140,6 @@
             this.Controls.Add(this.login_closeLableClick);
             this.Controls.Add(this.login_registerHere);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.login_showPass);
             this.Controls.Add(this.login_btn);
             this.Controls.Add(this.login_password);
             this.Controls.Add(this.login_username);
@@ -176,7 +163,6 @@
         private System.Windows.Forms.TextBox login_username;
         private System.Windows.Forms.TextBox login_password;
         private System.Windows.Forms.Button login_btn;
-        private System.Windows.Forms.CheckBox login_showPass;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label login_registerHere;
         private System.Windows.Forms.Label login_closeLableClick;

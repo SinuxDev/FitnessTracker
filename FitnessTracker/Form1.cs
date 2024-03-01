@@ -76,5 +76,6 @@ namespace FitnessTracker
         {
             this.Close();
         }
+
     }
 }
