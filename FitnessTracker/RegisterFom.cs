@@ -39,8 +39,7 @@ namespace FitnessTracker
             connectdb db = new connectdb();
             MySqlCommand command = new MySqlCommand(
                 "INSERT INTO `users`(`firstname`, `lastname`, `emailaddress`, `username`, `password`) VALUES (@fn, @ln, @email, @usn, @pass)",
-                db.getConnection()
-            );
+                db.getConnection());
 
             command.Parameters.Add("@fn", MySqlDbType.VarChar).Value = reg_firstName.Text;
             command.Parameters.Add("@ln", MySqlDbType.VarChar).Value = reg_lastName.Text;
@@ -60,15 +59,14 @@ namespace FitnessTracker
                     // check if the password are equals with confirm password
                     if (reg_password.Text.Equals(reg_confirmPassword.Text))
                     {
-                        // check if the username exists or not 
+                        // check if the username exists or not
                         if (checkUsername())
                         {
                             MessageBox.Show(
                                 "This Username is already exists, select A different One",
                                 "Duplicate Username",
                                 MessageBoxButtons.OKCancel,
-                                MessageBoxIcon.Error
-                            );
+                                MessageBoxIcon.Error);
                         }
                         else
                         {
@@ -98,12 +96,20 @@ namespace FitnessTracker
                 }
                 else
                 {
-                    MessageBox.Show("Passwrod must be at least 12 characters and contain at least one upper case and lower case", "Invalid Passsword", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(
+                        "Passwrod must be at least 12 characters and contain at least one upper case and lower case",
+                        "Invalid Passsword",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
                 }
             }
             else
             {
-                MessageBox.Show("Enter Your Information First","Empty Data",MessageBoxButtons.OKCancel,MessageBoxIcon.Error);
+                MessageBox.Show(
+                    "Enter Your Information First",
+                    "Empty Data",
+                    MessageBoxButtons.OKCancel,
+                    MessageBoxIcon.Error);
             }
 
             //close the db connection
@@ -116,17 +122,20 @@ namespace FitnessTracker
             connectdb db = new connectdb();
 
             String username = reg_userName.Text;
-            
+
             DataTable table = new DataTable();
             MySqlDataAdapter adapter = new MySqlDataAdapter();
-            MySqlCommand command = new MySqlCommand("SELECT * FROM `users` WHERE `username` = @usn", db.getConnection());
+            MySqlCommand command = new MySqlCommand(
+                "SELECT * FROM `users` WHERE `username` = @usn",
+                db.getConnection()
+            );
 
             command.Parameters.Add("@usn", MySqlDbType.VarChar).Value = username;
 
             adapter.SelectCommand = command;
             adapter.Fill(table);
 
-            //check the user exists in the database 
+            //check the user exists in the database
             if (table.Rows.Count > 0)
             {
                 return true;
@@ -146,9 +155,13 @@ namespace FitnessTracker
             String userName = reg_userName.Text;
             String password = reg_password.Text;
 
-            if(fname.Equals("first name") || lname.Equals("last name") || 
-               email.Equals("email address") || userName.Equals("username") 
-               || password.Equals("password") )
+            if (
+                fname.Equals("first name")
+                || lname.Equals("last name")
+                || email.Equals("email address")
+                || userName.Equals("username")
+                || password.Equals("password")
+            )
             {
                 return true;
             }
@@ -163,7 +176,7 @@ namespace FitnessTracker
         {
             String password = reg_password.Text;
 
-            if(password.Length < 12 || !password.Any(char.IsLower) || !password.Any(char.IsUpper))
+            if (password.Length < 12 || !password.Any(char.IsLower) || !password.Any(char.IsUpper))
             {
                 return false;
             }
@@ -171,10 +184,7 @@ namespace FitnessTracker
             return true;
         }
 
-        private void reg_firstName_TextChanged(object sender, EventArgs e)
-        {
-
-        }
+        private void reg_firstName_TextChanged(object sender, EventArgs e) { }
 
         private void reg_firstName_Enter(object sender, EventArgs e)
         {
@@ -209,7 +219,7 @@ namespace FitnessTracker
         private void reg_lastName_Leave(object sender, EventArgs e)
         {
             String lname = reg_lastName.Text;
-            if(lname.ToLower().Trim().Equals("last name") || lname.Trim().Equals(""))
+            if (lname.ToLower().Trim().Equals("last name") || lname.Trim().Equals(""))
             {
                 reg_lastName.Text = "last name";
                 reg_lastName.ForeColor = Color.Gray;
@@ -219,7 +229,7 @@ namespace FitnessTracker
         private void reg_email_Enter(object sender, EventArgs e)
         {
             String email = reg_email.Text;
-            if(email.ToLower().Trim().Equals("email address"))
+            if (email.ToLower().Trim().Equals("email address"))
             {
                 reg_email.Text = " ";
                 reg_email.ForeColor = Color.Black;
@@ -229,7 +239,7 @@ namespace FitnessTracker
         private void reg_email_Leave(object sender, EventArgs e)
         {
             String email = reg_email.Text;
-            if(email.ToLower().Trim().Equals("email address") || email.Trim().Equals(""))
+            if (email.ToLower().Trim().Equals("email address") || email.Trim().Equals(""))
             {
                 reg_email.Text = "email address";
                 reg_email.ForeColor = Color.Gray;
@@ -249,7 +259,7 @@ namespace FitnessTracker
         private void reg_userName_Leave(object sender, EventArgs e)
         {
             String userName = reg_userName.Text;
-            if(userName.ToLower().Trim().Equals("username") || userName.Trim().Equals(""))
+            if (userName.ToLower().Trim().Equals("username") || userName.Trim().Equals(""))
             {
                 reg_userName.Text = "username";
                 reg_userName.ForeColor = Color.Gray;
@@ -292,7 +302,9 @@ namespace FitnessTracker
         private void reg_confirmPassword_Leave(object sender, EventArgs e)
         {
             String cpassword = reg_confirmPassword.Text;
-            if (cpassword.ToLower().Trim().Equals("confirm password") || cpassword.Trim().Equals(""))
+            if (
+                cpassword.ToLower().Trim().Equals("confirm password") || cpassword.Trim().Equals("")
+            )
             {
                 reg_confirmPassword.Text = "confirm password";
                 reg_confirmPassword.UseSystemPasswordChar = false;
