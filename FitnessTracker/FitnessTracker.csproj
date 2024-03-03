@@ -98,6 +98,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CaloriesCalClass.cs" />
     <Compile Include="connectdb.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
