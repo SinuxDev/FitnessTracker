@@ -1,8 +1,11 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace FitnessTracker
 {
@@ -55,10 +58,54 @@ namespace FitnessTracker
                 default:
                     break;
             }
-
             return caloriesBurned;
         }
 
+
+        public void SaveToDatabase(string connectionString)
+        {
+            MySqlConnection connection = null;
+            try
+            {
+                connection = new MySqlConnection(connectionString);
+                string query = "INSERT INTO `activities` (`name`, `metric1`, `metric2`, `metric3`) VALUES (@name, @metric1, @metric2, @metric3)";
+
+                MySqlCommand command = new MySqlCommand(query, connection);
+                command.Parameters.AddWithValue("@name", Name);
+                command.Parameters.AddWithValue("@metric1", Metric1);
+                command.Parameters.AddWithValue("@metric2", Metric2);
+                command.Parameters.AddWithValue("@metric3", Metric3);
+
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while saving to the database: {ex.Message} ", "Insert Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
+            }
+            finally
+            {
+                connection?.Close();
+            }
+        }
+
+        public static DataTable RetrieveFromDatabase(string connectionString)
+        {
+            DataTable dataTable = new DataTable();
+
+            using(var connection = new MySqlConnection(connectionString))
+            {
+                string query = "SELECT * FROM `activities` WHERE `name` = @name and `metric1` = @metric1 and `metric2` = @metric2 and `metric3` = @metric3 ";
+
+                using(var adapter = new MySqlDataAdapter(query, connection))
+                {
+                    connection.Open();
+                    adapter.Fill(dataTable);
+                }
+            }
+
+            return dataTable;
+        }
 
     }
 }
