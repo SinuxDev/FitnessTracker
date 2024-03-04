@@ -124,7 +124,7 @@ namespace FitnessTracker
             using(var connection = new MySqlConnection(_connectionString))
             {
                 connection.Open();
-                string query = "SELECT goal_calories FROM user_goals WHERE username = @username";
+                string query = "SELECT goal_calories FROM user_goals WHERE username = @username ORDER BY created_at DESC LIMIT 1";
                 using (var command = new MySqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@username", username); 
