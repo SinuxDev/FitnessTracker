@@ -69,7 +69,7 @@ namespace FitnessTracker
             }
         }
 
-        public void SetFitnessGoal(string username, int goalCalories)
+        public void SetFitnessGoal(string username, double goalCalories)
         {
             using (var connection = new MySqlConnection(_connectionString))
             {
