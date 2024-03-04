@@ -16,15 +16,14 @@ namespace FitnessTracker
             _connectionString = connectionString;
         }
 
-        public void RecordActiviyAndCalculateCalories(int userID, CaloriesCalClass calories)
+        public void RecordActiviyAndCalculateCalories(int userID,string userName, CaloriesCalClass calories)
         {
             double caloriesBurned = calories.CalculateCaloriesBurned();
             int goalCalories = GetFitnessGoal(userID);
 
             int reminingCalories = goalCalories - (int)caloriesBurned;
 
-            RecordActivity(userID, calories.Name, caloriesBurned);
-            
+            RecordActivity(userID, userName, calories.Name, caloriesBurned);
         }
 
         private int GetFitnessGoal(int userid)
@@ -47,14 +46,15 @@ namespace FitnessTracker
             return goalCalories;
         }
 
-        private void RecordActivity(int userID, string activityName, double caloriesBurned)
+        private void RecordActivity(int userID,string userName, string activityName, double caloriesBurned)
         {
             using (var connection = new MySqlConnection(_connectionString))
             {
-                string query = "INSERT INTO `record_activities` (`user_ID`,`activity`,`calories_burned`,) VALUES (@userID, @activity, @caloriesBurned) ";
+                string query = "INSERT INTO `record_activities` (`user_ID`,`user_name`,`activity`,`calories_burned`,) VALUES (@userID, @userName, @activity, @caloriesBurned) ";
                 using (var command = new MySqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@userID", userID);
+                    command.Parameters.AddWithValue("@username", userName);
                     command.Parameters.AddWithValue("@activity", activityName);
                     command.Parameters.AddWithValue("@caloriesBurned",caloriesBurned);
 
