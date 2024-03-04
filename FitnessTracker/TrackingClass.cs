@@ -93,5 +93,30 @@ namespace FitnessTracker
                 }
             }
         }
+
+        public int GetTotalCaloriesBurned(string username)
+        {
+            int totalCaloriesBurned = 0;
+            using (var connection = new MySqlConnection(_connectionString))
+            {
+                connection.Open();
+                string query = "SELECT SUM(calories_burned) AS total_calories_burned FROM record_activities WHERE user_name = @username";
+                using (var command = new MySqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@username", username);
+                    var result = command.ExecuteScalar();
+                    if (result != null && result != DBNull.Value)
+                    {
+                        totalCaloriesBurned = Convert.ToInt32(result);
+                    }
+                    else
+                    {
+                        totalCaloriesBurned = 0;
+                    }
+                }
+            }
+            return totalCaloriesBurned;
+        }
+
     }
 }

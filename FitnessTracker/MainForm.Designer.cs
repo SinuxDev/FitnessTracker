@@ -45,6 +45,8 @@
             this.label9 = new System.Windows.Forms.Label();
             this.step_textBox = new System.Windows.Forms.TextBox();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.calories_label = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
@@ -216,11 +218,33 @@
             this.dataGridView2.Size = new System.Drawing.Size(463, 267);
             this.dataGridView2.TabIndex = 19;
             // 
+            // calories_label
+            // 
+            this.calories_label.AutoSize = true;
+            this.calories_label.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.calories_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.calories_label.Location = new System.Drawing.Point(963, 540);
+            this.calories_label.Name = "calories_label";
+            this.calories_label.Size = new System.Drawing.Size(0, 29);
+            this.calories_label.TabIndex = 20;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(624, 540);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(323, 29);
+            this.label7.TabIndex = 21;
+            this.label7.Text = "Your Total Calories Burned : ";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1496, 739);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.calories_label);
             this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.step_textBox);
             this.Controls.Add(this.label9);
@@ -268,5 +292,7 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox step_textBox;
         private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Windows.Forms.Label calories_label;
+        private System.Windows.Forms.Label label7;
     }
 }

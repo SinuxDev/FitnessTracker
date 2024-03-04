@@ -16,6 +16,7 @@ namespace FitnessTracker
     {
         static string dbString ="server=localhost;port=3306;uid=root;password=root;database=fitnessapp";
         connectdb db = new connectdb();
+        TrackingClass trackingClass = new TrackingClass(dbString);
         private int _userId;
         private string _name;
 
@@ -40,17 +41,11 @@ namespace FitnessTracker
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-
-            //// CaloriesCalClass object created
-            //CaloriesCalClass walkingActivity = new CaloriesCalClass("Walking", 1000, 30, 120);
-
-            ////Record the activity and calcualtes calories burned
-            //trackingClass.RecordActiviyAndCalculateCalories(userID,"Sinux", walkingActivity);
-
-            //MessageBox.Show("It's Completed");
-
             FillUserGoalsDGV(_name);
             FillRecordActivities(_userId);
+
+            int totalCaloriesBurned = trackingClass.GetTotalCaloriesBurned(_name);
+            calories_label.Text = totalCaloriesBurned.ToString();
         }
 
         private void CaloriesCal_Btn_Click(object sender, EventArgs e)
@@ -120,9 +115,8 @@ namespace FitnessTracker
 
         private void setGoal_btn_Click(object sender, EventArgs e)
         {
-            TrackingClass trackingClass = new TrackingClass(dbString);
+            
             string caloriesText = setGoals_textbox.Text;
-
             if (string.IsNullOrWhiteSpace(caloriesText))
             {
                 MessageBox.Show(
@@ -224,5 +218,6 @@ namespace FitnessTracker
 
             db.closeConnection();
         }
+
     }
 }
