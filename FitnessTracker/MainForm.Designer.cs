@@ -38,8 +38,6 @@
             this.setGoals_textbox = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.setGoal_btn = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
-            this.GoalsUserNametextbox = new System.Windows.Forms.TextBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.exe_duration_textBox = new System.Windows.Forms.TextBox();
             this.times_textBox = new System.Windows.Forms.TextBox();
@@ -129,7 +127,7 @@
             // 
             // setGoals_textbox
             // 
-            this.setGoals_textbox.Location = new System.Drawing.Point(265, 165);
+            this.setGoals_textbox.Location = new System.Drawing.Point(270, 95);
             this.setGoals_textbox.Name = "setGoals_textbox";
             this.setGoals_textbox.Size = new System.Drawing.Size(121, 22);
             this.setGoals_textbox.TabIndex = 8;
@@ -138,7 +136,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(39, 162);
+            this.label6.Location = new System.Drawing.Point(39, 91);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(186, 25);
             this.label6.TabIndex = 9;
@@ -147,7 +145,7 @@
             // setGoal_btn
             // 
             this.setGoal_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.setGoal_btn.Location = new System.Drawing.Point(143, 258);
+            this.setGoal_btn.Location = new System.Drawing.Point(125, 164);
             this.setGoal_btn.Name = "setGoal_btn";
             this.setGoal_btn.Size = new System.Drawing.Size(121, 44);
             this.setGoal_btn.TabIndex = 10;
@@ -155,28 +153,10 @@
             this.setGoal_btn.UseVisualStyleBackColor = true;
             this.setGoal_btn.Click += new System.EventHandler(this.setGoal_btn_Click);
             // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(39, 91);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(102, 25);
-            this.label7.TabIndex = 11;
-            this.label7.Text = "Username";
-            // 
-            // GoalsUserNametextbox
-            // 
-            this.GoalsUserNametextbox.Location = new System.Drawing.Point(265, 95);
-            this.GoalsUserNametextbox.Name = "GoalsUserNametextbox";
-            this.GoalsUserNametextbox.Size = new System.Drawing.Size(121, 22);
-            this.GoalsUserNametextbox.TabIndex = 12;
-            this.GoalsUserNametextbox.UseWaitCursor = true;
-            // 
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(44, 324);
+            this.dataGridView1.Location = new System.Drawing.Point(29, 237);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
@@ -235,8 +215,6 @@
             this.Controls.Add(this.times_textBox);
             this.Controls.Add(this.exe_duration_textBox);
             this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.GoalsUserNametextbox);
-            this.Controls.Add(this.label7);
             this.Controls.Add(this.setGoal_btn);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.setGoals_textbox);
@@ -269,8 +247,6 @@
         private System.Windows.Forms.TextBox setGoals_textbox;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button setGoal_btn;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox GoalsUserNametextbox;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.TextBox exe_duration_textBox;
         private System.Windows.Forms.TextBox times_textBox;

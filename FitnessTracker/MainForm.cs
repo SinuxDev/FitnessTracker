@@ -54,7 +54,6 @@ namespace FitnessTracker
         {
             TrackingClass trackingClass = new TrackingClass(dbString);
             CaloriesCalClass calories;
-            string username = GoalsUserNametextbox.Text;
             string durationInput = exe_duration_textBox.Text;
             double duration;
             if (!double.TryParse(durationInput, out duration))
@@ -63,8 +62,7 @@ namespace FitnessTracker
                     "Please enter a valid value for duration.",
                     "Error",
                     MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                    MessageBoxIcon.Error);
             }
 
             string timeInput = times_textBox.Text;
@@ -75,8 +73,7 @@ namespace FitnessTracker
                     "Please enter a valid value for times .",
                     "Error",
                     MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                    MessageBoxIcon.Error);
             }
 
             string stepInput = step_textBox.Text;
@@ -87,8 +84,7 @@ namespace FitnessTracker
                     "Please enter a valid value for steps .",
                     "Error",
                     MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                    MessageBoxIcon.Error);
             }
 
             string selectedExercise = exe_ComboList.Text;
@@ -121,41 +117,27 @@ namespace FitnessTracker
         private void setGoal_btn_Click(object sender, EventArgs e)
         {
             TrackingClass trackingClass = new TrackingClass(dbString);
-            string username = GoalsUserNametextbox.Text;
             string caloriesText = setGoals_textbox.Text;
 
-            if (string.IsNullOrWhiteSpace(username) && !string.IsNullOrWhiteSpace(caloriesText))
-            {
-                MessageBox.Show(
-                    "Enter your username!",
-                    "Warning",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                );
-            }
-            else if (
-                string.IsNullOrWhiteSpace(caloriesText) && !string.IsNullOrWhiteSpace(username)
-            )
+            if (string.IsNullOrWhiteSpace(caloriesText))
             {
                 MessageBox.Show(
                     "Enter your calories!",
                     "Warning",
                     MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                );
+                    MessageBoxIcon.Warning);
             }
             else
             {
                 //parse calories as a double
                 if (double.TryParse(caloriesText, out double calories))
                 {
-                    trackingClass.SetFitnessGoal(username, calories);
+                    trackingClass.SetFitnessGoal(_name, calories);
                     MessageBox.Show(
                         "Your Goals have been set",
                         "SetGoals",
                         MessageBoxButtons.OK,
-                        MessageBoxIcon.Information
-                    );
+                        MessageBoxIcon.Information);
                 }
                 else
                 {
@@ -163,8 +145,7 @@ namespace FitnessTracker
                         "Invalid calories format. Enter a valid number.",
                         "Warning",
                         MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning
-                    );
+                        MessageBoxIcon.Warning);
                 }
             }
         }
