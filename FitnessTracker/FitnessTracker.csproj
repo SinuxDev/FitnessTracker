@@ -120,6 +120,7 @@
     <Compile Include="RegisterFom.Designer.cs">
       <DependentUpon>RegisterFom.cs</DependentUpon>
     </Compile>
+    <Compile Include="TrackingClass.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
