@@ -1,11 +1,11 @@
-﻿using MySql.Data.MySqlClient;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace FitnessTracker
 {
@@ -16,7 +16,7 @@ namespace FitnessTracker
         public double Metric2 { get; set; }
         public double Metric3 { get; set; }
 
-        public CaloriesCalClass(string name, double metric1, double metric2,double metric3)
+        public CaloriesCalClass(string name, double metric1, double metric2, double metric3)
         {
             this.Name = name;
             this.Metric1 = metric1;
@@ -24,20 +24,19 @@ namespace FitnessTracker
             this.Metric3 = metric3;
         }
 
-        
         public double CalculateCaloriesBurned()
         {
             double caloriesBurned = 0;
 
-            switch(this.Name)
+            switch (this.Name)
             {
                 case "Walking":
                     const double WalkingMET = 3.0;
-                    caloriesBurned = this.Metric1 * WalkingMET * this.Metric3 / 200; // M1(Steps) / M3(AvgHR = 200 )
+                    caloriesBurned = this.Metric2 * WalkingMET * this.Metric3 / 200; // M1(Steps) / M3(AvgHR = 200 )
                     break;
                 case "Swimming":
                     const double SwimmingMET = 8.0;
-                    caloriesBurned = this.Metric2 * SwimmingMET * this.Metric3 / 60; // M1(Times) / M3(AvgHR = 60 )
+                    caloriesBurned = this.Metric1 * SwimmingMET * this.Metric3 / 60; // M1(Times) / M3(AvgHR = 60 )
                     break;
                 case "Squat":
                     const double SquatMET = 3.5;
@@ -59,7 +58,6 @@ namespace FitnessTracker
                     break;
             }
             return caloriesBurned;
-        }        
-
+        }
     }
 }

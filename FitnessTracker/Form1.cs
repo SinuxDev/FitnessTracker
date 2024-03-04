@@ -20,9 +20,7 @@ namespace FitnessTracker
             InitializeComponent();
         }
 
-        private void Login_Load(object sender, EventArgs e) {
-
-        }
+        private void Login_Load(object sender, EventArgs e) { }
 
         //show the Register Form
         private void login_registerHere_Click(object sender, EventArgs e)
@@ -71,7 +69,8 @@ namespace FitnessTracker
                         "Maximum failed to login attempt reached",
                         "Are you hacker",
                         MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning);
+                        MessageBoxIcon.Warning
+                    );
                 }
                 else
                 {
@@ -81,7 +80,8 @@ namespace FitnessTracker
                             "Enter Your Username to Login",
                             "Empty Username",
                             MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
+                            MessageBoxIcon.Error
+                        );
                     }
                     else if (password.Trim().Equals(""))
                     {
@@ -89,7 +89,8 @@ namespace FitnessTracker
                             "Enter Your Password to Login",
                             "Empty Password",
                             MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
+                            MessageBoxIcon.Error
+                        );
                     }
                     else
                     {
@@ -97,7 +98,8 @@ namespace FitnessTracker
                             "Wrong Username or Password",
                             "Wrong Data",
                             MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
+                            MessageBoxIcon.Error
+                        );
                     }
                 }
             }

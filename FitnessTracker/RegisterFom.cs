@@ -39,7 +39,8 @@ namespace FitnessTracker
             connectdb db = new connectdb();
             MySqlCommand command = new MySqlCommand(
                 "INSERT INTO `users`(`firstname`, `lastname`, `emailaddress`, `username`, `password`) VALUES (@fn, @ln, @email, @usn, @pass)",
-                db.getConnection());
+                db.getConnection()
+            );
 
             command.Parameters.Add("@fn", MySqlDbType.VarChar).Value = reg_firstName.Text;
             command.Parameters.Add("@ln", MySqlDbType.VarChar).Value = reg_lastName.Text;
@@ -66,7 +67,8 @@ namespace FitnessTracker
                                 "This Username is already exists, select A different One",
                                 "Duplicate Username",
                                 MessageBoxButtons.OKCancel,
-                                MessageBoxIcon.Error);
+                                MessageBoxIcon.Error
+                            );
                         }
                         else
                         {
@@ -77,7 +79,8 @@ namespace FitnessTracker
                                     "Your Account have been created!!",
                                     "Account",
                                     MessageBoxButtons.OK,
-                                    MessageBoxIcon.Information);
+                                    MessageBoxIcon.Information
+                                );
                             }
                             else
                             {
@@ -91,7 +94,8 @@ namespace FitnessTracker
                             "Your Password are not match",
                             "Password Error",
                             MessageBoxButtons.OKCancel,
-                            MessageBoxIcon.Error);
+                            MessageBoxIcon.Error
+                        );
                     }
                 }
                 else
@@ -100,7 +104,8 @@ namespace FitnessTracker
                         "Passwrod must be at least 12 characters and contain at least one upper case and lower case",
                         "Invalid Passsword",
                         MessageBoxButtons.OK,
-                        MessageBoxIcon.Error);
+                        MessageBoxIcon.Error
+                    );
                 }
             }
             else
@@ -109,7 +114,8 @@ namespace FitnessTracker
                     "Enter Your Information First",
                     "Empty Data",
                     MessageBoxButtons.OKCancel,
-                    MessageBoxIcon.Error);
+                    MessageBoxIcon.Error
+                );
             }
 
             //close the db connection
