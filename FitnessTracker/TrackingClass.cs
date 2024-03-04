@@ -64,7 +64,7 @@ namespace FitnessTracker
         {
             using (var connection = new MySqlConnection(_connectionString))
             {
-                string query = "INSERT INTO record_activities (user_ID, user_name, activity, calories_burned) VALUES (@userID, @username, @activity, @caloriesBurned);";
+                string query = "INSERT INTO record_activities (user_ID, user_name, activity, calories_burned) VALUES (@userID, @username, @activity, @caloriesBurned)";
                 using (var command = new MySqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@userID", userID);

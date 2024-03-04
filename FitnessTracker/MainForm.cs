@@ -14,19 +14,33 @@ namespace FitnessTracker
 {
     public partial class MainForm : Form
     {
-        static string dbString =
-            "server=localhost;port=3306;uid=root;password=root;database=fitnessapp";
+        static string dbString ="server=localhost;port=3306;uid=root;password=root;database=fitnessapp";
         connectdb db = new connectdb();
+        private int _userId;
+        private string _name;
 
-        public MainForm()
+        public MainForm(int userId, string username)
         {
             InitializeComponent();
+
+            //Store the userId for later use
+            _userId = userId;
+            _name = username;
+        }
+
+        public int GetUserId()
+        {
+            return _userId;
+        }
+
+        public string GetName()
+        {
+            return _name;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            //int userID = 2;
-
+           
             //// CaloriesCalClass object created
             //CaloriesCalClass walkingActivity = new CaloriesCalClass("Walking", 1000, 30, 120);
 
@@ -38,9 +52,12 @@ namespace FitnessTracker
 
         private void CaloriesCal_Btn_Click(object sender, EventArgs e)
         {
+            TrackingClass trackingClass = new TrackingClass(dbString);
+            CaloriesCalClass calories;
+            string username = GoalsUserNametextbox.Text;
             string durationInput = exe_duration_textBox.Text;
-            int duration;
-            if (!int.TryParse(durationInput, out duration))
+            double duration;
+            if (!double.TryParse(durationInput, out duration))
             {
                 MessageBox.Show(
                     "Please enter a valid value for duration.",
@@ -51,8 +68,8 @@ namespace FitnessTracker
             }
 
             string timeInput = times_textBox.Text;
-            int times;
-            if (!int.TryParse(timeInput, out times))
+            double times;
+            if (!double.TryParse(timeInput, out times))
             {
                 MessageBox.Show(
                     "Please enter a valid value for times .",
@@ -63,8 +80,8 @@ namespace FitnessTracker
             }
 
             string stepInput = step_textBox.Text;
-            int steps;
-            if (!int.TryParse(stepInput, out steps))
+            double steps;
+            if (!double.TryParse(stepInput, out steps))
             {
                 MessageBox.Show(
                     "Please enter a valid value for steps .",
@@ -75,6 +92,11 @@ namespace FitnessTracker
             }
 
             string selectedExercise = exe_ComboList.Text;
+
+            calories = new CaloriesCalClass(selectedExercise, times, steps, duration);
+
+            trackingClass.RecordActiviyAndCalculateCalories(_userId,_name, calories);
+            MessageBox.Show("It' completed");
         }
 
         private void exe_ComboList_SelectedIndexChanged(object sender, EventArgs e)
