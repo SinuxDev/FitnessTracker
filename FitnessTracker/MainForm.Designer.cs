@@ -44,14 +44,16 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.step_textBox = new System.Windows.Forms.TextBox();
+            this.dataGridView2 = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(877, 66);
+            this.label1.Location = new System.Drawing.Point(540, 66);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(327, 36);
             this.label1.TabIndex = 0;
@@ -61,7 +63,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(878, 388);
+            this.label2.Location = new System.Drawing.Point(541, 344);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(193, 25);
             this.label2.TabIndex = 1;
@@ -77,7 +79,7 @@
             "Push up",
             "Pull up",
             "Anaerobic"});
-            this.exe_ComboList.Location = new System.Drawing.Point(1126, 388);
+            this.exe_ComboList.Location = new System.Drawing.Point(767, 344);
             this.exe_ComboList.Name = "exe_ComboList";
             this.exe_ComboList.Size = new System.Drawing.Size(121, 24);
             this.exe_ComboList.TabIndex = 2;
@@ -87,7 +89,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(952, 184);
+            this.label3.Location = new System.Drawing.Point(541, 155);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(85, 25);
             this.label3.TabIndex = 3;
@@ -96,7 +98,7 @@
             // CaloriesCal_Btn
             // 
             this.CaloriesCal_Btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CaloriesCal_Btn.Location = new System.Drawing.Point(979, 485);
+            this.CaloriesCal_Btn.Location = new System.Drawing.Point(655, 418);
             this.CaloriesCal_Btn.Name = "CaloriesCal_Btn";
             this.CaloriesCal_Btn.Size = new System.Drawing.Size(125, 52);
             this.CaloriesCal_Btn.TabIndex = 5;
@@ -108,7 +110,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(1271, 9);
+            this.label4.Location = new System.Drawing.Point(1451, 9);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(33, 32);
             this.label4.TabIndex = 6;
@@ -119,7 +121,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(76, 80);
+            this.label5.Location = new System.Drawing.Point(61, 66);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(217, 36);
             this.label5.TabIndex = 7;
@@ -127,7 +129,7 @@
             // 
             // setGoals_textbox
             // 
-            this.setGoals_textbox.Location = new System.Drawing.Point(246, 188);
+            this.setGoals_textbox.Location = new System.Drawing.Point(258, 159);
             this.setGoals_textbox.Name = "setGoals_textbox";
             this.setGoals_textbox.Size = new System.Drawing.Size(121, 22);
             this.setGoals_textbox.TabIndex = 8;
@@ -136,7 +138,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(25, 185);
+            this.label6.Location = new System.Drawing.Point(25, 155);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(186, 25);
             this.label6.TabIndex = 9;
@@ -145,7 +147,7 @@
             // setGoal_btn
             // 
             this.setGoal_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.setGoal_btn.Location = new System.Drawing.Point(123, 273);
+            this.setGoal_btn.Location = new System.Drawing.Point(129, 214);
             this.setGoal_btn.Name = "setGoal_btn";
             this.setGoal_btn.Size = new System.Drawing.Size(121, 44);
             this.setGoal_btn.TabIndex = 10;
@@ -156,23 +158,23 @@
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(392, 284);
+            this.dataGridView1.Location = new System.Drawing.Point(30, 308);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(443, 333);
+            this.dataGridView1.Size = new System.Drawing.Size(455, 333);
             this.dataGridView1.TabIndex = 13;
             // 
             // exe_duration_textBox
             // 
-            this.exe_duration_textBox.Location = new System.Drawing.Point(1126, 187);
+            this.exe_duration_textBox.Location = new System.Drawing.Point(767, 159);
             this.exe_duration_textBox.Name = "exe_duration_textBox";
             this.exe_duration_textBox.Size = new System.Drawing.Size(121, 22);
             this.exe_duration_textBox.TabIndex = 14;
             // 
             // times_textBox
             // 
-            this.times_textBox.Location = new System.Drawing.Point(1126, 254);
+            this.times_textBox.Location = new System.Drawing.Point(767, 214);
             this.times_textBox.Name = "times_textBox";
             this.times_textBox.Size = new System.Drawing.Size(121, 22);
             this.times_textBox.TabIndex = 15;
@@ -181,7 +183,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(971, 250);
+            this.label8.Location = new System.Drawing.Point(541, 214);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(66, 25);
             this.label8.TabIndex = 16;
@@ -191,7 +193,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(974, 318);
+            this.label9.Location = new System.Drawing.Point(541, 275);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(63, 25);
             this.label9.TabIndex = 17;
@@ -199,16 +201,27 @@
             // 
             // step_textBox
             // 
-            this.step_textBox.Location = new System.Drawing.Point(1126, 318);
+            this.step_textBox.Location = new System.Drawing.Point(767, 279);
             this.step_textBox.Name = "step_textBox";
             this.step_textBox.Size = new System.Drawing.Size(121, 22);
             this.step_textBox.TabIndex = 18;
+            // 
+            // dataGridView2
+            // 
+            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView2.Location = new System.Drawing.Point(968, 102);
+            this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.RowHeadersWidth = 51;
+            this.dataGridView2.RowTemplate.Height = 24;
+            this.dataGridView2.Size = new System.Drawing.Size(463, 267);
+            this.dataGridView2.TabIndex = 19;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1331, 739);
+            this.ClientSize = new System.Drawing.Size(1496, 739);
+            this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.step_textBox);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
@@ -230,6 +243,7 @@
             this.Text = "MainForm";
             this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -253,5 +267,6 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox step_textBox;
+        private System.Windows.Forms.DataGridView dataGridView2;
     }
 }

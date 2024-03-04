@@ -49,7 +49,8 @@ namespace FitnessTracker
 
             //MessageBox.Show("It's Completed");
 
-            FillUserDGV(_name);
+            FillUserGoalsDGV(_name);
+            FillRecordActivities(_userId);
         }
 
         private void CaloriesCal_Btn_Click(object sender, EventArgs e)
@@ -94,6 +95,7 @@ namespace FitnessTracker
             calories = new CaloriesCalClass(selectedExercise, times, steps, duration);
 
             trackingClass.RecordActiviyAndCalculateCalories(_userId,_name, calories);
+            doRefreshRecord();
             MessageBox.Show("It' completed");
         }
 
@@ -153,7 +155,7 @@ namespace FitnessTracker
             }
         }
 
-        private void FillUserDGV(string username)
+        private void FillUserGoalsDGV(string username)
         {
             db.openConnection();
 
@@ -165,6 +167,22 @@ namespace FitnessTracker
             DataTable dataTable = new DataTable();
             da.Fill(dataTable);
             dataGridView1.DataSource = dataTable;
+
+            db.closeConnection();
+        }
+
+        private void FillRecordActivities(int userID)
+        {
+            db.openConnection();
+
+            string query = "SELECT user_name,activity,calories_burned FROM record_activities WHERE user_ID = @userID";
+            MySqlCommand command = new MySqlCommand( query, db.getConnection());
+            command.Parameters.AddWithValue("@userID",userID);
+
+            MySqlDataAdapter dataAdapter = new MySqlDataAdapter(command);
+            DataTable dataTable = new DataTable();
+            dataAdapter.Fill(dataTable); 
+            dataGridView2.DataSource = dataTable;
 
             db.closeConnection();
         }
@@ -184,6 +202,25 @@ namespace FitnessTracker
             adapter.Fill(dataTable);
 
             dataGridView1.DataSource = dataTable;
+
+            db.closeConnection();
+        }
+
+        public void doRefreshRecord()
+        {
+            dataGridView2.DataSource = null;
+            dataGridView2.Rows.Clear();
+
+            db.openConnection();
+            string query = "SELECT user_name,activity,calories_burned FROM record_activities WHERE user_ID = @userID";
+            MySqlCommand command = new MySqlCommand(query,db.getConnection());
+            command.Parameters.AddWithValue("@userID",_userId);
+
+            MySqlDataAdapter mySqlDataAdapter = new MySqlDataAdapter(command);
+            DataTable dataTable = new DataTable();
+            mySqlDataAdapter.Fill(dataTable);
+
+            dataGridView2.DataSource = dataTable;
 
             db.closeConnection();
         }
