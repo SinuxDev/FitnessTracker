@@ -40,7 +40,7 @@ namespace FitnessTracker
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-           
+
             //// CaloriesCalClass object created
             //CaloriesCalClass walkingActivity = new CaloriesCalClass("Walking", 1000, 30, 120);
 
@@ -48,6 +48,8 @@ namespace FitnessTracker
             //trackingClass.RecordActiviyAndCalculateCalories(userID,"Sinux", walkingActivity);
 
             //MessageBox.Show("It's Completed");
+
+            FillUserDGV(_name);
         }
 
         private void CaloriesCal_Btn_Click(object sender, EventArgs e)
@@ -138,6 +140,7 @@ namespace FitnessTracker
                         "SetGoals",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
+                    doRefreshGoals();
                 }
                 else
                 {
@@ -161,6 +164,25 @@ namespace FitnessTracker
             MySqlDataAdapter da = new MySqlDataAdapter(command);
             DataTable dataTable = new DataTable();
             da.Fill(dataTable);
+            dataGridView1.DataSource = dataTable;
+
+            db.closeConnection();
+        }
+
+        public void doRefreshGoals()
+        {
+            dataGridView1.DataSource = null;
+            dataGridView1.Rows.Clear();
+
+            db.openConnection();
+            string query = "SELECT * FROM user_goals WHERE username = @username";
+            MySqlCommand command = new MySqlCommand(query,db.getConnection());
+            command.Parameters.AddWithValue("@username", _name);
+
+            MySqlDataAdapter adapter = new MySqlDataAdapter(command);
+            DataTable dataTable = new DataTable();
+            adapter.Fill(dataTable);
+
             dataGridView1.DataSource = dataTable;
 
             db.closeConnection();
