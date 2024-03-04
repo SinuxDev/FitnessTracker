@@ -118,5 +118,30 @@ namespace FitnessTracker
             return totalCaloriesBurned;
         }
 
+        public int GetUserGoalCalories(string username)
+        {
+            int goalCalories = 0;
+            using(var connection = new MySqlConnection(_connectionString))
+            {
+                connection.Open();
+                string query = "SELECT goal_calories FROM user_goals WHERE username = @username";
+                using (var command = new MySqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@username", username); 
+                    var result = command.ExecuteScalar();
+                    if(result != null && result != DBNull.Value)
+                    {
+                        goalCalories = Convert.ToInt32(result);
+                    }
+                    else
+                    {
+                        goalCalories = 0;
+                    }
+                }
+            }
+
+            return goalCalories;
+        }
+
     }
 }

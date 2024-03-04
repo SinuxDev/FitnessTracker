@@ -47,6 +47,9 @@
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.calories_label = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.goal_calorieslabel = new System.Windows.Forms.Label();
+            this.refresh_btn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
@@ -223,7 +226,7 @@
             this.calories_label.AutoSize = true;
             this.calories_label.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.calories_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.calories_label.Location = new System.Drawing.Point(963, 540);
+            this.calories_label.Location = new System.Drawing.Point(959, 582);
             this.calories_label.Name = "calories_label";
             this.calories_label.Size = new System.Drawing.Size(0, 29);
             this.calories_label.TabIndex = 20;
@@ -232,17 +235,50 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(624, 540);
+            this.label7.Location = new System.Drawing.Point(620, 582);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(323, 29);
             this.label7.TabIndex = 21;
             this.label7.Text = "Your Total Calories Burned : ";
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(620, 515);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(323, 29);
+            this.label10.TabIndex = 22;
+            this.label10.Text = "Your Total Calories Burned : ";
+            // 
+            // goal_calorieslabel
+            // 
+            this.goal_calorieslabel.AutoSize = true;
+            this.goal_calorieslabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.goal_calorieslabel.Location = new System.Drawing.Point(959, 515);
+            this.goal_calorieslabel.Name = "goal_calorieslabel";
+            this.goal_calorieslabel.Size = new System.Drawing.Size(0, 29);
+            this.goal_calorieslabel.TabIndex = 23;
+            // 
+            // refresh_btn
+            // 
+            this.refresh_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.refresh_btn.Location = new System.Drawing.Point(655, 640);
+            this.refresh_btn.Name = "refresh_btn";
+            this.refresh_btn.Size = new System.Drawing.Size(125, 52);
+            this.refresh_btn.TabIndex = 24;
+            this.refresh_btn.Text = "Refresh";
+            this.refresh_btn.UseVisualStyleBackColor = true;
+            this.refresh_btn.Click += new System.EventHandler(this.refresh_btn_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1496, 739);
+            this.ClientSize = new System.Drawing.Size(1496, 725);
+            this.Controls.Add(this.refresh_btn);
+            this.Controls.Add(this.goal_calorieslabel);
+            this.Controls.Add(this.label10);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.calories_label);
             this.Controls.Add(this.dataGridView2);
@@ -294,5 +330,8 @@
         private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.Label calories_label;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label goal_calorieslabel;
+        private System.Windows.Forms.Button refresh_btn;
     }
 }

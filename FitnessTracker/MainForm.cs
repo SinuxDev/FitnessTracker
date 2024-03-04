@@ -46,6 +46,9 @@ namespace FitnessTracker
 
             int totalCaloriesBurned = trackingClass.GetTotalCaloriesBurned(_name);
             calories_label.Text = totalCaloriesBurned.ToString();
+
+            int GoalCalories = trackingClass.GetUserGoalCalories(_name);
+            goal_calorieslabel.Text = GoalCalories.ToString();
         }
 
         private void CaloriesCal_Btn_Click(object sender, EventArgs e)
@@ -219,5 +222,25 @@ namespace FitnessTracker
             db.closeConnection();
         }
 
+        private void ReloadLabels()
+        {
+            try
+            {
+                int totalCaloriesBurned = trackingClass.GetTotalCaloriesBurned(_name);
+                calories_label.Text = totalCaloriesBurned.ToString();
+
+                int GoalCalories = trackingClass.GetUserGoalCalories(_name);
+                goal_calorieslabel.Text = GoalCalories.ToString();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error reloading the labels : " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void refresh_btn_Click(object sender, EventArgs e)
+        {
+            ReloadLabels();
+        }
     }
 }
