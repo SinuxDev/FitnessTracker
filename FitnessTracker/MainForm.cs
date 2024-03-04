@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,7 +15,8 @@ namespace FitnessTracker
     public partial class MainForm : Form
     {
         static string dbString = "server=localhost;port=3306;uid=root;password=root;database=fitnessapp";
-        
+        connectdb db = new connectdb();
+
         public MainForm()
         {
             InitializeComponent();
@@ -54,7 +56,7 @@ namespace FitnessTracker
             {
                 MessageBox.Show("Enter your username!","Warning",MessageBoxButtons.OK,MessageBoxIcon.Warning);
             }
-            else if (string.IsNullOrWhiteSpace(caloriesText) || !string.IsNullOrWhiteSpace(username))
+            else if (string.IsNullOrWhiteSpace(caloriesText) && !string.IsNullOrWhiteSpace(username))
             {
                 MessageBox.Show("Enter your calories!","Warning",MessageBoxButtons.OK,MessageBoxIcon.Warning);
             }
@@ -71,6 +73,25 @@ namespace FitnessTracker
                     MessageBox.Show("Invalid calories format. Enter a valid number.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
+
+            FillUserDGV(username);
         }
+
+        private void FillUserDGV(string username)
+        {
+            db.openConnection();
+
+            string query = "SELECT * FROM user_goals WHERE username = @username";
+            MySqlCommand command = new MySqlCommand(query, db.getConnection());
+            command.Parameters.AddWithValue("@username", username);
+
+            MySqlDataAdapter da = new MySqlDataAdapter(command);
+            DataTable dataTable = new DataTable();
+            da.Fill(dataTable);
+            dataGridView1.DataSource = dataTable;
+
+            db.closeConnection();
+        }
+
     }
 }

@@ -41,6 +41,8 @@
             this.setGoal_btn = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.GoalsUserNametextbox = new System.Windows.Forms.TextBox();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -164,11 +166,22 @@
             this.GoalsUserNametextbox.TabIndex = 12;
             this.GoalsUserNametextbox.UseWaitCursor = true;
             // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(24, 325);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersWidth = 51;
+            this.dataGridView1.RowTemplate.Height = 24;
+            this.dataGridView1.Size = new System.Drawing.Size(528, 333);
+            this.dataGridView1.TabIndex = 13;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1331, 609);
+            this.ClientSize = new System.Drawing.Size(1331, 739);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.GoalsUserNametextbox);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.setGoal_btn);
@@ -186,6 +199,7 @@
             this.Name = "MainForm";
             this.Text = "MainForm";
             this.Load += new System.EventHandler(this.MainForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -206,5 +220,6 @@
         private System.Windows.Forms.Button setGoal_btn;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox GoalsUserNametextbox;
+        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }

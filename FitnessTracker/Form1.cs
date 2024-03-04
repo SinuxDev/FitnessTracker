@@ -20,7 +20,9 @@ namespace FitnessTracker
             InitializeComponent();
         }
 
-        private void Login_Load(object sender, EventArgs e) { }
+        private void Login_Load(object sender, EventArgs e) {
+
+        }
 
         //show the Register Form
         private void login_registerHere_Click(object sender, EventArgs e)
