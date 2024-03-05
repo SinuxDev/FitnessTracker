@@ -56,18 +56,25 @@ namespace FitnessTracker
             int GoalCalories = trackingClass.GetUserGoalCalories(_name);
             goal_calorieslabel.Text = GoalCalories.ToString();
 
-            if(GoalCalories < totalCaloriesBurned)
+            if (GoalCalories < totalCaloriesBurned)
             {
                 Motivation_Label.Text = "Keep up the Great Work! You've Hit Your Calorie Target!";
             }
+            else if (GoalCalories == 0 && totalCaloriesBurned == 0)
+            {
+                Motivation_Label.Text = "Come on let's do it ! Now set your goals";
+            }
             else
             {
-                Motivation_Label.Text = "Stay Focused! You're Closer to Your Goal Than You Think!";
+                if (totalCaloriesBurned <= 0)
+                {
+                    Motivation_Label.Text = "Do Exercise and achieve your goals";
+                }
+                else
+                {
+                    Motivation_Label.Text = "Stay Focused! You're Closer to Your Goal Than You Think!";
+                }
             }
-
-            //form load on current working monitor
-            this.Location = Screen.AllScreens[1].WorkingArea.Location;
-
         }
 
         private void CaloriesCal_Btn_Click(object sender, EventArgs e)
@@ -459,9 +466,20 @@ namespace FitnessTracker
                 {
                     Motivation_Label.Text = "Keep up the Great Work! You've Hit Your Calorie Target!";
                 }
+                else if (GoalCalories == 0 && totalCaloriesBurned == 0)
+                {
+                    Motivation_Label.Text = "Come on let's do it ! Now set your goals";
+                }
                 else
                 {
-                    Motivation_Label.Text = "Stay Focused! You're Closer to Your Goal Than You Think!";
+                    if (totalCaloriesBurned <= 0)
+                    {
+                        Motivation_Label.Text = "Do Exercise and achieve your goals";
+                    }
+                    else
+                    {
+                        Motivation_Label.Text = "Stay Focused! You're Closer to Your Goal Than You Think!";
+                    }
                 }
             }
             catch (Exception ex)
@@ -500,6 +518,11 @@ namespace FitnessTracker
             Login login = new Login();
             login.Show();
             this.Hide();
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }
