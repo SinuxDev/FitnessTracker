@@ -51,6 +51,7 @@
             this.goal_calorieslabel = new System.Windows.Forms.Label();
             this.refresh_btn = new System.Windows.Forms.Button();
             this.DelectGoals_btn = new System.Windows.Forms.Button();
+            this.Delete_acti_record_btn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
@@ -227,7 +228,7 @@
             this.calories_label.AutoSize = true;
             this.calories_label.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.calories_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.calories_label.Location = new System.Drawing.Point(1097, 583);
+            this.calories_label.Location = new System.Drawing.Point(980, 613);
             this.calories_label.Name = "calories_label";
             this.calories_label.Size = new System.Drawing.Size(0, 29);
             this.calories_label.TabIndex = 20;
@@ -236,7 +237,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(737, 583);
+            this.label7.Location = new System.Drawing.Point(620, 613);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(323, 29);
             this.label7.TabIndex = 21;
@@ -246,7 +247,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(737, 516);
+            this.label10.Location = new System.Drawing.Point(620, 546);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(297, 29);
             this.label10.TabIndex = 22;
@@ -257,7 +258,7 @@
             this.goal_calorieslabel.AutoSize = true;
             this.goal_calorieslabel.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.goal_calorieslabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.goal_calorieslabel.Location = new System.Drawing.Point(1097, 516);
+            this.goal_calorieslabel.Location = new System.Drawing.Point(980, 546);
             this.goal_calorieslabel.Name = "goal_calorieslabel";
             this.goal_calorieslabel.Size = new System.Drawing.Size(0, 29);
             this.goal_calorieslabel.TabIndex = 23;
@@ -265,7 +266,7 @@
             // refresh_btn
             // 
             this.refresh_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.refresh_btn.Location = new System.Drawing.Point(851, 650);
+            this.refresh_btn.Location = new System.Drawing.Point(734, 680);
             this.refresh_btn.Name = "refresh_btn";
             this.refresh_btn.Size = new System.Drawing.Size(125, 52);
             this.refresh_btn.TabIndex = 24;
@@ -276,7 +277,7 @@
             // DelectGoals_btn
             // 
             this.DelectGoals_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DelectGoals_btn.Location = new System.Drawing.Point(131, 669);
+            this.DelectGoals_btn.Location = new System.Drawing.Point(131, 680);
             this.DelectGoals_btn.Name = "DelectGoals_btn";
             this.DelectGoals_btn.Size = new System.Drawing.Size(147, 48);
             this.DelectGoals_btn.TabIndex = 25;
@@ -284,11 +285,23 @@
             this.DelectGoals_btn.UseVisualStyleBackColor = true;
             this.DelectGoals_btn.Click += new System.EventHandler(this.DelectGoals_btn_Click);
             // 
+            // Delete_acti_record_btn
+            // 
+            this.Delete_acti_record_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Delete_acti_record_btn.Location = new System.Drawing.Point(1192, 413);
+            this.Delete_acti_record_btn.Name = "Delete_acti_record_btn";
+            this.Delete_acti_record_btn.Size = new System.Drawing.Size(147, 48);
+            this.Delete_acti_record_btn.TabIndex = 26;
+            this.Delete_acti_record_btn.Text = "Delete Record";
+            this.Delete_acti_record_btn.UseVisualStyleBackColor = true;
+            this.Delete_acti_record_btn.Click += new System.EventHandler(this.Delete_acti_record_btn_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1544, 780);
+            this.Controls.Add(this.Delete_acti_record_btn);
             this.Controls.Add(this.DelectGoals_btn);
             this.Controls.Add(this.refresh_btn);
             this.Controls.Add(this.goal_calorieslabel);
@@ -348,5 +361,6 @@
         private System.Windows.Forms.Label goal_calorieslabel;
         private System.Windows.Forms.Button refresh_btn;
         private System.Windows.Forms.Button DelectGoals_btn;
+        private System.Windows.Forms.Button Delete_acti_record_btn;
     }
 }

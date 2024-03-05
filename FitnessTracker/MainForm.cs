@@ -205,7 +205,27 @@ namespace FitnessTracker
 
         }
 
-        
+        private void refresh_btn_Click(object sender, EventArgs e)
+        {
+            ReloadLabels();
+        }
+
+        private void Delete_acti_record_btn_Click(object sender, EventArgs e)
+        {
+            //Check if any row is selected
+            if (dataGridView2.SelectedRows.Count > 0)
+            {
+                //Get the index of selected row
+                int rowIndex = dataGridView2.SelectedRows[0].Index;
+
+                DeleteRecordActivity(rowIndex);
+            }
+            else
+            {
+                MessageBox.Show("Please select a row to delete");
+            }
+        }
+
         private void DelectGoals_btn_Click(object sender, EventArgs e)
         {
             //Check if any row is selected
@@ -275,6 +295,64 @@ namespace FitnessTracker
                 MessageBox.Show("Invalid row index");
             }
         }
+
+        private void DeleteRecordActivity(int rowIndex)
+        {
+            // Check if the index is valid
+            if (rowIndex >= 0 && rowIndex < dataGridView2.Rows.Count)
+            {
+                // Get the user_name, activity, and calories_burned from the selected row
+                string userName = dataGridView2.Rows[rowIndex].Cells["user_name"].Value.ToString();
+                string activity = dataGridView2.Rows[rowIndex].Cells["activity"].Value.ToString();
+                double caloriesBurned = Convert.ToDouble(dataGridView2.Rows[rowIndex].Cells["calories_burned"].Value);
+
+                DialogResult result = MessageBox.Show("Are you sure you want to delete this record activity?", "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                // If user confirms deletion
+                if (result == DialogResult.Yes)
+                {
+                    // Open a connection to the database
+                    using (MySqlConnection connection = new MySqlConnection(dbString))
+                    {
+                        try
+                        {
+                            string query = "DELETE FROM record_activities WHERE user_name = @userName AND activity = @activity AND calories_burned = @caloriesBurned";
+
+                            MySqlCommand cmd = new MySqlCommand(query, connection);
+                            cmd.Parameters.AddWithValue("@userName", userName);
+                            cmd.Parameters.AddWithValue("@activity", activity);
+                            cmd.Parameters.AddWithValue("@caloriesBurned", caloriesBurned);
+
+                            connection.Open();
+                            int rowsAffected = cmd.ExecuteNonQuery();
+
+                            // Check if the deletion was successful
+                            if (rowsAffected > 0)
+                            {
+                                MessageBox.Show("Record activity deleted successfully!");
+                            }
+                            else
+                            {
+                                MessageBox.Show("Failed to delete record activity.");
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error deleting record activity: " + ex.Message);
+                        }
+
+                        connection.Close();
+                        doRefreshRecord();
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Invalid row index.");
+            }
+        }
+
+
 
         private void FillUserGoalsDGV(string username)
         {
@@ -368,11 +446,6 @@ namespace FitnessTracker
                     MessageBoxIcon.Error
                 );
             }
-        }
-
-        private void refresh_btn_Click(object sender, EventArgs e)
-        {
-            ReloadLabels();
         }
 
         
