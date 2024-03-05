@@ -14,7 +14,8 @@ namespace FitnessTracker
 {
     public partial class MainForm : Form
     {
-        static string dbString ="server=localhost;port=3306;uid=root;password=root;database=fitnessapp";
+        static string dbString =
+            "server=localhost;port=3306;uid=root;password=root;database=fitnessapp";
         connectdb db = new connectdb();
         TrackingClass trackingClass = new TrackingClass(dbString);
         private int _userId;
@@ -55,59 +56,107 @@ namespace FitnessTracker
         {
             TrackingClass trackingClass = new TrackingClass(dbString);
             CaloriesCalClass calories;
-            string durationInput = exe_duration_textBox.Text;
-            double duration;
-            if (!double.TryParse(durationInput, out duration))
+
+            // Validate and parse duration
+            if (!double.TryParse(exe_duration_textBox.Text, out double duration) || duration <= 0)
             {
                 MessageBox.Show(
-                    "Please enter a valid value for duration.",
+                    "Please enter a valid positive value for duration.",
                     "Error",
                     MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                    MessageBoxIcon.Error
+                );
+                return;
             }
 
-            string timeInput = times_textBox.Text;
-            double times;
-            if (!double.TryParse(timeInput, out times))
+            //Set default vales for times when it's not need
+            double times = 1;
+            if (exe_ComboList.Text != "Walking")
             {
-                MessageBox.Show(
-                    "Please enter a valid value for times .",
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                // Validate and parse times
+                if (!double.TryParse(times_textBox.Text, out times) || times <= 0)
+                {
+                    MessageBox.Show(
+                        "Please enter a valid positive value for times.",
+                        "Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    );
+                    return;
+                }
             }
 
-            string stepInput = step_textBox.Text;
-            double steps;
-            if (!double.TryParse(stepInput, out steps))
+            // Set default value for steps when it's not need
+            double steps = 1;
+            if (
+                exe_ComboList.Text != "Swimming"
+                && exe_ComboList.Text != "Squat"
+                && exe_ComboList.Text != "Anaerobic"
+                && exe_ComboList.Text != "Push up"
+                && exe_ComboList.Text != "Pull up"
+            )
             {
-                MessageBox.Show(
-                    "Please enter a valid value for steps .",
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                // Validate and parse steps
+                if (!double.TryParse(step_textBox.Text, out steps))
+                {
+                    MessageBox.Show(
+                        "Please enter a valid value for steps.",
+                        "Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    );
+                    return;
+                }
             }
 
             string selectedExercise = exe_ComboList.Text;
 
             calories = new CaloriesCalClass(selectedExercise, times, steps, duration);
 
-            trackingClass.RecordActiviyAndCalculateCalories(_userId,_name, calories);
+            trackingClass.RecordActiviyAndCalculateCalories(_userId, _name, calories);
             doRefreshRecord();
-            MessageBox.Show("It' completed");
+            MessageBox.Show("Data have been saved!");
+
+            //Clear the textboxes after the process
+            exe_duration_textBox.Text = "";
+            times_textBox.Text = "";
+            step_textBox.Text = "";
         }
 
         private void exe_ComboList_SelectedIndexChanged(object sender, EventArgs e)
         {
             string selectedExercise = exe_ComboList.Text;
 
-            if (selectedExercise == "Walking")
+            switch (selectedExercise)
             {
-                times_textBox.Enabled = false;
-            }
-            else
-            {
-                times_textBox.Enabled = true;
+                case "Walking":
+                    times_textBox.Enabled = false;
+                    step_textBox.Enabled = true;
+                    break;
+                case "Swimming":
+                    times_textBox.Enabled = true;
+                    step_textBox.Enabled = false;
+                    break;
+                case "Squat":
+                    step_textBox.Enabled = false;
+                    times_textBox.Enabled = true;
+                    break;
+                case "Anaerobic":
+                    step_textBox.Enabled = false;
+                    times_textBox.Enabled = true;
+                    break;
+                case "Push up":
+                    step_textBox.Enabled = false;
+                    times_textBox.Enabled = true;
+                    break;
+                case "Pull up":
+                    step_textBox.Enabled = false;
+                    times_textBox.Enabled = true;
+                    break;
+                default:
+                    step_textBox.Enabled = true;
+                    times_textBox.AcceptsReturn = true;
+                    break;
             }
         }
 
@@ -118,7 +167,6 @@ namespace FitnessTracker
 
         private void setGoal_btn_Click(object sender, EventArgs e)
         {
-            
             string caloriesText = setGoals_textbox.Text;
             if (string.IsNullOrWhiteSpace(caloriesText))
             {
@@ -126,7 +174,8 @@ namespace FitnessTracker
                     "Enter your calories!",
                     "Warning",
                     MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
+                    MessageBoxIcon.Warning
+                );
             }
             else
             {
@@ -138,7 +187,8 @@ namespace FitnessTracker
                         "Your Goals have been set",
                         "SetGoals",
                         MessageBoxButtons.OK,
-                        MessageBoxIcon.Information);
+                        MessageBoxIcon.Information
+                    );
                     doRefreshGoals();
                 }
                 else
@@ -147,8 +197,82 @@ namespace FitnessTracker
                         "Invalid calories format. Enter a valid number.",
                         "Warning",
                         MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning);
+                        MessageBoxIcon.Warning
+                    );
                 }
+            }
+            setGoals_textbox.Text = "";
+
+        }
+
+        
+        private void DelectGoals_btn_Click(object sender, EventArgs e)
+        {
+            //Check if any row is selected
+            if(dataGridView1.SelectedRows.Count > 0)
+            {
+                //Get the index of selected row
+                int rowIndex = dataGridView1.SelectedRows[0].Index;
+
+                DeleteUserGoals(rowIndex);
+            }
+            else
+            {
+                MessageBox.Show("Please select a row to delete");
+            }
+        }
+
+        private void DeleteUserGoals(int rowIndex)
+        {
+            //Check if the index is valid
+            if(rowIndex >= 0 && rowIndex < dataGridView1.Rows.Count)
+            {
+                //Get the rowIndex 
+                DataGridViewRow seletedRow = dataGridView1.Rows[rowIndex];
+
+                //Confirmation dialog
+                DialogResult res = MessageBox.Show("Are you sure you want to delete ?","Delete or not?", MessageBoxButtons.YesNo,MessageBoxIcon.Question);
+                if (res == DialogResult.Yes)
+                {
+                    //Open connection to  database 
+                    using (MySqlConnection conn = new MySqlConnection(dbString))
+                    {
+                        try
+                        {
+                            string query = "DELETE FROM user_goals WHERE username = @username AND goal_calories = @goal_calories";
+                            MySqlCommand cmd = new MySqlCommand(query, conn);
+
+                            cmd.Parameters.AddWithValue("@username", seletedRow.Cells["username"].Value.ToString());
+                            cmd.Parameters.AddWithValue("@goal_calories", Convert.ToDouble(seletedRow.Cells["goal_calories"].Value));
+
+                            conn.Open();
+                            int rowAffected = cmd.ExecuteNonQuery();
+
+                            //Check if the delete process is success
+                            if (rowAffected > 0)
+                            {
+                                //Remove the selected row from the DataGridView
+                                dataGridView1.Rows.RemoveAt(rowIndex);
+                                MessageBox.Show("Goal deleted Successfully");
+                            }
+                            else
+                            {
+                                MessageBox.Show("Failed to delete goal from database");
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error Deleting goal : " + ex.Message);
+                        }
+
+                        conn.Close();
+                        doRefreshGoals();
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Invalid row index");
             }
         }
 
@@ -156,7 +280,8 @@ namespace FitnessTracker
         {
             db.openConnection();
 
-            string query = "SELECT * FROM user_goals WHERE username = @username";
+            string query =
+                "SELECT username,goal_calories FROM user_goals WHERE username = @username";
             MySqlCommand command = new MySqlCommand(query, db.getConnection());
             command.Parameters.AddWithValue("@username", username);
 
@@ -172,13 +297,14 @@ namespace FitnessTracker
         {
             db.openConnection();
 
-            string query = "SELECT user_name,activity,calories_burned FROM record_activities WHERE user_ID = @userID";
-            MySqlCommand command = new MySqlCommand( query, db.getConnection());
-            command.Parameters.AddWithValue("@userID",userID);
+            string query =
+                "SELECT user_name,activity,calories_burned FROM record_activities WHERE user_ID = @userID";
+            MySqlCommand command = new MySqlCommand(query, db.getConnection());
+            command.Parameters.AddWithValue("@userID", userID);
 
             MySqlDataAdapter dataAdapter = new MySqlDataAdapter(command);
             DataTable dataTable = new DataTable();
-            dataAdapter.Fill(dataTable); 
+            dataAdapter.Fill(dataTable);
             dataGridView2.DataSource = dataTable;
 
             db.closeConnection();
@@ -191,7 +317,7 @@ namespace FitnessTracker
 
             db.openConnection();
             string query = "SELECT * FROM user_goals WHERE username = @username";
-            MySqlCommand command = new MySqlCommand(query,db.getConnection());
+            MySqlCommand command = new MySqlCommand(query, db.getConnection());
             command.Parameters.AddWithValue("@username", _name);
 
             MySqlDataAdapter adapter = new MySqlDataAdapter(command);
@@ -209,9 +335,10 @@ namespace FitnessTracker
             dataGridView2.Rows.Clear();
 
             db.openConnection();
-            string query = "SELECT user_name,activity,calories_burned FROM record_activities WHERE user_ID = @userID";
-            MySqlCommand command = new MySqlCommand(query,db.getConnection());
-            command.Parameters.AddWithValue("@userID",_userId);
+            string query =
+                "SELECT user_name,activity,calories_burned FROM record_activities WHERE user_ID = @userID";
+            MySqlCommand command = new MySqlCommand(query, db.getConnection());
+            command.Parameters.AddWithValue("@userID", _userId);
 
             MySqlDataAdapter mySqlDataAdapter = new MySqlDataAdapter(command);
             DataTable dataTable = new DataTable();
@@ -234,7 +361,12 @@ namespace FitnessTracker
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error reloading the labels : " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(
+                    "Error reloading the labels : " + ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
             }
         }
 
@@ -242,5 +374,7 @@ namespace FitnessTracker
         {
             ReloadLabels();
         }
+
+        
     }
 }

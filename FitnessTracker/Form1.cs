@@ -50,14 +50,14 @@ namespace FitnessTracker
             adapter.SelectCommand = command;
             adapter.Fill(table);
 
-            //check the user is valid or not 
+            //check the user is valid or not
             if (table.Rows.Count > 0)
             {
                 //Retrieve the user'ID from the database
                 int userId = Convert.ToInt32(table.Rows[0]["id"]);
 
                 this.Hide();
-                MainForm mainForm = new MainForm(userId,username);
+                MainForm mainForm = new MainForm(userId, username);
                 mainForm.Show();
             }
             else
