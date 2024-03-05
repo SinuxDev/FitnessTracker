@@ -494,5 +494,12 @@ namespace FitnessTracker
                 this.SetDesktopLocation(MousePosition.X - movX, MousePosition.Y - movY);
             }
         }
+
+        private void Logout_btn_Click(object sender, EventArgs e)
+        {
+            Login login = new Login();
+            login.Show();
+            this.Hide();
+        }
     }
 }

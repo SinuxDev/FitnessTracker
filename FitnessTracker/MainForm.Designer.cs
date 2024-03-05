@@ -54,6 +54,7 @@
             this.Delete_acti_record_btn = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.Motivation_Label = new System.Windows.Forms.Label();
+            this.Logout_btn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.panel1.SuspendLayout();
@@ -232,7 +233,7 @@
             this.calories_label.AutoSize = true;
             this.calories_label.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.calories_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.calories_label.Location = new System.Drawing.Point(1014, 677);
+            this.calories_label.Location = new System.Drawing.Point(1014, 693);
             this.calories_label.Name = "calories_label";
             this.calories_label.Size = new System.Drawing.Size(0, 29);
             this.calories_label.TabIndex = 20;
@@ -241,7 +242,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(661, 677);
+            this.label7.Location = new System.Drawing.Point(661, 693);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(323, 29);
             this.label7.TabIndex = 21;
@@ -251,7 +252,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(676, 610);
+            this.label10.Location = new System.Drawing.Point(676, 626);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(297, 29);
             this.label10.TabIndex = 22;
@@ -262,7 +263,7 @@
             this.goal_calorieslabel.AutoSize = true;
             this.goal_calorieslabel.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.goal_calorieslabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.goal_calorieslabel.Location = new System.Drawing.Point(1014, 610);
+            this.goal_calorieslabel.Location = new System.Drawing.Point(1014, 626);
             this.goal_calorieslabel.Name = "goal_calorieslabel";
             this.goal_calorieslabel.Size = new System.Drawing.Size(0, 29);
             this.goal_calorieslabel.TabIndex = 23;
@@ -270,7 +271,7 @@
             // refresh_btn
             // 
             this.refresh_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.refresh_btn.Location = new System.Drawing.Point(775, 744);
+            this.refresh_btn.Location = new System.Drawing.Point(775, 760);
             this.refresh_btn.Name = "refresh_btn";
             this.refresh_btn.Size = new System.Drawing.Size(125, 52);
             this.refresh_btn.TabIndex = 24;
@@ -321,12 +322,24 @@
             this.Motivation_Label.Size = new System.Drawing.Size(0, 29);
             this.Motivation_Label.TabIndex = 28;
             // 
+            // Logout_btn
+            // 
+            this.Logout_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Logout_btn.Location = new System.Drawing.Point(1338, 660);
+            this.Logout_btn.Name = "Logout_btn";
+            this.Logout_btn.Size = new System.Drawing.Size(125, 52);
+            this.Logout_btn.TabIndex = 29;
+            this.Logout_btn.Text = "Logout";
+            this.Logout_btn.UseVisualStyleBackColor = true;
+            this.Logout_btn.Click += new System.EventHandler(this.Logout_btn_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.ClientSize = new System.Drawing.Size(1704, 828);
+            this.ClientSize = new System.Drawing.Size(1704, 834);
+            this.Controls.Add(this.Logout_btn);
             this.Controls.Add(this.Motivation_Label);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.Delete_acti_record_btn);
@@ -394,5 +407,6 @@
         private System.Windows.Forms.Button Delete_acti_record_btn;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label Motivation_Label;
+        private System.Windows.Forms.Button Logout_btn;
     }
 }
