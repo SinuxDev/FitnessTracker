@@ -454,6 +454,15 @@ namespace FitnessTracker
 
                 int GoalCalories = trackingClass.GetUserGoalCalories(_name);
                 goal_calorieslabel.Text = GoalCalories.ToString();
+
+                if (GoalCalories < totalCaloriesBurned)
+                {
+                    Motivation_Label.Text = "Keep up the Great Work! You've Hit Your Calorie Target!";
+                }
+                else
+                {
+                    Motivation_Label.Text = "Stay Focused! You're Closer to Your Goal Than You Think!";
+                }
             }
             catch (Exception ex)
             {
