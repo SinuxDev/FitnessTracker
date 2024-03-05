@@ -21,6 +21,11 @@ namespace FitnessTracker
         private int _userId;
         private string _name;
 
+        //Form move
+        int mov;
+        int movX;
+        int movY;
+
         public MainForm(int userId, string username)
         {
             InitializeComponent();
@@ -50,6 +55,19 @@ namespace FitnessTracker
 
             int GoalCalories = trackingClass.GetUserGoalCalories(_name);
             goal_calorieslabel.Text = GoalCalories.ToString();
+
+            if(GoalCalories < totalCaloriesBurned)
+            {
+                Motivation_Label.Text = "Keep up the Great Work! You've Hit Your Calorie Target!";
+            }
+            else
+            {
+                Motivation_Label.Text = "Stay Focused! You're Closer to Your Goal Than You Think!";
+            }
+
+            //form load on current working monitor
+            this.Location = Screen.AllScreens[1].WorkingArea.Location;
+
         }
 
         private void CaloriesCal_Btn_Click(object sender, EventArgs e)
@@ -394,7 +412,7 @@ namespace FitnessTracker
             dataGridView1.Rows.Clear();
 
             db.openConnection();
-            string query = "SELECT * FROM user_goals WHERE username = @username";
+            string query = "SELECT username,goal_calories FROM user_goals WHERE username = @username";
             MySqlCommand command = new MySqlCommand(query, db.getConnection());
             command.Parameters.AddWithValue("@username", _name);
 
@@ -448,6 +466,24 @@ namespace FitnessTracker
             }
         }
 
-        
+        private void panel1_MouseDown(object sender, MouseEventArgs e)
+        {
+            mov = 1;
+            movX = e.X;
+            movY = e.Y;
+        }
+
+        private void panel1_MouseUp(object sender, MouseEventArgs e)
+        {
+            mov = 0;
+        }
+
+        private void panel1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (mov == 1)
+            {
+                this.SetDesktopLocation(MousePosition.X - movX, MousePosition.Y - movY);
+            }
+        }
     }
 }

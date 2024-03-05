@@ -13,6 +13,13 @@ namespace FitnessTracker
 {
     public partial class RegisterFom : Form
     {
+        //For redirect to login form
+        Login login = new Login();
+
+        //Form move
+        int mov;
+        int movX;
+        int movY;
         public RegisterFom()
         {
             InitializeComponent();
@@ -27,7 +34,6 @@ namespace FitnessTracker
         //Show the Login Form
         private void reg_loginHere_Click(object sender, EventArgs e)
         {
-            Login login = new Login();
             login.Show();
             this.Hide();
         }
@@ -81,6 +87,16 @@ namespace FitnessTracker
                                     MessageBoxButtons.OK,
                                     MessageBoxIcon.Information
                                 );
+
+                                reg_firstName.Text = "";
+                                reg_lastName.Text = "";
+                                reg_email.Text = "";
+                                reg_userName.Text = "";
+                                reg_password.Text = "";
+                                reg_confirmPassword.Text = "";
+
+                                login.Show();
+                                this.Hide();
                             }
                             else
                             {
@@ -322,6 +338,26 @@ namespace FitnessTracker
         {
             //this.Close();
             Application.Exit();
+        }
+
+        private void panel1_MouseUp(object sender, MouseEventArgs e)
+        {
+            mov = 0;
+        }
+
+        private void panel1_MouseDown(object sender, MouseEventArgs e)
+        {
+            mov = 1;
+            movX = e.X;
+            movY = e.Y;
+        }
+
+        private void panel1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (mov == 1)
+            {
+                this.SetDesktopLocation(MousePosition.X - movX, MousePosition.Y - movY);
+            }
         }
     }
 }
