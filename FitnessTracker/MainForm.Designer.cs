@@ -75,7 +75,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(524, 728);
+            this.label2.Location = new System.Drawing.Point(524, 529);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(193, 25);
             this.label2.TabIndex = 1;
@@ -91,7 +91,7 @@
             "Push up",
             "Pull up",
             "Anaerobic"});
-            this.exe_ComboList.Location = new System.Drawing.Point(752, 732);
+            this.exe_ComboList.Location = new System.Drawing.Point(752, 533);
             this.exe_ComboList.Name = "exe_ComboList";
             this.exe_ComboList.Size = new System.Drawing.Size(121, 24);
             this.exe_ComboList.TabIndex = 2;
@@ -101,7 +101,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(524, 556);
+            this.label3.Location = new System.Drawing.Point(527, 588);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(131, 25);
             this.label3.TabIndex = 3;
@@ -181,14 +181,14 @@
             // 
             // exe_duration_textBox
             // 
-            this.exe_duration_textBox.Location = new System.Drawing.Point(752, 559);
+            this.exe_duration_textBox.Location = new System.Drawing.Point(755, 591);
             this.exe_duration_textBox.Name = "exe_duration_textBox";
             this.exe_duration_textBox.Size = new System.Drawing.Size(121, 22);
             this.exe_duration_textBox.TabIndex = 14;
             // 
             // times_textBox
             // 
-            this.times_textBox.Location = new System.Drawing.Point(752, 614);
+            this.times_textBox.Location = new System.Drawing.Point(755, 646);
             this.times_textBox.Name = "times_textBox";
             this.times_textBox.Size = new System.Drawing.Size(121, 22);
             this.times_textBox.TabIndex = 15;
@@ -197,7 +197,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(524, 611);
+            this.label8.Location = new System.Drawing.Point(527, 643);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(66, 25);
             this.label8.TabIndex = 16;
@@ -207,7 +207,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(524, 666);
+            this.label9.Location = new System.Drawing.Point(527, 698);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(63, 25);
             this.label9.TabIndex = 17;
@@ -215,7 +215,7 @@
             // 
             // step_textBox
             // 
-            this.step_textBox.Location = new System.Drawing.Point(752, 670);
+            this.step_textBox.Location = new System.Drawing.Point(755, 702);
             this.step_textBox.Name = "step_textBox";
             this.step_textBox.Size = new System.Drawing.Size(121, 22);
             this.step_textBox.TabIndex = 18;
