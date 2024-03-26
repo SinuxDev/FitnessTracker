@@ -41,6 +41,10 @@ namespace FitnessTracker
         //For SignUp button to register account
         private void reg_registerBtn_Click(object sender, EventArgs e)
         {
+            //Use the PasswordHash class
+            PasswordHash passwordHashed = new PasswordHash(reg_password.Text);
+            string hashedPassword = passwordHashed.HashedPassword;
+
             //add new User
             connectdb db = new connectdb();
             MySqlCommand command = new MySqlCommand(
@@ -52,7 +56,7 @@ namespace FitnessTracker
             command.Parameters.Add("@ln", MySqlDbType.VarChar).Value = reg_lastName.Text;
             command.Parameters.Add("@email", MySqlDbType.VarChar).Value = reg_email.Text;
             command.Parameters.Add("@usn", MySqlDbType.VarChar).Value = reg_userName.Text;
-            command.Parameters.Add("@pass", MySqlDbType.VarChar).Value = reg_password.Text;
+            command.Parameters.Add("@pass", MySqlDbType.VarChar).Value = hashedPassword;
 
             //open the db connection
             db.openConnection();

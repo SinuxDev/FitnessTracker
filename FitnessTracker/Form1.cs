@@ -44,12 +44,12 @@ namespace FitnessTracker
             DataTable table = new DataTable();
             MySqlDataAdapter adapter = new MySqlDataAdapter();
             MySqlCommand command = new MySqlCommand(
-                "SELECT * FROM `users` WHERE `username` = @usn and `password` = @pass",
+                "SELECT * FROM `users` WHERE `username` = @usn",
                 db.getConnection()
             );
 
             command.Parameters.Add("@usn", MySqlDbType.VarChar).Value = username;
-            command.Parameters.Add("@pass", MySqlDbType.VarChar).Value = password;
+            //command.Parameters.Add("@pass", MySqlDbType.VarChar).Value = password;
 
             adapter.SelectCommand = command;
             adapter.Fill(table);
@@ -57,58 +57,73 @@ namespace FitnessTracker
             //check the user is valid or not
             if (table.Rows.Count > 0)
             {
-                //Retrieve the user'ID from the database
-                int userId = Convert.ToInt32(table.Rows[0]["id"]);
+                //Retrieve the hashed password from the database
+                string hashedPasswordFromDatabase = table.Rows[0]["password"].ToString();
 
-                this.Hide();
-                MainForm mainForm = new MainForm(userId, username);
-                mainForm.Show();
-            }
-            else
-            {
-                //Increment failed login attempts
-                failedLoginAttempt++;
+                //Hash the enter password 
+                PasswordHash passwordHash = new PasswordHash(password);
+                string hashedEnterPassword = passwordHash.HashedPassword;
 
-                //Check if maximum failed attempts reached
-                if (failedLoginAttempt >= 3)
+                //Compare the hased password from Login Form with the hased password from the database
+                if(hashedPasswordFromDatabase == hashedEnterPassword)
                 {
-                    MessageBox.Show(
-                        "Maximum failed to login attempt reached",
-                        "Try again",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning
-                    );
+                    //Retrieve the user'ID from the database
+                    int userId = Convert.ToInt32(table.Rows[0]["id"]);
+
+                    this.Hide();
+                    MainForm mainForm = new MainForm(userId, username); //Pass the Id and name to MainForm
+                    mainForm.Show();
                 }
                 else
                 {
-                    if (username.Trim().Equals(""))
+                    //Increment failed login attempts
+                    failedLoginAttempt++;
+
+                    //Check if maximum failed attempts reached
+                    if (failedLoginAttempt >= 3)
                     {
                         MessageBox.Show(
-                            "Enter Your Username to Login",
-                            "Empty Username",
+                            "Maximum failed to login attempt reached",
+                            "Try again",
                             MessageBoxButtons.OK,
-                            MessageBoxIcon.Error
-                        );
-                    }
-                    else if (password.Trim().Equals(""))
-                    {
-                        MessageBox.Show(
-                            "Enter Your Password to Login",
-                            "Empty Password",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error
+                            MessageBoxIcon.Warning
                         );
                     }
                     else
                     {
-                        MessageBox.Show(
-                            "Wrong Username or Password",
-                            "Wrong Data",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error
-                        );
+                        if (username.Trim().Equals(""))
+                        {
+                            MessageBox.Show(
+                                "Enter Your Username to Login",
+                                "Empty Username",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error
+                            );
+                        }
+                        else if (password.Trim().Equals(""))
+                        {
+                            MessageBox.Show(
+                                "Enter Your Password to Login",
+                                "Empty Password",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error
+                            );
+                        }
+                        else
+                        {
+                            MessageBox.Show(
+                                "Wrong Username or Password",
+                                "Wrong Data",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error
+                            );
+                        }
                     }
                 }
+            }
+            else
+            {
+                MessageBox.Show("User does not exist", "Invalid User", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
