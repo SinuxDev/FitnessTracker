@@ -40,13 +40,14 @@
             this.reg_password = new System.Windows.Forms.TextBox();
             this.reg_closeLabelClick = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.Reg_showPassword_checkBox = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // reg_registerBtn
             // 
             this.reg_registerBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.reg_registerBtn.Location = new System.Drawing.Point(259, 514);
+            this.reg_registerBtn.Location = new System.Drawing.Point(250, 524);
             this.reg_registerBtn.Margin = new System.Windows.Forms.Padding(4);
             this.reg_registerBtn.Name = "reg_registerBtn";
             this.reg_registerBtn.Size = new System.Drawing.Size(207, 47);
@@ -190,12 +191,24 @@
             this.panel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseMove);
             this.panel1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseUp);
             // 
+            // Reg_showPassword_checkBox
+            // 
+            this.Reg_showPassword_checkBox.AutoSize = true;
+            this.Reg_showPassword_checkBox.Location = new System.Drawing.Point(449, 476);
+            this.Reg_showPassword_checkBox.Name = "Reg_showPassword_checkBox";
+            this.Reg_showPassword_checkBox.Size = new System.Drawing.Size(147, 24);
+            this.Reg_showPassword_checkBox.TabIndex = 203;
+            this.Reg_showPassword_checkBox.Text = "show password";
+            this.Reg_showPassword_checkBox.UseVisualStyleBackColor = true;
+            this.Reg_showPassword_checkBox.CheckedChanged += new System.EventHandler(this.Reg_showPassword_checkBox_CheckedChanged);
+            // 
             // RegisterFom
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClientSize = new System.Drawing.Size(746, 710);
+            this.Controls.Add(this.Reg_showPassword_checkBox);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.reg_confirmPassword);
             this.Controls.Add(this.reg_password);
@@ -235,5 +248,6 @@
         private System.Windows.Forms.TextBox reg_password;
         private System.Windows.Forms.Label reg_closeLabelClick;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.CheckBox Reg_showPassword_checkBox;
     }
 }

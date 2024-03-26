@@ -151,5 +151,17 @@ namespace FitnessTracker
                 this.SetDesktopLocation(MousePosition.X - movX, MousePosition.Y - movY);
             }
         }
+
+        private void Login_showPassword_checkBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (Login_showPassword_checkBox.Checked)
+            {
+                login_password.PasswordChar = '\0';
+            }
+            else
+            {
+                login_password.PasswordChar = '*';
+            }
+        }
     }
 }

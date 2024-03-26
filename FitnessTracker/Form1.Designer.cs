@@ -38,6 +38,7 @@
             this.login_registerHere = new System.Windows.Forms.Label();
             this.login_closeLableClick = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.Login_showPassword_checkBox = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -147,12 +148,24 @@
             this.panel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseMove);
             this.panel1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseUp);
             // 
+            // Login_showPassword_checkBox
+            // 
+            this.Login_showPassword_checkBox.AutoSize = true;
+            this.Login_showPassword_checkBox.Location = new System.Drawing.Point(512, 303);
+            this.Login_showPassword_checkBox.Name = "Login_showPassword_checkBox";
+            this.Login_showPassword_checkBox.Size = new System.Drawing.Size(122, 20);
+            this.Login_showPassword_checkBox.TabIndex = 11;
+            this.Login_showPassword_checkBox.Text = "show password";
+            this.Login_showPassword_checkBox.UseVisualStyleBackColor = true;
+            this.Login_showPassword_checkBox.CheckedChanged += new System.EventHandler(this.Login_showPassword_checkBox_CheckedChanged);
+            // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClientSize = new System.Drawing.Size(848, 605);
+            this.Controls.Add(this.Login_showPassword_checkBox);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.login_registerHere);
             this.Controls.Add(this.label4);
@@ -186,6 +199,7 @@
         private System.Windows.Forms.Label login_registerHere;
         private System.Windows.Forms.Label login_closeLableClick;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.CheckBox Login_showPassword_checkBox;
     }
 }
 
