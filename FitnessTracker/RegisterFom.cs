@@ -23,6 +23,8 @@ namespace FitnessTracker
         public RegisterFom()
         {
             InitializeComponent();
+
+            //Reg_showPassword_checkBox.Checked = false;
         }
 
         private void RegisterFom_Load(object sender, EventArgs e)
@@ -366,13 +368,16 @@ namespace FitnessTracker
 
         private void Reg_showPassword_checkBox_CheckedChanged(object sender, EventArgs e)
         {
+            // Check if the checkbox is checked
             if (Reg_showPassword_checkBox.Checked)
             {
+                // Show the password characters
                 reg_password.UseSystemPasswordChar = false;
                 reg_confirmPassword.UseSystemPasswordChar = false;
             }
             else
             {
+                // Hide the password characters
                 reg_password.UseSystemPasswordChar = true;
                 reg_confirmPassword.UseSystemPasswordChar = true;
             }
