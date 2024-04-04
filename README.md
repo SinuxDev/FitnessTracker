@@ -25,5 +25,5 @@ To run the Fitness Tracker App, simply open the solution file in Visual Studio a
 
 ## Credits
 
-This project was developed by [Aung Ye Htet] as part of KBTC School Of IT's coursework.
+This project was developed by Aung Ye Htet as part of KBTC School Of IT's coursework.
 
