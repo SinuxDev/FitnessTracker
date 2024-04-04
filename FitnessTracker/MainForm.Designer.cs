@@ -65,7 +65,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(523, 463);
+            this.label1.Location = new System.Drawing.Point(512, 457);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(327, 36);
             this.label1.TabIndex = 0;
@@ -75,7 +75,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(524, 529);
+            this.label2.Location = new System.Drawing.Point(513, 529);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(193, 25);
             this.label2.TabIndex = 1;
@@ -91,7 +91,7 @@
             "Push up",
             "Pull up",
             "Anaerobic"});
-            this.exe_ComboList.Location = new System.Drawing.Point(752, 533);
+            this.exe_ComboList.Location = new System.Drawing.Point(755, 533);
             this.exe_ComboList.Name = "exe_ComboList";
             this.exe_ComboList.Size = new System.Drawing.Size(121, 24);
             this.exe_ComboList.TabIndex = 2;
@@ -101,7 +101,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(527, 588);
+            this.label3.Location = new System.Drawing.Point(513, 588);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(131, 25);
             this.label3.TabIndex = 3;
@@ -160,7 +160,7 @@
             // setGoal_btn
             // 
             this.setGoal_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.setGoal_btn.Location = new System.Drawing.Point(172, 208);
+            this.setGoal_btn.Location = new System.Drawing.Point(172, 216);
             this.setGoal_btn.Name = "setGoal_btn";
             this.setGoal_btn.Size = new System.Drawing.Size(121, 44);
             this.setGoal_btn.TabIndex = 10;
@@ -175,7 +175,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(336, 183);
+            this.dataGridView1.Size = new System.Drawing.Size(336, 131);
             this.dataGridView1.TabIndex = 13;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
@@ -197,7 +197,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(527, 643);
+            this.label8.Location = new System.Drawing.Point(513, 643);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(66, 25);
             this.label8.TabIndex = 16;
@@ -207,7 +207,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(527, 698);
+            this.label9.Location = new System.Drawing.Point(513, 698);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(63, 25);
             this.label9.TabIndex = 17;
@@ -227,7 +227,7 @@
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.RowHeadersWidth = 51;
             this.dataGridView2.RowTemplate.Height = 24;
-            this.dataGridView2.Size = new System.Drawing.Size(463, 243);
+            this.dataGridView2.Size = new System.Drawing.Size(463, 185);
             this.dataGridView2.TabIndex = 19;
             // 
             // calories_label
@@ -273,7 +273,7 @@
             // refresh_btn
             // 
             this.refresh_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.refresh_btn.Location = new System.Drawing.Point(714, 327);
+            this.refresh_btn.Location = new System.Drawing.Point(673, 327);
             this.refresh_btn.Name = "refresh_btn";
             this.refresh_btn.Size = new System.Drawing.Size(125, 52);
             this.refresh_btn.TabIndex = 24;
@@ -284,7 +284,7 @@
             // DelectGoals_btn
             // 
             this.DelectGoals_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DelectGoals_btn.Location = new System.Drawing.Point(146, 506);
+            this.DelectGoals_btn.Location = new System.Drawing.Point(146, 483);
             this.DelectGoals_btn.Name = "DelectGoals_btn";
             this.DelectGoals_btn.Size = new System.Drawing.Size(147, 48);
             this.DelectGoals_btn.TabIndex = 25;
@@ -295,7 +295,7 @@
             // Delete_acti_record_btn
             // 
             this.Delete_acti_record_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Delete_acti_record_btn.Location = new System.Drawing.Point(1162, 765);
+            this.Delete_acti_record_btn.Location = new System.Drawing.Point(1165, 702);
             this.Delete_acti_record_btn.Name = "Delete_acti_record_btn";
             this.Delete_acti_record_btn.Size = new System.Drawing.Size(147, 48);
             this.Delete_acti_record_btn.TabIndex = 26;
@@ -338,7 +338,7 @@
             // label11
             // 
             this.label11.Font = new System.Drawing.Font("Stencil", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(1061, 173);
+            this.label11.Location = new System.Drawing.Point(1006, 114);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(500, 220);
             this.label11.TabIndex = 30;
