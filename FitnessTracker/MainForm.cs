@@ -231,57 +231,64 @@ namespace FitnessTracker
             }
         }
 
+        private int DeleteGoalsFromDatabase(string username, double goalCalories)
+        {
+            int rowsAffected = 0;
+
+            using (MySqlConnection connection = new MySqlConnection(dbString))
+            {
+                try
+                {
+                    string query = "DELETE FROM user_goals WHERE username = @username AND goal_calories = @goalCalories";
+                    MySqlCommand command = new MySqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@username", username);
+                    command.Parameters.AddWithValue("@goalCalories", goalCalories);
+
+                    connection.Open();
+                    rowsAffected = command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error deleting goal: " + ex.Message);
+                }
+
+                connection.Close();
+            }
+
+            return rowsAffected;
+        }
+
         private void DeleteUserGoals(int rowIndex)
         {
             //Check if the index is valid
             if(rowIndex >= 0 && rowIndex < dataGridView1.Rows.Count)
             {
-                //Get the rowIndex 
-                DataGridViewRow seletedRow = dataGridView1.Rows[rowIndex];
+                //Get the selected row's username and goal_calories
+                DataGridViewRow selectedRow = dataGridView1.Rows[rowIndex];
 
                 //Confirmation dialog
-                DialogResult res = MessageBox.Show("Are you sure you want to delete ?","Delete or not?", MessageBoxButtons.YesNo,MessageBoxIcon.Question);
-                if (res == DialogResult.Yes)
+                DialogResult result = MessageBox.Show("Are you sure you want to delete this goal?", "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                //If user confirms deletion
+                if (result == DialogResult.Yes)
                 {
-                    //Open connection to  database 
-                    using (MySqlConnection conn = new MySqlConnection(dbString))
+                    string username = selectedRow.Cells["username"].Value.ToString();
+                    double goalCalories = Convert.ToDouble(selectedRow.Cells["goal_calories"].Value);
+
+                    int rowsAffected = DeleteGoalsFromDatabase(username, goalCalories);
+
+                    //Check if the deletion was successful
+                    if (rowsAffected > 0)
                     {
-                        try
-                        {
-                            string query = "DELETE FROM user_goals WHERE username = @username AND goal_calories = @goal_calories";
-                            MySqlCommand cmd = new MySqlCommand(query, conn);
-
-                            cmd.Parameters.AddWithValue("@username", seletedRow.Cells["username"].Value.ToString());
-                            cmd.Parameters.AddWithValue("@goal_calories", Convert.ToDouble(seletedRow.Cells["goal_calories"].Value));
-
-                            conn.Open();
-                            int rowAffected = cmd.ExecuteNonQuery();
-
-                            //Check if the delete process is success
-                            if (rowAffected > 0)
-                            {
-                                //Remove the selected row from the DataGridView
-                                dataGridView1.Rows.RemoveAt(rowIndex);
-                                MessageBox.Show("Goal deleted Successfully");
-                            }
-                            else
-                            {
-                                MessageBox.Show("Failed to delete goal from database");
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("Error Deleting goal : " + ex.Message);
-                        }
-
-                        conn.Close();
-                        doRefreshGoals();
+                        MessageBox.Show("Goal deleted successfully!");
                     }
+                    else
+                    {
+                        MessageBox.Show("Failed to delete goal.");
+                    }
+
+                    doRefreshGoals();
                 }
-            }
-            else
-            {
-                MessageBox.Show("Invalid row index");
             }
         }
 
