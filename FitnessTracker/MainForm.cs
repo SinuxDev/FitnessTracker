@@ -152,37 +152,11 @@ namespace FitnessTracker
         {
             string selectedExercise = exe_ComboList.Text;
 
-            switch (selectedExercise)
-            {
-                case "Walking":
-                    times_textBox.Enabled = false;
-                    step_textBox.Enabled = true;
-                    break;
-                case "Swimming":
-                    times_textBox.Enabled = true;
-                    step_textBox.Enabled = false;
-                    break;
-                case "Squat":
-                    step_textBox.Enabled = false;
-                    times_textBox.Enabled = true;
-                    break;
-                case "Anaerobic":
-                    step_textBox.Enabled = false;
-                    times_textBox.Enabled = true;
-                    break;
-                case "Push up":
-                    step_textBox.Enabled = false;
-                    times_textBox.Enabled = true;
-                    break;
-                case "Pull up":
-                    step_textBox.Enabled = false;
-                    times_textBox.Enabled = true;
-                    break;
-                default:
-                    step_textBox.Enabled = true;
-                    times_textBox.AcceptsReturn = true;
-                    break;
-            }
+            //Enable times_textBox only for exercises that require it
+            times_textBox.Enabled = new List<string> { "Swimming", "Squat", "Anaerobic", "Push up", "Pull up" }.Contains(selectedExercise);
+
+            //Enable step_textBox only for Walking exercise
+            step_textBox.Enabled = selectedExercise == "Walking";
         }
 
         private void label4_Click(object sender, EventArgs e)
@@ -193,41 +167,31 @@ namespace FitnessTracker
         private void setGoal_btn_Click(object sender, EventArgs e)
         {
             string caloriesText = setGoals_textbox.Text;
-            if (string.IsNullOrWhiteSpace(caloriesText))
+
+            if(string.IsNullOrWhiteSpace(caloriesText))
             {
-                MessageBox.Show(
-                    "Enter your calories!",
-                    "Warning",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                );
+                MessageBox.Show("Please enter your goal calories", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if(double.TryParse(caloriesText, out double calories))
+            {
+                try
+                {
+                     trackingClass.SetFitnessGoal(_name, calories);
+                     MessageBox.Show("Goal set successfully","Set Goals",MessageBoxButtons.OK, MessageBoxIcon.Information);
+                     doRefreshGoals();
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show("An Error Occured: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else
             {
-                //parse calories as a double
-                if (double.TryParse(caloriesText, out double calories))
-                {
-                    trackingClass.SetFitnessGoal(_name, calories);
-                    MessageBox.Show(
-                        "Your Goals have been set",
-                        "SetGoals",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information
-                    );
-                    doRefreshGoals();
-                }
-                else
-                {
-                    MessageBox.Show(
-                        "Invalid calories format. Enter a valid number.",
-                        "Warning",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning
-                    );
-                }
+                MessageBox.Show("Invalid calories format. Please enter a valid number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             setGoals_textbox.Text = "";
-
         }
 
         private void refresh_btn_Click(object sender, EventArgs e)

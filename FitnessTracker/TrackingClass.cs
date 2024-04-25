@@ -81,10 +81,9 @@ namespace FitnessTracker
 
         public void SetFitnessGoal(string username, double goalCalories)
         {
+            string query = "INSERT INTO user_goals (username, goal_calories) VALUES (@username, @goalcalories)";
             using (var connection = new MySqlConnection(_connectionString))
             {
-                string query =
-                    "INSERT INTO user_goals (username, goal_calories) VALUES (@username, @goalcalories)";
                 using (var command = new MySqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@username", username);
