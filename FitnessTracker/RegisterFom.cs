@@ -301,7 +301,7 @@ namespace FitnessTracker
         {
             String password = reg_password.Text;
 
-            if (password.Length <= 12 || !password.Any(char.IsLower) || !password.Any(char.IsUpper))
+            if (password.Length == 12 || !password.Any(char.IsLower) || !password.Any(char.IsUpper))
             {
                 return false;
             }
