@@ -49,6 +49,8 @@ namespace FitnessTracker
         {
             FillUserGoalsDGV(_name);
             FillRecordActivities(_userId);
+            doRefreshGoals();
+            doRefreshRecord();
 
             int totalCaloriesBurned = trackingClass.GetTotalCaloriesBurned(_name);
             calories_label.Text = totalCaloriesBurned.ToString();
@@ -80,63 +82,37 @@ namespace FitnessTracker
         private void CaloriesCal_Btn_Click(object sender, EventArgs e)
         {
             TrackingClass trackingClass = new TrackingClass(dbString);
-            CaloriesCalClass calories;
-
+            
             // Validate and parse duration
             if (!double.TryParse(exe_duration_textBox.Text, out double duration) || duration <= 0)
             {
-                MessageBox.Show(
-                    "Please enter a valid positive value for duration.",
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                ShowErrorMessage("Please enter a valid positive value for duration.");
                 return;
             }
 
-            //Set default vales for times when it's not need
             double times = 1;
-            if (exe_ComboList.Text != "Walking")
+            if(exe_ComboList.Text != "Walking")
             {
-                // Validate and parse times
-                if (!double.TryParse(times_textBox.Text, out times) || times <= 0)
+                if(!double.TryParse(times_textBox.Text, out times) || times <= 0)
                 {
-                    MessageBox.Show(
-                        "Please enter a valid positive value for times.",
-                        "Error",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error
-                    );
+                    ShowErrorMessage("Please enter a valid positive value for times.");
                     return;
                 }
             }
 
-            // Set default value for steps when it's not need
             double steps = 1;
-            if (
-                exe_ComboList.Text != "Swimming"
-                && exe_ComboList.Text != "Squat"
-                && exe_ComboList.Text != "Anaerobic"
-                && exe_ComboList.Text != "Push up"
-                && exe_ComboList.Text != "Pull up"
-            )
+            if(ShouldValidateSteps(exe_ComboList.Text))
             {
-                // Validate and parse steps
-                if (!double.TryParse(step_textBox.Text, out steps))
+                if(!double.TryParse(step_textBox.Text, out steps))
                 {
-                    MessageBox.Show(
-                        "Please enter a valid value for steps.",
-                        "Error",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error
-                    );
+                    ShowErrorMessage("Please enter a valid value for steps.");
                     return;
                 }
             }
 
             string selectedExercise = exe_ComboList.Text;
 
-            calories = new CaloriesCalClass(selectedExercise, times, steps, duration);
+            CaloriesCalClass calories = new CaloriesCalClass(selectedExercise, times, steps, duration);
 
             trackingClass.RecordActiviyAndCalculateCalories(_userId, _name, calories);
             doRefreshRecord();
@@ -146,6 +122,16 @@ namespace FitnessTracker
             exe_duration_textBox.Text = "";
             times_textBox.Text = "";
             step_textBox.Text = "";
+        }
+
+        private void ShowErrorMessage(string message)
+        {
+            MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private bool ShouldValidateSteps(string exercise)
+        {
+            return exercise != "Swimming" && exercise != "Squat" && exercise != "Anaerobic" && exercise != "Push up" && exercise != "Pull up";
         }
 
         private void exe_ComboList_SelectedIndexChanged(object sender, EventArgs e)
