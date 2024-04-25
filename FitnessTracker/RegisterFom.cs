@@ -16,6 +16,8 @@ namespace FitnessTracker
         //For redirect to login form
         Login login = new Login();
 
+        static string connectionString = "server=localhost;port=3306;uid=root;password=root;database=fitnessapp";
+
         //Form move
         int mov;
         int movX;
@@ -80,35 +82,49 @@ namespace FitnessTracker
                                 MessageBox.Show(
                                     "This Username is already exists, select A different One",
                                     "Duplicate Username",
-                                    MessageBoxButtons.OKCancel,
+                                    MessageBoxButtons.OK,
                                     MessageBoxIcon.Error
                                 );
                             }
                             else
                             {
-                                //Query Execute
-                                if (command.ExecuteNonQuery() == 1)
+                                if (checkEmailFormat())
                                 {
-                                    MessageBox.Show(
-                                        "Your Account have been created!!",
-                                        "Account",
-                                        MessageBoxButtons.OK,
-                                        MessageBoxIcon.Information
-                                    );
+                                    if (!checkEmailExits())
+                                    {
+                                        //Query Execute
+                                        if (command.ExecuteNonQuery() == 1)
+                                        {
+                                            MessageBox.Show(
+                                                "Your Account have been created!!",
+                                                "Account",
+                                                MessageBoxButtons.OK,
+                                                MessageBoxIcon.Information
+                                            );
 
-                                    reg_firstName.Text = "";
-                                    reg_lastName.Text = "";
-                                    reg_email.Text = "";
-                                    reg_userName.Text = "";
-                                    reg_password.Text = "";
-                                    reg_confirmPassword.Text = "";
+                                            reg_firstName.Text = "";
+                                            reg_lastName.Text = "";
+                                            reg_email.Text = "";
+                                            reg_userName.Text = "";
+                                            reg_password.Text = "";
+                                            reg_confirmPassword.Text = "";
 
-                                    login.Show();
-                                    this.Hide();
+                                            login.Show();
+                                            this.Hide();
+                                        }
+                                        else
+                                        {
+                                            MessageBox.Show("Account Creation Failed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("Emails is already exits", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    }
                                 }
                                 else
                                 {
-                                    MessageBox.Show("Account Creation Failed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    MessageBox.Show("Your emails is'nt valid", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 }
                             }
                         }
@@ -184,15 +200,74 @@ namespace FitnessTracker
         //check the username contain the special characters
         public Boolean checkUsernameSpecialChar()
         {
-            String username = reg_userName.Text;
+            String userNameInput= reg_userName.Text;
 
-            foreach(char c in username)
+            foreach(char c in userNameInput)
             {
                 if(!char.IsLetterOrDigit(c))
                 {
                     return false;
                 }
             }
+
+            return true;
+        }
+
+        //check the emails is already exitst or not 
+
+        public Boolean checkEmailExits()
+        {   
+            using (var connection = new MySqlConnection(connectionString))
+            {
+                string query = "SELECT emailaddress FROM users WHERE emailaddress = @email";
+                using (var command = new MySqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@email", reg_email.Text);
+                    try
+                    {
+                        connection.Open();
+                        int count = Convert.ToInt32(command.ExecuteScalar());
+                        return count > 0;
+                    }
+                    catch (MySqlException)
+                    {
+                        return true; //Assume Email is exists
+                    }
+                    finally
+                    {
+                        connection.Close();
+                    }
+                }
+            }
+        }
+
+        public Boolean checkEmailFormat()
+        {
+            String email = reg_email.Text;
+            if(!email.Contains("@") || !email.Contains("."))
+            {
+                return false;
+            }
+
+            //check the '@' symbol in email address 
+            int atPosition = email.IndexOf("@");
+            if(atPosition < 1)
+            {
+                return false;
+            }
+
+            if(atPosition != email.LastIndexOf("@"))
+            {
+                return false;
+            }
+
+            //check the '.' symbol in email address
+            string domainPart = email.Substring(atPosition + 1);
+            if (!domainPart.Contains("."))
+            {
+                return false;
+            }
+
             return true;
         }
 
