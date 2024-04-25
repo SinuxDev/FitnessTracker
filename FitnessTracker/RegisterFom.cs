@@ -72,42 +72,49 @@ namespace FitnessTracker
                     // check if the password are equals with confirm password
                     if (reg_password.Text.Equals(reg_confirmPassword.Text))
                     {
-                        // check if the username exists or not
-                        if (checkUsername())
+                        if (checkUsernameSpecialChar())
                         {
-                            MessageBox.Show(
-                                "This Username is already exists, select A different One",
-                                "Duplicate Username",
-                                MessageBoxButtons.OKCancel,
-                                MessageBoxIcon.Error
-                            );
-                        }
-                        else
-                        {
-                            //Query Execute
-                            if (command.ExecuteNonQuery() == 1)
+                            // check if the username exists or not
+                            if (checkUsername())
                             {
                                 MessageBox.Show(
-                                    "Your Account have been created!!",
-                                    "Account",
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Information
+                                    "This Username is already exists, select A different One",
+                                    "Duplicate Username",
+                                    MessageBoxButtons.OKCancel,
+                                    MessageBoxIcon.Error
                                 );
-
-                                reg_firstName.Text = "";
-                                reg_lastName.Text = "";
-                                reg_email.Text = "";
-                                reg_userName.Text = "";
-                                reg_password.Text = "";
-                                reg_confirmPassword.Text = "";
-
-                                login.Show();
-                                this.Hide();
                             }
                             else
                             {
-                                MessageBox.Show("ERROR");
+                                //Query Execute
+                                if (command.ExecuteNonQuery() == 1)
+                                {
+                                    MessageBox.Show(
+                                        "Your Account have been created!!",
+                                        "Account",
+                                        MessageBoxButtons.OK,
+                                        MessageBoxIcon.Information
+                                    );
+
+                                    reg_firstName.Text = "";
+                                    reg_lastName.Text = "";
+                                    reg_email.Text = "";
+                                    reg_userName.Text = "";
+                                    reg_password.Text = "";
+                                    reg_confirmPassword.Text = "";
+
+                                    login.Show();
+                                    this.Hide();
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Account Creation Failed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
                             }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Username can only contains letters and numbers", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                     else
@@ -174,6 +181,21 @@ namespace FitnessTracker
             }
         }
 
+        //check the username contain the special characters
+        public Boolean checkUsernameSpecialChar()
+        {
+            String username = reg_userName.Text;
+
+            foreach(char c in username)
+            {
+                if(!char.IsLetterOrDigit(c))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
         //check if the textboxes has values
         public Boolean checkTextBoxesValues()
         {
@@ -204,7 +226,7 @@ namespace FitnessTracker
         {
             String password = reg_password.Text;
 
-            if (password.Length < 12 || !password.Any(char.IsLower) || !password.Any(char.IsUpper))
+            if (password.Length <= 12 || !password.Any(char.IsLower) || !password.Any(char.IsUpper))
             {
                 return false;
             }
