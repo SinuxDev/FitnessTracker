@@ -54,17 +54,17 @@ namespace FitnessTracker
                 return;
             }
 
-            //Check if the password and confirm password match
-            if (reg_password.Text != reg_confirmPassword.Text)
-            {
-                MessageBox.Show("Passwords do not match", "Password Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
             //Check if the password meet the requirement
             if (!ValidatePassword())
             {
                 MessageBox.Show("Password must be 12 characters long and contain at least one uppercase and one lowercase letter", "Invalid Password", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            //Check if the password and confirm password match
+            if (reg_password.Text != reg_confirmPassword.Text)
+            {
+                MessageBox.Show("Passwords do not match", "Password Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -152,11 +152,24 @@ namespace FitnessTracker
                 MySqlCommand command = new MySqlCommand("SELECT * FROM `users` WHERE `username` = @usn", db.getConnection());
                 command.Parameters.AddWithValue("@usn", username);
 
-                DataTable table = new DataTable();
                 MySqlDataAdapter adapter = new MySqlDataAdapter(command);
-                adapter.Fill(table);
+                DataTable table = new DataTable();
 
-                return table.Rows.Count > 0;
+                try
+                {
+                    db.openConnection();
+                    adapter.Fill(table);
+                    return table.Rows.Count > 0;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error on checking username : " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+                finally
+                {
+                    db.closeConnection();
+                }
             }
         }
 
@@ -178,11 +191,11 @@ namespace FitnessTracker
 
         //Check if the emails is already exitst or not 
         public Boolean checkEmailExits()
-        {   
-            using(connectdb db = new connectdb())
+        {
+            using (connectdb db = new connectdb())
             {
                 string email = reg_email.Text;
-                MySqlCommand cmd = new MySqlCommand("SELETE COUNT(*) FROM `users` WHERE `emailaddress` = @em", db.getConnection());
+                MySqlCommand cmd = new MySqlCommand("SELECT * FROM `users` WHERE `emailaddress` = @em", db.getConnection());
                 cmd.Parameters.AddWithValue("@em", email);
 
                 try
@@ -236,26 +249,22 @@ namespace FitnessTracker
         //check if the textboxes has values
         public Boolean checkTextBoxesValues()
         {
-            string firstName = reg_firstName.Text;
-            string lastName = reg_lastName.Text;
-            string email = reg_email.Text;
-            string userName = reg_userName.Text;
-            string password = reg_password.Text;
+            string firstName = reg_firstName.Text.Trim();
+            string lastName = reg_lastName.Text.Trim();
+            string email = reg_email.Text.Trim();
+            string userName = reg_userName.Text.Trim();
+            string password = reg_password.Text.Trim();
+            string confirmPassword = reg_confirmPassword.Text.Trim();
 
-            return string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(lastName) || string.IsNullOrEmpty(email) || string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(password);
+            return string.IsNullOrWhiteSpace(firstName) || string.IsNullOrWhiteSpace(lastName) || string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(userName) || string.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(confirmPassword);
         }
 
         // check if the password meet the requirement
         public Boolean ValidatePassword()
         {
-            String password = reg_password.Text;
+            string password = reg_password.Text;
 
-            if (password.Length != 12 || !password.Any(char.IsLower) || !password.Any(char.IsUpper))
-            {
-                return false;
-            }
-
-            return true;
+            return password.Length >= 12 && password.Any(char.IsLower) && password.Any(char.IsUpper);
         }        
         private void reg_closeLabelClick_Click(object sender, EventArgs e)
         {
