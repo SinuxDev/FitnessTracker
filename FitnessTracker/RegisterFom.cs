@@ -16,8 +16,6 @@ namespace FitnessTracker
         //For redirect to login form
         Login login = new Login();
 
-        static string connectionString = "server=localhost;port=3306;uid=root;password=root;database=fitnessapp";
-
         //Form move
         int mov;
         int movX;
@@ -25,8 +23,6 @@ namespace FitnessTracker
         public RegisterFom()
         {
             InitializeComponent();
-
-            //Reg_showPassword_checkBox.Checked = false;
         }
 
         private void RegisterFom_Load(object sender, EventArgs e)
@@ -45,159 +41,126 @@ namespace FitnessTracker
         //For SignUp button to register account
         private void reg_registerBtn_Click(object sender, EventArgs e)
         {
-            //Use the PasswordHash class
-            PasswordHash passwordHashed = new PasswordHash(reg_password.Text);
-            string hashedPassword = passwordHashed.HashedPassword;
+            string firstName = reg_firstName.Text;
+            string lastName = reg_lastName.Text;
+            string email = reg_email.Text;
+            string userName = reg_userName.Text;
+            string password = reg_password.Text;
 
-            //add new User
-            connectdb db = new connectdb();
-            MySqlCommand command = new MySqlCommand(
-                "INSERT INTO `users`(`firstname`, `lastname`, `emailaddress`, `username`, `password`) VALUES (@fn, @ln, @email, @usn, @pass)",
-                db.getConnection()
-            );
-
-            command.Parameters.Add("@fn", MySqlDbType.VarChar).Value = reg_firstName.Text;
-            command.Parameters.Add("@ln", MySqlDbType.VarChar).Value = reg_lastName.Text;
-            command.Parameters.Add("@email", MySqlDbType.VarChar).Value = reg_email.Text;
-            command.Parameters.Add("@usn", MySqlDbType.VarChar).Value = reg_userName.Text;
-            command.Parameters.Add("@pass", MySqlDbType.VarChar).Value = hashedPassword;
-
-            //open the db connection
-            db.openConnection();
-
-            // check the textboxes has input vlaues
-            if (!checkTextBoxesValues())
+            //Check if all the textboxes has values
+            if (checkTextBoxesValues())
             {
-                //check if the password meet the requirement
-                if (ValidatePassword())
+                MessageBox.Show("Enter your information first", "Empty Data", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            //Check if the password and confirm password match
+            if (reg_password.Text != reg_confirmPassword.Text)
+            {
+                MessageBox.Show("Passwords do not match", "Password Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            //Check if the password meet the requirement
+            if (!ValidatePassword())
+            {
+                MessageBox.Show("Password must be 12 characters long and contain at least one uppercase and one lowercase letter", "Invalid Password", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            //Check if the username containes special characters
+            if (!checkUsernameSpecialChar())
+            {
+                MessageBox.Show("Username can only contain letters and numbers", "Invalid Username", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            //Check if the username already exists
+            if (checkUsername())
+            {
+                MessageBox.Show("This Username Already Exists, Select A Different One", "Duplicate Username", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            //Check if the email format is valid
+            if (!checkEmailFormat())
+            {
+                MessageBox.Show("Invalid Email Format", "Invalid Email", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            //Check if the email already exists
+            if (checkEmailExits())
+            {
+                MessageBox.Show("This Email Already Exists, Select A Different One", "Duplicate Email", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            //Hash the password
+            PasswordHash passwordHash = new PasswordHash(password);
+            string hashedPassword = passwordHash.HashedPassword;
+
+            //Add new user into the database
+            using(connectdb db = new connectdb())
+            {
+                MySqlCommand cmd = new MySqlCommand("INSERT INTO `users`(`firstname`, `lastname`, `emailaddress`, `username`, `password`) VALUES (@fn, @ln, @em, @un, @pass)", db.getConnection());
+                cmd.Parameters.AddWithValue("@fn", firstName);
+                cmd.Parameters.AddWithValue("@ln", lastName);
+                cmd.Parameters.AddWithValue("@em", email);
+                cmd.Parameters.AddWithValue("@un", userName);
+                cmd.Parameters.AddWithValue("@pass", hashedPassword);
+
+                try
                 {
-                    // check if the password are equals with confirm password
-                    if (reg_password.Text.Equals(reg_confirmPassword.Text))
+                    db.openConnection();
+                    if(cmd.ExecuteNonQuery() == 1)
                     {
-                        if (checkUsernameSpecialChar())
-                        {
-                            // check if the username exists or not
-                            if (checkUsername())
-                            {
-                                MessageBox.Show(
-                                    "This Username is already exists, select A different One",
-                                    "Duplicate Username",
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Error
-                                );
-                            }
-                            else
-                            {
-                                if (checkEmailFormat())
-                                {
-                                    if (!checkEmailExits())
-                                    {
-                                        //Query Execute
-                                        if (command.ExecuteNonQuery() == 1)
-                                        {
-                                            MessageBox.Show(
-                                                "Your Account have been created!!",
-                                                "Account",
-                                                MessageBoxButtons.OK,
-                                                MessageBoxIcon.Information
-                                            );
+                        MessageBox.Show("Your account has been created!!", "Account Created", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                                            reg_firstName.Text = "";
-                                            reg_lastName.Text = "";
-                                            reg_email.Text = "";
-                                            reg_userName.Text = "";
-                                            reg_password.Text = "";
-                                            reg_confirmPassword.Text = "";
+                        reg_firstName.Text = "";
+                        reg_lastName.Text = "";
+                        reg_email.Text = "";
+                        reg_userName.Text = "";
+                        reg_password.Text = "";
+                        reg_confirmPassword.Text = "";
 
-                                            login.Show();
-                                            this.Hide();
-                                        }
-                                        else
-                                        {
-                                            MessageBox.Show("Account Creation Failed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        MessageBox.Show("Emails is already exits", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                    }
-                                }
-                                else
-                                {
-                                    MessageBox.Show("Your emails is'nt valid", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                }
-                            }
-                        }
-                        else
-                        {
-                            MessageBox.Show("Username can only contains letters and numbers", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
+                        login.Show();
+                        this.Hide();
                     }
                     else
                     {
-                        MessageBox.Show(
-                            "Your Password are not match",
-                            "Password Error",
-                            MessageBoxButtons.OKCancel,
-                            MessageBoxIcon.Error
-                        );
+                        MessageBox.Show("Failed to create your account", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-                else
+                catch(Exception ex)
                 {
-                    MessageBox.Show(
-                        "Passwrod must be at least 12 characters and contain at least one upper case and lower case",
-                        "Invalid Passsword",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error
-                    );
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    db.closeConnection();
                 }
             }
-            else
-            {
-                MessageBox.Show(
-                    "Enter Your Information First",
-                    "Empty Data",
-                    MessageBoxButtons.OKCancel,
-                    MessageBoxIcon.Error
-                );
-            }
-
-            //close the db connection
-            db.closeConnection();
         }
 
         //check if the username already exists
         public Boolean checkUsername()
         {
-            connectdb db = new connectdb();
-
-            String username = reg_userName.Text;
-
-            DataTable table = new DataTable();
-            MySqlDataAdapter adapter = new MySqlDataAdapter();
-            MySqlCommand command = new MySqlCommand(
-                "SELECT * FROM `users` WHERE `username` = @usn",
-                db.getConnection()
-            );
-
-            command.Parameters.Add("@usn", MySqlDbType.VarChar).Value = username;
-
-            adapter.SelectCommand = command;
-            adapter.Fill(table);
-
-            //check the user exists in the database
-            if (table.Rows.Count > 0)
+            using (connectdb db = new connectdb())
             {
-                return true;
-            }
-            else
-            {
-                return false;
+                string username = reg_userName.Text;
+                MySqlCommand command = new MySqlCommand("SELECT * FROM `users` WHERE `username` = @usn", db.getConnection());
+                command.Parameters.AddWithValue("@usn", username);
+
+                DataTable table = new DataTable();
+                MySqlDataAdapter adapter = new MySqlDataAdapter(command);
+                adapter.Fill(table);
+
+                return table.Rows.Count > 0;
             }
         }
 
-        //check the username contain the special characters
+        //Check if the username contain the special characters
         public Boolean checkUsernameSpecialChar()
         {
             String userNameInput= reg_userName.Text;
@@ -213,34 +176,33 @@ namespace FitnessTracker
             return true;
         }
 
-        //check the emails is already exitst or not 
-
+        //Check if the emails is already exitst or not 
         public Boolean checkEmailExits()
         {   
-            using (var connection = new MySqlConnection(connectionString))
+            using(connectdb db = new connectdb())
             {
-                string query = "SELECT emailaddress FROM users WHERE emailaddress = @email";
-                using (var command = new MySqlCommand(query, connection))
+                string email = reg_email.Text;
+                MySqlCommand cmd = new MySqlCommand("SELETE COUNT(*) FROM `users` WHERE `emailaddress` = @em", db.getConnection());
+                cmd.Parameters.AddWithValue("@em", email);
+
+                try
                 {
-                    command.Parameters.AddWithValue("@email", reg_email.Text);
-                    try
-                    {
-                        connection.Open();
-                        int count = Convert.ToInt32(command.ExecuteScalar());
-                        return count > 0;
-                    }
-                    catch (MySqlException)
-                    {
-                        return true; //Assume Email is exists
-                    }
-                    finally
-                    {
-                        connection.Close();
-                    }
+                    db.openConnection();
+                    int count = Convert.ToInt32(cmd.ExecuteScalar());
+                    return count > 0;
+                }
+                catch (Exception)
+                {
+                    return true; // Assume the email exists
+                }
+                finally
+                {
+                    db.closeConnection();
                 }
             }
         }
 
+        // Check the email format
         public Boolean checkEmailFormat()
         {
             String email = reg_email.Text;
@@ -274,26 +236,13 @@ namespace FitnessTracker
         //check if the textboxes has values
         public Boolean checkTextBoxesValues()
         {
-            String fname = reg_firstName.Text;
-            String lname = reg_lastName.Text;
-            String email = reg_email.Text;
-            String userName = reg_userName.Text;
-            String password = reg_password.Text;
+            string firstName = reg_firstName.Text;
+            string lastName = reg_lastName.Text;
+            string email = reg_email.Text;
+            string userName = reg_userName.Text;
+            string password = reg_password.Text;
 
-            if (
-                fname.Equals("first name")
-                || lname.Equals("last name")
-                || email.Equals("email address")
-                || userName.Equals("username")
-                || password.Equals("password")
-            )
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(lastName) || string.IsNullOrEmpty(email) || string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(password);
         }
 
         // check if the password meet the requirement
@@ -301,145 +250,15 @@ namespace FitnessTracker
         {
             String password = reg_password.Text;
 
-            if (password.Length == 12 || !password.Any(char.IsLower) || !password.Any(char.IsUpper))
+            if (password.Length != 12 || !password.Any(char.IsLower) || !password.Any(char.IsUpper))
             {
                 return false;
             }
 
             return true;
-        }
-
-        private void reg_firstName_TextChanged(object sender, EventArgs e) { }
-
-        private void reg_firstName_Enter(object sender, EventArgs e)
-        {
-            String fname = reg_firstName.Text;
-            if (fname.ToLower().Trim().Equals("first name"))
-            {
-                reg_firstName.Text = " ";
-                reg_firstName.ForeColor = Color.Black;
-            }
-        }
-
-        private void reg_firstName_Leave(object sender, EventArgs e)
-        {
-            String fname = reg_firstName.Text;
-            if (fname.ToLower().Trim().Equals("first name") || fname.Trim().Equals(""))
-            {
-                reg_firstName.Text = "first name";
-                reg_firstName.ForeColor = Color.Gray;
-            }
-        }
-
-        private void reg_lastName_Enter(object sender, EventArgs e)
-        {
-            String lname = reg_lastName.Text;
-            if (lname.ToLower().Trim().Equals("last name"))
-            {
-                reg_lastName.Text = " ";
-                reg_lastName.ForeColor = Color.Black;
-            }
-        }
-
-        private void reg_lastName_Leave(object sender, EventArgs e)
-        {
-            String lname = reg_lastName.Text;
-            if (lname.ToLower().Trim().Equals("last name") || lname.Trim().Equals(""))
-            {
-                reg_lastName.Text = "last name";
-                reg_lastName.ForeColor = Color.Gray;
-            }
-        }
-
-        private void reg_email_Enter(object sender, EventArgs e)
-        {
-            String email = reg_email.Text;
-            if (email.ToLower().Trim().Equals("email address"))
-            {
-                reg_email.Text = " ";
-                reg_email.ForeColor = Color.Black;
-            }
-        }
-
-        private void reg_email_Leave(object sender, EventArgs e)
-        {
-            String email = reg_email.Text;
-            if (email.ToLower().Trim().Equals("email address") || email.Trim().Equals(""))
-            {
-                reg_email.Text = "email address";
-                reg_email.ForeColor = Color.Gray;
-            }
-        }
-
-        private void reg_userName_Enter(object sender, EventArgs e)
-        {
-            String userName = reg_userName.Text;
-            if (userName.ToLower().Trim().Equals("username"))
-            {
-                reg_userName.Text = " ";
-                reg_userName.ForeColor = Color.Black;
-            }
-        }
-
-        private void reg_userName_Leave(object sender, EventArgs e)
-        {
-            String userName = reg_userName.Text;
-            if (userName.ToLower().Trim().Equals("username") || userName.Trim().Equals(""))
-            {
-                reg_userName.Text = "username";
-                reg_userName.ForeColor = Color.Gray;
-            }
-        }
-
-        private void reg_password_Enter(object sender, EventArgs e)
-        {
-            String password = reg_password.Text;
-            if (password.ToLower().Trim().Equals("password"))
-            {
-                reg_password.Text = "";
-                reg_password.UseSystemPasswordChar = true;
-                reg_password.ForeColor = Color.Black;
-            }
-        }
-
-        private void reg_password_Leave(object sender, EventArgs e)
-        {
-            String password = reg_password.Text;
-            if (password.ToLower().Trim().Equals("password") || password.Trim().Equals(""))
-            {
-                reg_password.Text = "password";
-                reg_password.UseSystemPasswordChar = false;
-                reg_password.ForeColor = Color.Gray;
-            }
-        }
-
-        private void reg_confirmPassword_Enter(object sender, EventArgs e)
-        {
-            String cpassword = reg_confirmPassword.Text;
-            if (cpassword.ToLower().Trim().Equals("confirm password"))
-            {
-                reg_confirmPassword.Text = "";
-                reg_confirmPassword.UseSystemPasswordChar = true;
-                reg_confirmPassword.ForeColor = Color.Black;
-            }
-        }
-
-        private void reg_confirmPassword_Leave(object sender, EventArgs e)
-        {
-            String cpassword = reg_confirmPassword.Text;
-            if (
-                cpassword.ToLower().Trim().Equals("confirm password") || cpassword.Trim().Equals("")
-            )
-            {
-                reg_confirmPassword.Text = "confirm password";
-                reg_confirmPassword.UseSystemPasswordChar = false;
-                reg_confirmPassword.ForeColor = Color.Gray;
-            }
-        }
-
+        }        
         private void reg_closeLabelClick_Click(object sender, EventArgs e)
         {
-            //this.Close();
             Application.Exit();
         }
 
@@ -463,9 +282,20 @@ namespace FitnessTracker
             }
         }
 
-        private void Reg_showPassword_checkBox_CheckedChanged(object sender, EventArgs e)
+        private void Reg_showPassword_CheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            
+            if(Reg_showPassword_CheckBox.Checked)
+            {
+                reg_password.PasswordChar = '\0';
+                reg_confirmPassword.PasswordChar = '\0';
+                Reg_showPassword_CheckBox.Text = "Hide Password";
+            }
+            else
+            {
+                reg_password.PasswordChar = '*';
+                reg_confirmPassword.PasswordChar = '*';
+                Reg_showPassword_CheckBox.Text = "Show Password";
+            }
         }
     }
 }

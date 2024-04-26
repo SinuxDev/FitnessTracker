@@ -43,10 +43,7 @@ namespace FitnessTracker
 
             DataTable table = new DataTable();
             MySqlDataAdapter adapter = new MySqlDataAdapter();
-            MySqlCommand command = new MySqlCommand(
-                "SELECT * FROM `users` WHERE `username` = @usn",
-                db.getConnection()
-            );
+            MySqlCommand command = new MySqlCommand("SELECT * FROM `users` WHERE `username` = @usn", db.getConnection());
 
             command.Parameters.Add("@usn", MySqlDbType.VarChar).Value = username;
             //command.Parameters.Add("@pass", MySqlDbType.VarChar).Value = password;
@@ -82,41 +79,21 @@ namespace FitnessTracker
                     //Check if maximum failed attempts reached
                     if (failedLoginAttempt >= 3)
                     {
-                        MessageBox.Show(
-                            "Maximum failed to login attempt reached",
-                            "Try again",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Warning
-                        );
+                        MessageBox.Show("Maximum failed to login attempt reached","Try again",MessageBoxButtons.OK,MessageBoxIcon.Warning);
                     }
                     else
                     {
                         if (username.Trim().Equals(""))
                         {
-                            MessageBox.Show(
-                                "Enter Your Username to Login",
-                                "Empty Username",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error
-                            );
+                            MessageBox.Show("Enter Your Username to Login","Empty Username",MessageBoxButtons.OK,MessageBoxIcon.Error);
                         }
                         else if (password.Trim().Equals(""))
                         {
-                            MessageBox.Show(
-                                "Enter Your Password to Login",
-                                "Empty Password",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error
-                            );
+                            MessageBox.Show("Enter Your Password to Login","Empty Password",MessageBoxButtons.OK,MessageBoxIcon.Error);
                         }
                         else
                         {
-                            MessageBox.Show(
-                                "Wrong Username or Password",
-                                "Wrong Data",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error
-                            );
+                            MessageBox.Show("Wrong Username or Password","Wrong Data",MessageBoxButtons.OK,MessageBoxIcon.Error);
                         }
                     }
                 }
@@ -157,10 +134,12 @@ namespace FitnessTracker
             if (Login_showPassword_checkBox.Checked)
             {
                 login_password.PasswordChar = '\0';
+                Login_showPassword_checkBox.Text = "Hide Password";
             }
             else
             {
                 login_password.PasswordChar = '*';
+                Login_showPassword_checkBox.Text = "Show Password";
             }
         }
     }
