@@ -341,34 +341,56 @@ namespace FitnessTracker
 
         private void FillUserGoalsDGV(string username)
         {
-            db.openConnection();
+            try
+            {
+                //Open the database connection
+                db.openConnection();
 
-            string query = "SELECT username,goal_calories FROM user_goals WHERE username = @username";
-            MySqlCommand command = new MySqlCommand(query, db.getConnection());
-            command.Parameters.AddWithValue("@username", username);
+                string query = "SELECT username,goal_calories FROM user_goals WHERE username = @username";
+                MySqlCommand command = new MySqlCommand(query, db.getConnection());
+                command.Parameters.AddWithValue("@username", username);
 
-            MySqlDataAdapter da = new MySqlDataAdapter(command);
-            DataTable dataTable = new DataTable();
-            da.Fill(dataTable);
-            dataGridView1.DataSource = dataTable;
-
-            db.closeConnection();
+                MySqlDataAdapter da = new MySqlDataAdapter(command);
+                DataTable dataTable = new DataTable();
+                da.Fill(dataTable);
+                dataGridView1.DataSource = dataTable;
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Error on Loading user goals" + ex.Message);
+            }
+            finally
+            {
+                //Close the database connection
+                db.closeConnection();
+            }
         }
 
         private void FillRecordActivities(int userID)
         {
-            db.openConnection();
+            try
+            {
+                //Open the database connection
+                db.openConnection();
 
-            string query = "SELECT user_name,activity,calories_burned FROM record_activities WHERE user_ID = @userID";
-            MySqlCommand command = new MySqlCommand(query, db.getConnection());
-            command.Parameters.AddWithValue("@userID", userID);
+                string query = "SELECT user_name,activity,calories_burned FROM record_activities WHERE user_ID = @userID";
+                MySqlCommand command = new MySqlCommand(query, db.getConnection());
+                command.Parameters.AddWithValue("@userID", userID);
 
-            MySqlDataAdapter dataAdapter = new MySqlDataAdapter(command);
-            DataTable dataTable = new DataTable();
-            dataAdapter.Fill(dataTable);
-            dataGridView2.DataSource = dataTable;
-
-            db.closeConnection();
+                MySqlDataAdapter dataAdapter = new MySqlDataAdapter(command);
+                DataTable dataTable = new DataTable();
+                dataAdapter.Fill(dataTable);
+                dataGridView2.DataSource = dataTable;
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Error on Loading record activities" + ex.Message);
+            }
+            finally
+            {
+                //Close the database connection
+                db.closeConnection();
+            }
         }
 
         public void doRefreshGoals()
@@ -376,18 +398,29 @@ namespace FitnessTracker
             dataGridView1.DataSource = null;
             dataGridView1.Rows.Clear();
 
-            db.openConnection();
-            string query = "SELECT username,goal_calories FROM user_goals WHERE username = @username";
-            MySqlCommand command = new MySqlCommand(query, db.getConnection());
-            command.Parameters.AddWithValue("@username", _name);
+            try
+            {
+                //Open the database connection
+                db.openConnection();
+                string query = "SELECT username,goal_calories FROM user_goals WHERE username = @username";
+                MySqlCommand command = new MySqlCommand(query, db.getConnection());
+                command.Parameters.AddWithValue("@username", _name);
 
-            MySqlDataAdapter adapter = new MySqlDataAdapter(command);
-            DataTable dataTable = new DataTable();
-            adapter.Fill(dataTable);
+                MySqlDataAdapter adapter = new MySqlDataAdapter(command);
+                DataTable dataTable = new DataTable();
+                adapter.Fill(dataTable);
 
-            dataGridView1.DataSource = dataTable;
-
-            db.closeConnection();
+                dataGridView1.DataSource = dataTable;
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Error on Refreshing Goals" + ex.Message);
+            }
+            finally
+            {
+                //Close the database connection
+                db.closeConnection();
+            }
         }
 
         public void doRefreshRecord()
@@ -395,18 +428,29 @@ namespace FitnessTracker
             dataGridView2.DataSource = null;
             dataGridView2.Rows.Clear();
 
-            db.openConnection();
-            string query = "SELECT user_name,activity,calories_burned FROM record_activities WHERE user_ID = @userID";
-            MySqlCommand command = new MySqlCommand(query, db.getConnection());
-            command.Parameters.AddWithValue("@userID", _userId);
+            try
+            {
+                //Open the database connection
+                db.openConnection();
+                string query = "SELECT user_name,activity,calories_burned FROM record_activities WHERE user_ID = @userID";
+                MySqlCommand command = new MySqlCommand(query, db.getConnection());
+                command.Parameters.AddWithValue("@userID", _userId);
 
-            MySqlDataAdapter mySqlDataAdapter = new MySqlDataAdapter(command);
-            DataTable dataTable = new DataTable();
-            mySqlDataAdapter.Fill(dataTable);
+                MySqlDataAdapter mySqlDataAdapter = new MySqlDataAdapter(command);
+                DataTable dataTable = new DataTable();
+                mySqlDataAdapter.Fill(dataTable);
 
-            dataGridView2.DataSource = dataTable;
-
-            db.closeConnection();
+                dataGridView2.DataSource = dataTable;
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Error on refreshing record" + ex.Message);
+            }
+            finally
+            {
+                //Close the database connection
+                db.closeConnection();
+            }
         }
 
         private void ReloadLabels()
