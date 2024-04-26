@@ -24,7 +24,10 @@ namespace FitnessTracker
             InitializeComponent();
         }
 
-        private void Login_Load(object sender, EventArgs e) { }
+        private void Login_Load(object sender, EventArgs e) 
+        {
+            attemptLabel.Text = "";
+        }
 
         //show the Register Form
         private void login_registerHere_Click(object sender, EventArgs e)
@@ -36,71 +39,94 @@ namespace FitnessTracker
 
         private void login_btn_Click(object sender, EventArgs e)
         {
-            connectdb db = new connectdb();
+            string userName = login_username.Text;
+            string password = login_password.Text;
 
-            String username = login_username.Text;
-            String password = login_password.Text;
-
-            DataTable table = new DataTable();
-            MySqlDataAdapter adapter = new MySqlDataAdapter();
-            MySqlCommand command = new MySqlCommand("SELECT * FROM `users` WHERE `username` = @usn", db.getConnection());
-
-            command.Parameters.Add("@usn", MySqlDbType.VarChar).Value = username;
-            //command.Parameters.Add("@pass", MySqlDbType.VarChar).Value = password;
-
-            adapter.SelectCommand = command;
-            adapter.Fill(table);
-
-            //check the user is valid or not
-            if (table.Rows.Count > 0)
+            //Check if username and password are not empty
+            if(string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(password))
             {
-                //Retrieve the hashed password from the database
-                string hashedPasswordFromDatabase = table.Rows[0]["password"].ToString();
+                MessageBox.Show("Please enter information", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
-                //Hash the enter password 
-                PasswordHash passwordHash = new PasswordHash(password);
-                string hashedEnterPassword = passwordHash.HashedPassword;
+            using (connectdb db = new connectdb())
+            {
+                MySqlDataAdapter adapter = new MySqlDataAdapter();
+                DataTable table = new DataTable();
+                MySqlCommand command = new MySqlCommand("SELECT * FROM `users` WHERE `username` = @usn", db.getConnection());
+                command.Parameters.AddWithValue("@usn", userName);
 
-                //Compare the hased password from Login Form with the hased password from the database
-                if(hashedPasswordFromDatabase == hashedEnterPassword)
+                adapter.SelectCommand = command;
+                adapter.Fill(table);
+
+                //Check if user exists
+                if(table.Rows.Count > 0)
                 {
-                    //Retrieve the user'ID from the database
-                    int userId = Convert.ToInt32(table.Rows[0]["id"]);
+                    //Retrieve the hasehd password from the database
+                    string hashedPasswordFromDatabase = table.Rows[0]["password"].ToString();
 
-                    this.Hide();
-                    MainForm mainForm = new MainForm(userId, username); //Pass the Id and name to MainForm
-                    mainForm.Show();
-                }
-                else
-                {
-                    //Increment failed login attempts
-                    failedLoginAttempt++;
+                    //Hash the password entered by the user
+                    PasswordHash passwordHash = new PasswordHash(password);
+                    string hashEnteredPassword = passwordHash.HashedPassword;
 
-                    //Check if maximum failed attempts reached
-                    if (failedLoginAttempt >= 3)
+                    //Compare hashed password from database and entered password
+                    if(hashedPasswordFromDatabase == hashEnteredPassword)
                     {
-                        MessageBox.Show("Maximum failed to login attempt reached","Try again",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                        //Retrieve the user id from the database
+                        int userId = Convert.ToInt32(table.Rows[0]["id"]);
+
+                        //Reset failed login attempts
+                        failedLoginAttempt = 0;
+
+                        //Hide the login form and show the main form
+                        this.Hide();
+                        MainForm mainForm = new MainForm(userId,userName);
+                        mainForm.Show();
                     }
                     else
                     {
-                        if (username.Trim().Equals(""))
-                        {
-                            MessageBox.Show("Enter Your Username to Login","Empty Username",MessageBoxButtons.OK,MessageBoxIcon.Error);
-                        }
-                        else if (password.Trim().Equals(""))
-                        {
-                            MessageBox.Show("Enter Your Password to Login","Empty Password",MessageBoxButtons.OK,MessageBoxIcon.Error);
-                        }
-                        else
-                        {
-                            MessageBox.Show("Wrong Username or Password","Wrong Data",MessageBoxButtons.OK,MessageBoxIcon.Error);
-                        }
+                        HandleFailedLogin("Invalid Username or Password");
                     }
                 }
+                else
+                {
+                    HandleFailedLogin("User does not exists");
+                }
+            }
+        }
+
+        private async void HandleFailedLogin(string message)
+        {
+            //Increment failed login attempts
+            failedLoginAttempt++;
+
+            //Check if maximum failed attempts reached
+            if (failedLoginAttempt >= 3)
+            {
+                //Disable the login button
+                login_btn.Enabled = false;
+
+                //Show message to user
+                MessageBox.Show("Maximum failed to login attempt reached, You need wait 6 seconds", "Try again", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                //Show message on form
+                attemptLabel.Text = "Maximum failed to login attempt reached, You need wait 6 seconds";
+
+                //Wait for 6 seconds
+                await Task.Delay(6000);
+
+                //Re-enable the login button
+                login_btn.Enabled = true;
+
+                //Reset failed login attempts
+                failedLoginAttempt = 0;
+
+                //Clear the message on form
+                attemptLabel.Text = "";
             }
             else
             {
-                MessageBox.Show("User does not exist", "Invalid User", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(message, "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
