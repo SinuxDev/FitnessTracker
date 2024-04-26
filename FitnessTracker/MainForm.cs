@@ -14,8 +14,7 @@ namespace FitnessTracker
 {
     public partial class MainForm : Form
     {
-        static string dbString =
-            "server=localhost;port=3306;uid=root;password=root;database=fitnessapp";
+        static string dbString = "server=localhost;port=3306;uid=root;password=root;database=fitnessapp";
         connectdb db = new connectdb();
         TrackingClass trackingClass = new TrackingClass(dbString);
         private int _userId;
@@ -280,68 +279,71 @@ namespace FitnessTracker
 
         private void DeleteRecordActivity(int rowIndex)
         {
-            // Check if the index is valid
             if (rowIndex >= 0 && rowIndex < dataGridView2.Rows.Count)
             {
-                // Get the user_name, activity, and calories_burned from the selected row
                 string userName = dataGridView2.Rows[rowIndex].Cells["user_name"].Value.ToString();
-                string activity = dataGridView2.Rows[rowIndex].Cells["activity"].Value.ToString();
-                double caloriesBurned = Convert.ToDouble(dataGridView2.Rows[rowIndex].Cells["calories_burned"].Value);
+                string activityName = dataGridView2.Rows[rowIndex].Cells["activity"].Value.ToString();
 
-                DialogResult result = MessageBox.Show("Are you sure you want to delete this record activity?", "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                // If user confirms deletion
-                if (result == DialogResult.Yes)
+                //Check the username and activityname have values
+                if(userName != null && activityName != null)
                 {
-                    // Open a connection to the database
-                    using (MySqlConnection connection = new MySqlConnection(dbString))
+                    double caloriesBurned;
+                    if (double.TryParse(dataGridView2.Rows[rowIndex].Cells["calories_burned"].Value.ToString(), out caloriesBurned))
                     {
-                        try
+                        if(MessageBox.Show("Are you sure want to delete this record?", "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                         {
-                            string query = "DELETE FROM record_activities WHERE user_name = @userName AND activity = @activity AND calories_burned = @caloriesBurned";
-
-                            MySqlCommand cmd = new MySqlCommand(query, connection);
-                            cmd.Parameters.AddWithValue("@userName", userName);
-                            cmd.Parameters.AddWithValue("@activity", activity);
-                            cmd.Parameters.AddWithValue("@caloriesBurned", caloriesBurned);
-
-                            connection.Open();
-                            int rowsAffected = cmd.ExecuteNonQuery();
-
-                            // Check if the deletion was successful
-                            if (rowsAffected > 0)
+                            using(MySqlConnection connection = new MySqlConnection(dbString))
                             {
-                                MessageBox.Show("Record activity deleted successfully!");
-                            }
-                            else
-                            {
-                                MessageBox.Show("Failed to delete record activity.");
+                                try
+                                {
+                                    string query = "DELETE FROM record_activities WHERE user_name = @un AND activity = @an AND calories_burned = @cb";
+                                    MySqlCommand command = new MySqlCommand(query, connection);
+                                    command.Parameters.AddWithValue("@un", userName);
+                                    command.Parameters.AddWithValue("@an", activityName);
+                                    command.Parameters.AddWithValue("@cb", caloriesBurned);
+                                    connection.Open();
+                                    int rowsAffected = command.ExecuteNonQuery();
+
+                                    if (rowsAffected > 0)
+                                    {
+                                        MessageBox.Show("Record deleted successfully!");
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("Failed to delete record.");
+                                    }
+                                }
+                                catch(Exception ex)
+                                {
+                                    MessageBox.Show("Error deleting record: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
+
+                                connection.Close();
+                                doRefreshRecord();
                             }
                         }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("Error deleting record activity: " + ex.Message);
-                        }
-
-                        connection.Close();
-                        doRefreshRecord();
                     }
+                    else
+                    {
+                        MessageBox.Show("Invalid calories values", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Invalid username or activity name", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
             {
-                MessageBox.Show("Invalid row index.");
+                MessageBox.Show("Invalid row index", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
 
         private void FillUserGoalsDGV(string username)
         {
             db.openConnection();
 
-            string query =
-                "SELECT username,goal_calories FROM user_goals WHERE username = @username";
+            string query = "SELECT username,goal_calories FROM user_goals WHERE username = @username";
             MySqlCommand command = new MySqlCommand(query, db.getConnection());
             command.Parameters.AddWithValue("@username", username);
 
@@ -357,8 +359,7 @@ namespace FitnessTracker
         {
             db.openConnection();
 
-            string query =
-                "SELECT user_name,activity,calories_burned FROM record_activities WHERE user_ID = @userID";
+            string query = "SELECT user_name,activity,calories_burned FROM record_activities WHERE user_ID = @userID";
             MySqlCommand command = new MySqlCommand(query, db.getConnection());
             command.Parameters.AddWithValue("@userID", userID);
 
@@ -395,8 +396,7 @@ namespace FitnessTracker
             dataGridView2.Rows.Clear();
 
             db.openConnection();
-            string query =
-                "SELECT user_name,activity,calories_burned FROM record_activities WHERE user_ID = @userID";
+            string query = "SELECT user_name,activity,calories_burned FROM record_activities WHERE user_ID = @userID";
             MySqlCommand command = new MySqlCommand(query, db.getConnection());
             command.Parameters.AddWithValue("@userID", _userId);
 
@@ -441,12 +441,7 @@ namespace FitnessTracker
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error reloading the labels : " + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Error reloading the labels : " + ex.Message,"Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
             }
         }
 
