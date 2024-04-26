@@ -7,7 +7,7 @@ using MySql.Data.MySqlClient;
 
 namespace FitnessTracker
 {
-    public class connectdb
+    public class connectdb :IDisposable
     {
         private MySqlConnection connection = new MySqlConnection(
             "server=localhost;port=3306;uid=root;password=root;database=fitnessapp"
@@ -35,6 +35,25 @@ namespace FitnessTracker
         public MySqlConnection getConnection()
         {
             return connection;
+        }
+
+        // Implement IDisposable interface
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (connection != null)
+                {
+                    connection.Dispose();
+                    connection = null;
+                }
+            }
         }
     }
 }
