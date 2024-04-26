@@ -142,6 +142,7 @@
             this.reg_confirmPassword.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.reg_confirmPassword.Location = new System.Drawing.Point(142, 534);
             this.reg_confirmPassword.Name = "reg_confirmPassword";
+            this.reg_confirmPassword.PasswordChar = '*';
             this.reg_confirmPassword.Size = new System.Drawing.Size(477, 27);
             this.reg_confirmPassword.TabIndex = 24;
             // 
@@ -151,6 +152,7 @@
             this.reg_password.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.reg_password.Location = new System.Drawing.Point(142, 442);
             this.reg_password.Name = "reg_password";
+            this.reg_password.PasswordChar = '*';
             this.reg_password.Size = new System.Drawing.Size(477, 27);
             this.reg_password.TabIndex = 23;
             // 
