@@ -20,6 +20,11 @@ namespace FitnessTracker
         connectdb db = new connectdb();
         TrackingClass trackingClass = new TrackingClass(dbString);
 
+        //Form move
+        int mov;
+        int movX;
+        int movY;
+
         public ResultChart(string username, int userID)
         {
             InitializeComponent();
@@ -108,6 +113,32 @@ namespace FitnessTracker
             this.Hide();
             MainForm mainForm = new MainForm(userID, username);
             mainForm.Show();
+        }
+
+        
+        private void label3_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void panel1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (mov == 1)
+            {
+                this.SetDesktopLocation(MousePosition.X - movX, MousePosition.Y - movY);
+            }
+        }
+
+        private void panel1_MouseUp(object sender, MouseEventArgs e)
+        {
+            mov = 0;
+        }
+
+        private void panel1_MouseDown(object sender, MouseEventArgs e)
+        {
+            mov = 1;
+            movX = e.X;
+            movY = e.Y;
         }
     }
 }

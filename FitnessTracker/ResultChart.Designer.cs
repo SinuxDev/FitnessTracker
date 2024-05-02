@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -38,22 +38,25 @@
             this.totalBurned_txt = new System.Windows.Forms.Label();
             this.moti_label = new System.Windows.Forms.Label();
             this.toBackBtn = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // chart1
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(59, 78);
+            chartArea6.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea6);
+            legend6.Name = "Legend1";
+            this.chart1.Legends.Add(legend6);
+            this.chart1.Location = new System.Drawing.Point(104, 116);
             this.chart1.Name = "chart1";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StackedColumn;
-            series1.Legend = "Legend1";
-            series1.Name = "Calories";
-            this.chart1.Series.Add(series1);
+            series6.ChartArea = "ChartArea1";
+            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StackedColumn;
+            series6.Legend = "Legend1";
+            series6.Name = "Calories";
+            this.chart1.Series.Add(series6);
             this.chart1.Size = new System.Drawing.Size(793, 469);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
@@ -62,7 +65,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(966, 192);
+            this.label1.Location = new System.Drawing.Point(1011, 230);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(234, 25);
             this.label1.TabIndex = 1;
@@ -72,7 +75,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(966, 312);
+            this.label2.Location = new System.Drawing.Point(1011, 350);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(263, 25);
             this.label2.TabIndex = 2;
@@ -82,7 +85,7 @@
             // 
             this.lastCal_txt.AutoSize = true;
             this.lastCal_txt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lastCal_txt.Location = new System.Drawing.Point(1266, 192);
+            this.lastCal_txt.Location = new System.Drawing.Point(1311, 230);
             this.lastCal_txt.Name = "lastCal_txt";
             this.lastCal_txt.Size = new System.Drawing.Size(121, 25);
             this.lastCal_txt.TabIndex = 3;
@@ -92,7 +95,7 @@
             // 
             this.totalBurned_txt.AutoSize = true;
             this.totalBurned_txt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.totalBurned_txt.Location = new System.Drawing.Point(1266, 312);
+            this.totalBurned_txt.Location = new System.Drawing.Point(1311, 350);
             this.totalBurned_txt.Name = "totalBurned_txt";
             this.totalBurned_txt.Size = new System.Drawing.Size(152, 25);
             this.totalBurned_txt.TabIndex = 4;
@@ -102,7 +105,7 @@
             // 
             this.moti_label.AutoSize = true;
             this.moti_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.moti_label.Location = new System.Drawing.Point(966, 78);
+            this.moti_label.Location = new System.Drawing.Point(978, 116);
             this.moti_label.Name = "moti_label";
             this.moti_label.Size = new System.Drawing.Size(174, 25);
             this.moti_label.TabIndex = 5;
@@ -111,7 +114,7 @@
             // toBackBtn
             // 
             this.toBackBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toBackBtn.Location = new System.Drawing.Point(971, 519);
+            this.toBackBtn.Location = new System.Drawing.Point(1016, 557);
             this.toBackBtn.Name = "toBackBtn";
             this.toBackBtn.Size = new System.Drawing.Size(254, 60);
             this.toBackBtn.TabIndex = 7;
@@ -119,11 +122,36 @@
             this.toBackBtn.UseVisualStyleBackColor = true;
             this.toBackBtn.Click += new System.EventHandler(this.toBackBtn_Click);
             // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1630, 57);
+            this.panel1.TabIndex = 27;
+            this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown);
+            this.panel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseMove);
+            this.panel1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseUp);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(1579, 9);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(36, 36);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "X";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
+            // 
             // ResultChart
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1730, 657);
+            this.ClientSize = new System.Drawing.Size(1627, 699);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.toBackBtn);
             this.Controls.Add(this.moti_label);
             this.Controls.Add(this.totalBurned_txt);
@@ -131,10 +159,14 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.chart1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "ResultChart";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ResultChart";
             this.Load += new System.EventHandler(this.ResultChart_Load);
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -149,5 +181,7 @@
         private System.Windows.Forms.Label totalBurned_txt;
         private System.Windows.Forms.Label moti_label;
         private System.Windows.Forms.Button toBackBtn;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label3;
     }
 }
