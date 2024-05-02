@@ -56,6 +56,12 @@ namespace FitnessTracker
 
         private void Result_Btn_Click(object sender, EventArgs e)
         {
+            if(trackingClass.GetTotalCaloriesBurned(_name) == 0)
+            {
+                MessageBox.Show("You have not recorded any activities yet. Please record some activities first.");
+                return;
+            }
+
             this.Hide();
             ResultChart resultChart = new ResultChart(_name,_userId);
             resultChart.Show();
