@@ -16,11 +16,7 @@ namespace FitnessTracker
             _connectionString = connectionString;
         }
 
-        public void RecordActiviyAndCalculateCalories(
-            int userID,
-            string userName,
-            CaloriesCalClass calories
-        )
+        public void RecordActiviyAndCalculateCalories(int userID,string userName,CaloriesCalClass calories)
         {
             double caloriesBurned = calories.CalculateCaloriesBurned();
             int goalCalories = GetFitnessGoal(userName);
@@ -55,17 +51,11 @@ namespace FitnessTracker
             return goalCalories;
         }
 
-        private void RecordActivity(
-            int userID,
-            string userName,
-            string activityName,
-            double caloriesBurned
-        )
+        private void RecordActivity(int userID,string userName,string activityName,double caloriesBurned)
         {
             using (var connection = new MySqlConnection(_connectionString))
             {
-                string query =
-                    "INSERT INTO record_activities (user_ID, user_name, activity, calories_burned) VALUES (@userID, @username, @activity, @caloriesBurned)";
+                string query = "INSERT INTO record_activities (user_ID, user_name, activity, calories_burned) VALUES (@userID, @username, @activity, @caloriesBurned)";
                 using (var command = new MySqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@userID", userID);
@@ -101,8 +91,7 @@ namespace FitnessTracker
             using (var connection = new MySqlConnection(_connectionString))
             {
                 connection.Open();
-                string query =
-                    "SELECT SUM(calories_burned) AS total_calories_burned FROM record_activities WHERE user_name = @username";
+                string query = "SELECT SUM(calories_burned) AS total_calories_burned FROM record_activities WHERE user_name = @username";
                 using (var command = new MySqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@username", username);
@@ -126,8 +115,7 @@ namespace FitnessTracker
             using (var connection = new MySqlConnection(_connectionString))
             {
                 connection.Open();
-                string query =
-                    "SELECT goal_calories FROM user_goals WHERE username = @username ORDER BY created_at DESC LIMIT 1";
+                string query = "SELECT goal_calories FROM user_goals WHERE username = @username ORDER BY created_at DESC LIMIT 1";
                 using (var command = new MySqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@username", username);
