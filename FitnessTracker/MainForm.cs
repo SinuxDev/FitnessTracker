@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using static Mysqlx.Datatypes.Scalar.Types;
 
 namespace FitnessTracker
@@ -17,6 +18,7 @@ namespace FitnessTracker
         static string dbString = "server=localhost;port=3306;uid=root;password=root;database=fitnessapp";
         connectdb db = new connectdb();
         TrackingClass trackingClass = new TrackingClass(dbString);
+
         private int _userId;
         private string _name;
 
@@ -50,32 +52,13 @@ namespace FitnessTracker
             FillRecordActivities(_userId);
             doRefreshGoals();
             doRefreshRecord();
+        }
 
-            int totalCaloriesBurned = trackingClass.GetTotalCaloriesBurned(_name);
-            calories_label.Text = totalCaloriesBurned.ToString();
-
-            int GoalCalories = trackingClass.GetUserGoalCalories(_name);
-            goal_calorieslabel.Text = GoalCalories.ToString();
-
-            if (GoalCalories < totalCaloriesBurned)
-            {
-                Motivation_Label.Text = "Keep up the Great Work! You've Hit Your Calorie Target!";
-            }
-            else if (GoalCalories == 0 && totalCaloriesBurned == 0)
-            {
-                Motivation_Label.Text = "Come on let's do it ! Now set your goals";
-            }
-            else
-            {
-                if (totalCaloriesBurned <= 0)
-                {
-                    Motivation_Label.Text = "Do Exercise and achieve your goals";
-                }
-                else
-                {
-                    Motivation_Label.Text = "Stay Focused! You're Closer to Your Goal Than You Think!";
-                }
-            }
+        private void Result_Btn_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            ResultChart resultChart = new ResultChart(_name,_userId);
+            resultChart.Show();
         }
 
         private void CaloriesCal_Btn_Click(object sender, EventArgs e)
@@ -177,11 +160,6 @@ namespace FitnessTracker
                 MessageBox.Show("Invalid calories format. Please enter a valid number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             setGoals_textbox.Text = "";
-        }
-
-        private void refresh_btn_Click(object sender, EventArgs e)
-        {
-            ReloadLabels();
         }
 
         private void Delete_acti_record_btn_Click(object sender, EventArgs e)
@@ -453,42 +431,6 @@ namespace FitnessTracker
             }
         }
 
-        private void ReloadLabels()
-        {
-            try
-            {
-                int totalCaloriesBurned = trackingClass.GetTotalCaloriesBurned(_name);
-                calories_label.Text = totalCaloriesBurned.ToString();
-
-                int GoalCalories = trackingClass.GetUserGoalCalories(_name);
-                goal_calorieslabel.Text = GoalCalories.ToString();
-
-                if (GoalCalories < totalCaloriesBurned)
-                {
-                    Motivation_Label.Text = "Keep up the Great Work! You've Hit Your Calorie Target!";
-                }
-                else if (GoalCalories == 0 && totalCaloriesBurned == 0)
-                {
-                    Motivation_Label.Text = "Come on let's do it ! Now set your goals";
-                }
-                else
-                {
-                    if (totalCaloriesBurned <= 0)
-                    {
-                        Motivation_Label.Text = "Do Exercise and achieve your goals";
-                    }
-                    else
-                    {
-                        Motivation_Label.Text = "Stay Focused! You're Closer to Your Goal Than You Think!";
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error reloading the labels : " + ex.Message,"Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
-            }
-        }
-
         private void panel1_MouseDown(object sender, MouseEventArgs e)
         {
             mov = 1;
@@ -520,5 +462,6 @@ namespace FitnessTracker
         {
 
         }
+
     }
 }
