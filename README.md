@@ -1,6 +1,6 @@
 # Fitness Tracker App
 
-This Fitness Tracker App is a school project created by a web developer who studied with desktop application development. Despite my primary role as a web developer, I worked constantly to ensure the project's accomplishment.
+This Fitness Tracker App is a school project created by a web developer who studied desktop application development. Despite my primary role as a web developer, I worked constantly to ensure the project's accomplishment.
 
 ## Description
 
@@ -21,9 +21,9 @@ The Fitness Tracker allows users to register and log in, record fitness activiti
 
 ## Usage
 
-To run the Fitness Tracker App, simply open the solution file in Visual Studio and build/run the project. Make sure to have MySQL installed and configured for database functionality.
+To run the Fitness Tracker App, simply open the solution file in Visual Studio and build or run the project. Make sure to have MySQL installed and configured for database functionality.
 
 ## Credits
 
-This project was developed by Aung Ye Htet as part of KBTC School Of IT's coursework.
+Aung Ye Htet developed this project as an assignment for the coursework at the KBTC School of IT.
 
