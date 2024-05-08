@@ -72,13 +72,14 @@ namespace FitnessTracker
 
                             if (hashedPasswordFromDatabase == hashedInputPassword)
                             {
-                                int userId = Convert.ToInt32(table.Rows[0]["id"]);
+                                int userId = Convert.ToInt32(table.Rows[0]["id"]); //Get the user id
+                                string email = table.Rows[0]["emailaddress"].ToString(); //Get the email
                                 failedLoginAttempt = 0;
 
                                 //Show the main form
                                 this.Hide();
-                                MainForm mainForm = new MainForm(userId,userName);
-                                mainForm.Show();
+                                ResultChart resultChart = new ResultChart(userName, userId, email);
+                                resultChart.Show();
                             }
                             else
                             {

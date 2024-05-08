@@ -21,19 +21,21 @@ namespace FitnessTracker
 
         private int _userId;
         private string _name;
+        private string _email;
 
         //Form move
         int mov;
         int movX;
         int movY;
 
-        public MainForm(int userId, string username)
+        public MainForm(int userId, string username, string email)
         {
             InitializeComponent();
 
             //Store the userId for later use
             _userId = userId;
             _name = username;
+            _email = email;
         }
 
         public int GetUserId()
@@ -63,7 +65,7 @@ namespace FitnessTracker
             }
 
             this.Hide();
-            ResultChart resultChart = new ResultChart(_name,_userId);
+            ResultChart resultChart = new ResultChart(_name,_userId,_email);
             resultChart.Show();
         }
 
