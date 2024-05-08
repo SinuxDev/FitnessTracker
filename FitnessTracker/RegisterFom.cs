@@ -194,9 +194,9 @@ namespace FitnessTracker
         //Check if the emails is already exitst or not 
         public Boolean checkEmailExits()
         {
+            string email = reg_email.Text;
             using (connectdb db = new connectdb())
             {
-                string email = reg_email.Text;
                 MySqlCommand cmd = new MySqlCommand("SELECT * FROM `users` WHERE `emailaddress` = @em", db.getConnection());
                 cmd.Parameters.AddWithValue("@em", email);
 
@@ -206,8 +206,10 @@ namespace FitnessTracker
                     int count = Convert.ToInt32(cmd.ExecuteScalar());
                     return count > 0;
                 }
-                catch (Exception)
+                catch (MySqlException ex)
                 {
+                    //Handle specific database connection error 
+                    MessageBox.Show("Error on checking email : " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return true; // Assume the email exists
                 }
                 finally
@@ -220,32 +222,18 @@ namespace FitnessTracker
         // Check the email format
         public Boolean checkEmailFormat()
         {
-            String email = reg_email.Text;
-            if(!email.Contains("@") || !email.Contains("."))
+            string email = reg_email.Text;
+
+            //Define regular expression for email format
+            string pattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
+
+            //Use Regex.Match method to check if the email format is valid
+            if (!Regex.IsMatch(email, pattern))
             {
-                return false;
+                return false; // Invalid email format
             }
 
-            //check the '@' symbol in email address 
-            int atPosition = email.IndexOf("@");
-            if(atPosition < 1)
-            {
-                return false;
-            }
-
-            if(atPosition != email.LastIndexOf("@"))
-            {
-                return false;
-            }
-
-            //check the '.' symbol in email address
-            string domainPart = email.Substring(atPosition + 1);
-            if (!domainPart.Contains("."))
-            {
-                return false;
-            }
-
-            return true;
+            return true; // Valid email format
         }
 
         //check if the textboxes has values
