@@ -108,11 +108,11 @@
             this.label4.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.label4.Location = new System.Drawing.Point(127, 513);
+            this.label4.Location = new System.Drawing.Point(151, 513);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(269, 29);
+            this.label4.Size = new System.Drawing.Size(212, 29);
             this.label4.TabIndex = 7;
-            this.label4.Text = "Don\'t have an account ? ";
+            this.label4.Text = "Are you new here?";
             // 
             // login_registerHere
             // 

@@ -53,7 +53,7 @@
             // reg_registerBtn
             // 
             this.reg_registerBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.reg_registerBtn.Location = new System.Drawing.Point(244, 618);
+            this.reg_registerBtn.Location = new System.Drawing.Point(246, 626);
             this.reg_registerBtn.Margin = new System.Windows.Forms.Padding(4);
             this.reg_registerBtn.Name = "reg_registerBtn";
             this.reg_registerBtn.Size = new System.Drawing.Size(222, 54);
@@ -67,12 +67,12 @@
             this.reg_loginHere.AutoSize = true;
             this.reg_loginHere.Cursor = System.Windows.Forms.Cursors.Hand;
             this.reg_loginHere.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.reg_loginHere.Location = new System.Drawing.Point(441, 702);
+            this.reg_loginHere.Location = new System.Drawing.Point(436, 711);
             this.reg_loginHere.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.reg_loginHere.Name = "reg_loginHere";
-            this.reg_loginHere.Size = new System.Drawing.Size(107, 25);
+            this.reg_loginHere.Size = new System.Drawing.Size(184, 25);
             this.reg_loginHere.TabIndex = 14;
-            this.reg_loginHere.Text = "Login Here";
+            this.reg_loginHere.Text = "Click Here To Login";
             this.reg_loginHere.Click += new System.EventHandler(this.reg_loginHere_Click);
             // 
             // label4
@@ -80,8 +80,8 @@
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.label4.Location = new System.Drawing.Point(138, 702);
+            this.label4.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label4.Location = new System.Drawing.Point(137, 711);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(249, 25);
@@ -174,7 +174,7 @@
             this.panel1.Controls.Add(this.reg_closeLabelClick);
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(750, 53);
+            this.panel1.Size = new System.Drawing.Size(750, 45);
             this.panel1.TabIndex = 202;
             this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown);
             this.panel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseMove);
@@ -255,7 +255,7 @@
             // Reg_showPassword_CheckBox
             // 
             this.Reg_showPassword_CheckBox.AutoSize = true;
-            this.Reg_showPassword_CheckBox.Location = new System.Drawing.Point(469, 587);
+            this.Reg_showPassword_CheckBox.Location = new System.Drawing.Point(468, 586);
             this.Reg_showPassword_CheckBox.Name = "Reg_showPassword_CheckBox";
             this.Reg_showPassword_CheckBox.Size = new System.Drawing.Size(151, 24);
             this.Reg_showPassword_CheckBox.TabIndex = 209;
@@ -268,7 +268,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(750, 766);
+            this.ClientSize = new System.Drawing.Size(750, 779);
             this.Controls.Add(this.Reg_showPassword_CheckBox);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
