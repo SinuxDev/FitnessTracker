@@ -121,6 +121,7 @@ namespace FitnessTracker
             return true;
         }
 
+        //Hash the password and save the user into the database
         private void HashAndSaveUser(string firstname, string lastName, string email, string userName, string password)
         {
             //Hash the password
@@ -157,6 +158,7 @@ namespace FitnessTracker
             reg_confirmPassword.Text = "";
         }
 
+        //Switch to the login page
         private void SwitchToLoginPage()
         {
             login.Show();
