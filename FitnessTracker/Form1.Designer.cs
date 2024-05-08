@@ -58,7 +58,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(196, 146);
+            this.label2.Location = new System.Drawing.Point(192, 168);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(105, 25);
             this.label2.TabIndex = 1;
@@ -68,7 +68,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(196, 215);
+            this.label3.Location = new System.Drawing.Point(192, 237);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(98, 25);
             this.label3.TabIndex = 2;
@@ -77,7 +77,7 @@
             // login_username
             // 
             this.login_username.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.login_username.Location = new System.Drawing.Point(361, 147);
+            this.login_username.Location = new System.Drawing.Point(357, 169);
             this.login_username.Name = "login_username";
             this.login_username.Size = new System.Drawing.Size(227, 27);
             this.login_username.TabIndex = 3;
@@ -85,7 +85,7 @@
             // login_password
             // 
             this.login_password.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.login_password.Location = new System.Drawing.Point(361, 213);
+            this.login_password.Location = new System.Drawing.Point(357, 235);
             this.login_password.Name = "login_password";
             this.login_password.PasswordChar = '*';
             this.login_password.Size = new System.Drawing.Size(227, 27);
@@ -94,7 +94,7 @@
             // login_btn
             // 
             this.login_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.login_btn.Location = new System.Drawing.Point(361, 345);
+            this.login_btn.Location = new System.Drawing.Point(357, 367);
             this.login_btn.Name = "login_btn";
             this.login_btn.Size = new System.Drawing.Size(131, 55);
             this.login_btn.TabIndex = 5;
@@ -108,7 +108,7 @@
             this.label4.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.label4.Location = new System.Drawing.Point(151, 513);
+            this.label4.Location = new System.Drawing.Point(146, 537);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(212, 29);
             this.label4.TabIndex = 7;
@@ -118,12 +118,12 @@
             // 
             this.login_registerHere.AutoSize = true;
             this.login_registerHere.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.login_registerHere.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.login_registerHere.Location = new System.Drawing.Point(476, 513);
+            this.login_registerHere.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.login_registerHere.Location = new System.Drawing.Point(455, 537);
             this.login_registerHere.Name = "login_registerHere";
-            this.login_registerHere.Size = new System.Drawing.Size(163, 29);
+            this.login_registerHere.Size = new System.Drawing.Size(258, 29);
             this.login_registerHere.TabIndex = 8;
-            this.login_registerHere.Text = "Register Here";
+            this.login_registerHere.Text = "Click Here To Register";
             this.login_registerHere.Click += new System.EventHandler(this.login_registerHere_Click);
             // 
             // login_closeLableClick
@@ -154,7 +154,7 @@
             // 
             this.Login_showPassword_checkBox.AutoSize = true;
             this.Login_showPassword_checkBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Login_showPassword_checkBox.Location = new System.Drawing.Point(441, 272);
+            this.Login_showPassword_checkBox.Location = new System.Drawing.Point(437, 294);
             this.Login_showPassword_checkBox.Name = "Login_showPassword_checkBox";
             this.Login_showPassword_checkBox.Size = new System.Drawing.Size(156, 26);
             this.Login_showPassword_checkBox.TabIndex = 11;
@@ -167,7 +167,7 @@
             this.attemptLabel.AutoSize = true;
             this.attemptLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.attemptLabel.ForeColor = System.Drawing.Color.Red;
-            this.attemptLabel.Location = new System.Drawing.Point(111, 444);
+            this.attemptLabel.Location = new System.Drawing.Point(111, 466);
             this.attemptLabel.Name = "attemptLabel";
             this.attemptLabel.Size = new System.Drawing.Size(148, 22);
             this.attemptLabel.TabIndex = 12;
@@ -178,7 +178,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(836, 602);
+            this.ClientSize = new System.Drawing.Size(836, 619);
             this.Controls.Add(this.attemptLabel);
             this.Controls.Add(this.Login_showPassword_checkBox);
             this.Controls.Add(this.panel1);

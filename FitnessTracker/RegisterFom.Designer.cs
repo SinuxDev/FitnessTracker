@@ -66,7 +66,7 @@
             // 
             this.reg_loginHere.AutoSize = true;
             this.reg_loginHere.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.reg_loginHere.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.reg_loginHere.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.reg_loginHere.Location = new System.Drawing.Point(436, 711);
             this.reg_loginHere.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.reg_loginHere.Name = "reg_loginHere";
