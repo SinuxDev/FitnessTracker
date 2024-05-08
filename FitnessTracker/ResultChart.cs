@@ -92,6 +92,9 @@ namespace FitnessTracker
 
                     using (var reader = command.ExecuteReader())
                     {
+
+                        bool dataAdded = false; //Check if data is added to the chart
+
                         while (reader.Read())
                         {
                             string activity = reader["activity"].ToString();
@@ -99,11 +102,23 @@ namespace FitnessTracker
 
                             //Add data to chart
                             chart1.Series["Calories"].Points.AddXY(activity, caloriesBurned);
+                            dataAdded = true;
+                        }
+
+                        //Add a title to the chart
+                        chart1.Titles.Add("Calories Burned By Activity");
+                        chart1.Titles[0].ForeColor = Color.Red;
+                        chart1.Titles[0].Font = new Font("Arial", 16, FontStyle.Bold);
+
+                        if (!dataAdded)
+                        {
+                            //Show a placeholder message on the chart
+                            chart1.Titles.Add("No Data Available");
+                            chart1.Titles[0].Alignment = ContentAlignment.MiddleCenter;
+                            chart1.Titles[0].ForeColor = Color.Red;
+                            chart1.Titles[0].Font = new Font("Arial", 14, FontStyle.Bold);
                         }
                     }
-
-                    //Add a title to the chart
-                    chart1.Titles.Add("Calories Burned By Activity");
                 }
             }
             catch(Exception ex)
