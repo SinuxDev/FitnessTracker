@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
+using System.Text.RegularExpressions;
 
 namespace FitnessTracker
 {
@@ -178,15 +179,16 @@ namespace FitnessTracker
         {
             String userNameInput= reg_userName.Text;
 
-            foreach(char c in userNameInput)
+            //Define regular expression 
+            string pattern = @"^[a-zA-Z0-9]+$";
+
+            //Use Regex.Match method to check if the username contains special characters
+            if (!Regex.IsMatch(userNameInput, pattern))
             {
-                if(!char.IsLetterOrDigit(c))
-                {
-                    return false;
-                }
+                return false; // Sepecial characters found
             }
 
-            return true;
+            return true; // No special characters
         }
 
         //Check if the emails is already exitst or not 
