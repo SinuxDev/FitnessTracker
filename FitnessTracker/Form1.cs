@@ -14,6 +14,8 @@ namespace FitnessTracker
     public partial class Login : Form
     {
         private int failedLoginAttempt = 0;
+        private const int MaxFailedLoginAttempt = 3;
+        private const int DelayTimeMilliseconds = 6000;
 
         //Form move
         int mov;
@@ -43,7 +45,7 @@ namespace FitnessTracker
             string password = login_password.Text;
 
             //Check if username and password are not empty
-            if(string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(password))
+            if(!IsInputValid(userName,password))
             {
                 MessageBox.Show("Please enter information", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -51,48 +53,51 @@ namespace FitnessTracker
 
             using (connectdb db = new connectdb())
             {
-                MySqlDataAdapter adapter = new MySqlDataAdapter();
-                DataTable table = new DataTable();
-                MySqlCommand command = new MySqlCommand("SELECT * FROM `users` WHERE `username` = @usn", db.getConnection());
-                command.Parameters.AddWithValue("@usn", userName);
-
-                adapter.SelectCommand = command;
-                adapter.Fill(table);
-
-                //Check if user exists
-                if(table.Rows.Count > 0)
+                using (MySqlCommand command = new MySqlCommand("SELECT * FROM `users` WHERE `username` = @usn", db.getConnection()))
                 {
-                    //Retrieve the hasehd password from the database
-                    string hashedPasswordFromDatabase = table.Rows[0]["password"].ToString();
+                    command.Parameters.AddWithValue("@usn", userName);
 
-                    //Hash the password entered by the user
-                    PasswordHash passwordHash = new PasswordHash(password);
-                    string hashEnteredPassword = passwordHash.HashedPassword;
-
-                    //Compare hashed password from database and entered password
-                    if(hashedPasswordFromDatabase == hashEnteredPassword)
+                    //Open the connection
+                    using (MySqlDataAdapter adapter = new MySqlDataAdapter(command))
                     {
-                        //Retrieve the user id from the database
-                        int userId = Convert.ToInt32(table.Rows[0]["id"]);
+                        DataTable table = new DataTable();
+                        adapter.Fill(table);
 
-                        //Reset failed login attempts
-                        failedLoginAttempt = 0;
+                        //Check if username exists
+                        if(table.Rows.Count > 0)
+                        {
+                            string hashedPasswordFromDatabase = table.Rows[0]["password"].ToString(); //Get the hashed password from database
+                            PasswordHash passwordHash = new PasswordHash(password); //Hash the input password
+                            string hashedInputPassword = passwordHash.HashedPassword; //Get the hashed input password
 
-                        //Hide the login form and show the main form
-                        this.Hide();
-                        MainForm mainForm = new MainForm(userId,userName);
-                        mainForm.Show();
+                            if (hashedPasswordFromDatabase == hashedInputPassword)
+                            {
+                                int userId = Convert.ToInt32(table.Rows[0]["id"]);
+                                failedLoginAttempt = 0;
+
+                                //Show the main form
+                                this.Hide();
+                                MainForm mainForm = new MainForm(userId,userName);
+                                mainForm.Show();
+                            }
+                            else
+                            {
+                                HandleFailedLogin("Invalid Useranme or Password");
+                            }
+                        }
+                        else
+                        {
+                            HandleFailedLogin("User does not exist");
+                        }
                     }
-                    else
-                    {
-                        HandleFailedLogin("Invalid Username or Password");
-                    }
-                }
-                else
-                {
-                    HandleFailedLogin("User does not exists");
                 }
             }
+        }
+
+        //Check if username and password are not empty
+        private bool IsInputValid(string userName, string password)
+        {
+            return !string.IsNullOrEmpty(userName) && !string.IsNullOrEmpty(password);
         }
 
         private async void HandleFailedLogin(string message)
@@ -101,19 +106,20 @@ namespace FitnessTracker
             failedLoginAttempt++;
 
             //Check if maximum failed attempts reached
-            if (failedLoginAttempt >= 3)
+            if (failedLoginAttempt >= MaxFailedLoginAttempt)
             {
                 //Disable the login button
                 login_btn.Enabled = false;
 
                 //Show message to user
-                MessageBox.Show("Maximum failed to login attempt reached, You need wait 6 seconds", "Try again", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                string warningMessage = "Maximum failed to login attempt reached, You need to wait 6 seconds";
+                showErrorMessage(warningMessage);
 
                 //Show message on form
-                attemptLabel.Text = "Maximum failed to login attempt reached, You need wait 6 seconds";
+                attemptLabel.Text = warningMessage;
 
                 //Wait for 6 seconds
-                await Task.Delay(6000);
+                await Task.Delay(DelayTimeMilliseconds);
 
                 //Re-enable the login button
                 login_btn.Enabled = true;
@@ -126,20 +132,29 @@ namespace FitnessTracker
             }
             else
             {
-                MessageBox.Show(message, "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                showErrorMessage(message);
             }
         }
 
+        //Show error message
+        private void showErrorMessage(string message)
+        {
+            MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        //Close the application
         private void login_closeLableClick_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
+        //Move the form
         private void panel1_MouseUp(object sender, MouseEventArgs e)
         {
             mov = 0;
         }
 
+        //Move the form
         private void panel1_MouseDown(object sender, MouseEventArgs e)
         {
             mov = 1;
@@ -147,6 +162,7 @@ namespace FitnessTracker
             movY = e.Y;
         }
 
+        //Move the form
         private void panel1_MouseMove(object sender, MouseEventArgs e)
         {
             if (mov == 1)
@@ -155,6 +171,7 @@ namespace FitnessTracker
             }
         }
 
+        //Show or hide the password
         private void Login_showPassword_checkBox_CheckedChanged(object sender, EventArgs e)
         {
             if (Login_showPassword_checkBox.Checked)
