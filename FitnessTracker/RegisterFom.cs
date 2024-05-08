@@ -42,106 +42,125 @@ namespace FitnessTracker
         //For SignUp button to register account
         private void reg_registerBtn_Click(object sender, EventArgs e)
         {
+            if(!ValiateInput())
+            {
+                return;
+            }
+
             string firstName = reg_firstName.Text;
             string lastName = reg_lastName.Text;
             string email = reg_email.Text;
             string userName = reg_userName.Text;
             string password = reg_password.Text;
 
+            try
+            {
+                HashAndSaveUser(firstName, lastName, email, userName, password);
+                MessageBox.Show("Your Account Has Been Created", "Account Created", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                ClearInputFileds();
+                SwitchToLoginPage();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("User Creating Error : " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private bool ValiateInput()
+        {
             //Check if all the textboxes has values
             if (checkTextBoxesValues())
             {
                 MessageBox.Show("Enter your information first", "Empty Data", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                return false;
             }
 
             //Check if the password meet the requirement
             if (!ValidatePassword())
             {
                 MessageBox.Show("Password must be 12 characters long and contain at least one uppercase and one lowercase letter", "Invalid Password", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                return false ;
             }
 
             //Check if the password and confirm password match
             if (reg_password.Text != reg_confirmPassword.Text)
             {
                 MessageBox.Show("Passwords do not match", "Password Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                return false;
             }
 
             //Check if the username containes special characters
             if (!checkUsernameSpecialChar())
             {
                 MessageBox.Show("Username can only contain letters and numbers", "Invalid Username", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                return false;
             }
 
             //Check if the username already exists
             if (checkUsername())
             {
                 MessageBox.Show("This Username Already Exists, Select A Different One", "Duplicate Username", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                return false;
             }
 
             //Check if the email format is valid
             if (!checkEmailFormat())
             {
                 MessageBox.Show("Invalid Email Format", "Invalid Email", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                return false;
             }
 
             //Check if the email already exists
             if (checkEmailExits())
             {
                 MessageBox.Show("This Email Already Exists, Select A Different One", "Duplicate Email", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                return false;
             }
 
+            return true;
+        }
+
+        private void HashAndSaveUser(string firstname, string lastName, string email, string userName, string password)
+        {
             //Hash the password
             PasswordHash passwordHash = new PasswordHash(password);
             string hashedPassword = passwordHash.HashedPassword;
 
             //Add new user into the database
-            using(connectdb db = new connectdb())
+            using (connectdb db = new connectdb())
             {
                 MySqlCommand cmd = new MySqlCommand("INSERT INTO `users`(`firstname`, `lastname`, `emailaddress`, `username`, `password`) VALUES (@fn, @ln, @em, @un, @pass)", db.getConnection());
-                cmd.Parameters.AddWithValue("@fn", firstName);
+                cmd.Parameters.AddWithValue("@fn", firstname);
                 cmd.Parameters.AddWithValue("@ln", lastName);
                 cmd.Parameters.AddWithValue("@em", email);
                 cmd.Parameters.AddWithValue("@un", userName);
                 cmd.Parameters.AddWithValue("@pass", hashedPassword);
 
-                try
-                {
-                    db.openConnection();
-                    if(cmd.ExecuteNonQuery() == 1)
-                    {
-                        MessageBox.Show("Your account has been created!!", "Account Created", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                db.openConnection();
 
-                        reg_firstName.Text = "";
-                        reg_lastName.Text = "";
-                        reg_email.Text = "";
-                        reg_userName.Text = "";
-                        reg_password.Text = "";
-                        reg_confirmPassword.Text = "";
-
-                        login.Show();
-                        this.Hide();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Failed to create your account", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-                catch(Exception ex)
+                if(cmd.ExecuteNonQuery() != 1)
                 {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                finally
-                {
-                    db.closeConnection();
+                    throw new Exception("Failed to create your account");
                 }
             }
+        }
+
+        //Clear the input fields
+        private void ClearInputFileds()
+        {
+            reg_firstName.Text = "";
+            reg_lastName.Text = "";
+            reg_email.Text = "";
+            reg_userName.Text = "";
+            reg_password.Text = "";
+            reg_confirmPassword.Text = "";
+        }
+
+        private void SwitchToLoginPage()
+        {
+            login.Show();
+            this.Hide();
         }
 
         //check if the username already exists
