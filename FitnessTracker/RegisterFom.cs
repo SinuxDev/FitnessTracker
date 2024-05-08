@@ -147,25 +147,22 @@ namespace FitnessTracker
         //check if the username already exists
         public Boolean checkUsername()
         {
+            string username = reg_userName.Text;
             using (connectdb db = new connectdb())
             {
-                string username = reg_userName.Text;
                 MySqlCommand command = new MySqlCommand("SELECT * FROM `users` WHERE `username` = @usn", db.getConnection());
                 command.Parameters.AddWithValue("@usn", username);
-
-                MySqlDataAdapter adapter = new MySqlDataAdapter(command);
-                DataTable table = new DataTable();
 
                 try
                 {
                     db.openConnection();
-                    adapter.Fill(table);
-                    return table.Rows.Count > 0;
+                    int count = Convert.ToInt32(command.ExecuteScalar());
+                    return count > 0; // Assuming username is exists
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Error on checking username : " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
+                    return false; // Assuming username is not exists
                 }
                 finally
                 {
