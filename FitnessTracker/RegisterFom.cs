@@ -254,18 +254,31 @@ namespace FitnessTracker
         {
             string password = reg_password.Text;
 
-            return password.Length >= 12 && password.Any(char.IsLower) && password.Any(char.IsUpper);
-        }        
+            //Define regular expression for password format
+            string pattern = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{12,}$";
+
+            //Use Regex.Match method to check if the password format is valid
+            if (!Regex.IsMatch(password, pattern))
+            {
+                return false; // Invalid password format
+            }
+
+            return true; // Valid password format
+        }
+
+        //Close the application
         private void reg_closeLabelClick_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
+        //Move the form
         private void panel1_MouseUp(object sender, MouseEventArgs e)
         {
             mov = 0;
         }
 
+        //Move the form
         private void panel1_MouseDown(object sender, MouseEventArgs e)
         {
             mov = 1;
@@ -273,6 +286,7 @@ namespace FitnessTracker
             movY = e.Y;
         }
 
+        //Move the form
         private void panel1_MouseMove(object sender, MouseEventArgs e)
         {
             if (mov == 1)
@@ -281,6 +295,7 @@ namespace FitnessTracker
             }
         }
 
+        //Show and hide the password
         private void Reg_showPassword_CheckBox_CheckedChanged(object sender, EventArgs e)
         {
             if(Reg_showPassword_CheckBox.Checked)
