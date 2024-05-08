@@ -17,6 +17,7 @@ namespace FitnessTracker
         static string dbString = "server=localhost;port=3306;uid=root;password=root;database=fitnessapp";
         private string username;
         private int userID;
+        private string useremail;
         connectdb db = new connectdb();
         TrackingClass trackingClass = new TrackingClass(dbString);
 
@@ -25,11 +26,18 @@ namespace FitnessTracker
         int movX;
         int movY;
 
-        public ResultChart(string username, int userID)
+        public ResultChart(string username, int userID, string useremail)
         {
             InitializeComponent();
             this.username = username;
             this.userID = userID;
+            this.useremail = useremail;
+
+            //set the username label
+            show_userName.Text = username;
+            show_userName.Visible = true;
+            show_eamiladdress.Text = useremail;
+            show_eamiladdress.Visible = true;
         }
 
         public string getUsername()
@@ -111,7 +119,7 @@ namespace FitnessTracker
         private void toBackBtn_Click(object sender, EventArgs e)
         {
             this.Hide();
-            MainForm mainForm = new MainForm(userID, username);
+            MainForm mainForm = new MainForm(userID, username,useremail);
             mainForm.Show();
         }
 
@@ -139,6 +147,13 @@ namespace FitnessTracker
             mov = 1;
             movX = e.X;
             movY = e.Y;
+        }
+
+        private void logOut_btn_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Login login = new Login();
+            login.Show();
         }
     }
 }
