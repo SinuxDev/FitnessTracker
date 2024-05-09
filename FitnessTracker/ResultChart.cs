@@ -82,7 +82,7 @@ namespace FitnessTracker
             {
                 db.openConnection();
 
-                string query = "SELECT activity, calories_burned FROM record_activities WHERE user_name = @username";
+                string query = "SELECT activity, SUM(calories_burned) As total_calories_burned FROM record_activities WHERE user_name = @username GROUP BY activity";
 
                 using (var command = new MySqlCommand(query, db.getConnection()))
                 {
@@ -98,7 +98,7 @@ namespace FitnessTracker
                         while (reader.Read())
                         {
                             string activity = reader["activity"].ToString();
-                            double caloriesBurned = Convert.ToDouble(reader["calories_burned"]);
+                            double caloriesBurned = Convert.ToDouble(reader["total_calories_burned"]);
 
                             //Add data to chart
                             chart1.Series["Calories"].Points.AddXY(activity, caloriesBurned);
