@@ -48,32 +48,33 @@ namespace FitnessTracker
         private void ResultChart_Load(object sender, EventArgs e)
         {
             FillChart();
+            MotivationMessage();
+        }
 
+        private void MotivationMessage()
+        {
             int goalCalories = trackingClass.GetUserGoalCalories(username);
-            lastCal_txt.Text = goalCalories.ToString();
-
             int totalCaloriesBurned = trackingClass.GetTotalCaloriesBurned(username);
+
+            lastCal_txt.Text = goalCalories.ToString();
             totalBurned_txt.Text = totalCaloriesBurned.ToString();
+
+            string message = "";
 
             if (goalCalories < totalCaloriesBurned)
             {
-                moti_label.Text = "Keep up the Great Work! You've Hit Your Calorie Target!";
+                message = "Keep up the Great Work! You've Hit Your Calorie Target!";
             }
             else if (goalCalories == 0 && totalCaloriesBurned == 0)
             {
-                moti_label.Text = "Come on let's do it ! Now set your goals";
+                message = "Come on let's do it! Now set your goals";
             }
             else
             {
-                if (totalCaloriesBurned <= 0)
-                {
-                    moti_label.Text = "Do Exercise and achieve your goals";
-                }
-                else
-                {
-                    moti_label.Text = "Stay Focused! You're Closer to Your Goal Than You Think!";
-                }
+                message = totalCaloriesBurned <= 0 ? "Do Exercise and achieve your goals" : "Stay Focused! You're Closer to Your Goal Than You Think!";
             }
+
+            moti_label.Text = message;
         }
 
         private void FillChart()
