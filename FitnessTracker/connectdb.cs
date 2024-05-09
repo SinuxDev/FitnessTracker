@@ -9,9 +9,7 @@ namespace FitnessTracker
 {
     public class connectdb :IDisposable
     {
-        private MySqlConnection connection = new MySqlConnection(
-            "server=localhost;port=3306;uid=root;password=root;database=fitnessapp"
-        );
+        private readonly MySqlConnection connection = new MySqlConnection("server=localhost;port=3306;uid=root;password=root;database=fitnessapp");
 
         //function to open the connection
         public void openConnection()
@@ -44,15 +42,12 @@ namespace FitnessTracker
             GC.SuppressFinalize(this);
         }
 
+        // Dispose method
         protected virtual void Dispose(bool disposing)
         {
             if (disposing)
             {
-                if (connection != null)
-                {
-                    connection.Dispose();
-                    connection = null;
-                }
+                connection?.Dispose();
             }
         }
     }
