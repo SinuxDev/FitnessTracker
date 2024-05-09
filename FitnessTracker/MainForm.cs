@@ -32,7 +32,7 @@ namespace FitnessTracker
         {
             InitializeComponent();
 
-            //Store the userId for later use
+            //Set the user id, name and email
             _userId = userId;
             _name = username;
             _email = email;
@@ -63,6 +63,7 @@ namespace FitnessTracker
             resultChart.Show();
         }
 
+        //Calculate calories button
         private void CaloriesCal_Btn_Click(object sender, EventArgs e)
         {
             TrackingClass trackingClass = new TrackingClass(dbString);
@@ -108,16 +109,19 @@ namespace FitnessTracker
             step_textBox.Text = "";
         }
 
+        //Show error message
         private void ShowErrorMessage(string message)
         {
             MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
+        //Check if the exercise requires steps
         private bool ShouldValidateSteps(string exercise)
         {
             return exercise != "Swimming" && exercise != "Squat" && exercise != "Anaerobic" && exercise != "Push up" && exercise != "Pull up";
         }
 
+        //Exercise combo list
         private void exe_ComboList_SelectedIndexChanged(object sender, EventArgs e)
         {
             string selectedExercise = exe_ComboList.Text;
@@ -129,11 +133,13 @@ namespace FitnessTracker
             step_textBox.Enabled = selectedExercise == "Walking";
         }
 
+        //Close button
         private void label4_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
+        //Set goals button
         private void setGoal_btn_Click(object sender, EventArgs e)
         {
             string caloriesText = setGoals_textbox.Text;
@@ -164,6 +170,7 @@ namespace FitnessTracker
             setGoals_textbox.Text = "";
         }
 
+        //Delete record activity button
         private void Delete_acti_record_btn_Click(object sender, EventArgs e)
         {
             //Check if any row is selected
@@ -180,6 +187,7 @@ namespace FitnessTracker
             }
         }
 
+        //Delete goals button
         private void DelectGoals_btn_Click(object sender, EventArgs e)
         {
             //Check if any row is selected
@@ -196,6 +204,7 @@ namespace FitnessTracker
             }
         }
 
+        //Delete goals from database
         private int DeleteGoalsFromDatabase(string username, double goalCalories)
         {
             int rowsAffected = 0;
@@ -223,6 +232,7 @@ namespace FitnessTracker
             return rowsAffected;
         }
 
+        //Delete user goals
         private void DeleteUserGoals(int rowIndex)
         {
             //Check if the index is valid
@@ -257,6 +267,7 @@ namespace FitnessTracker
             }
         }
 
+        //Delete record activity
         private void DeleteRecordActivity(int rowIndex)
         {
             if (rowIndex >= 0 && rowIndex < dataGridView2.Rows.Count)
@@ -319,6 +330,7 @@ namespace FitnessTracker
             }
         }
 
+        //Fill the user goals
         private void FillUserGoalsDGV(string username)
         {
             try
@@ -346,6 +358,7 @@ namespace FitnessTracker
             }
         }
 
+        //Fill the record activities
         private void FillRecordActivities(int userID)
         {
             try
@@ -373,6 +386,7 @@ namespace FitnessTracker
             }
         }
 
+        //Refresh the goals
         public void doRefreshGoals()
         {
             dataGridView1.DataSource = null;
@@ -403,6 +417,7 @@ namespace FitnessTracker
             }
         }
 
+        //Refresh the record
         public void doRefreshRecord()
         {
             dataGridView2.DataSource = null;
@@ -459,11 +474,5 @@ namespace FitnessTracker
             login.Show();
             this.Hide();
         }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
     }
 }
