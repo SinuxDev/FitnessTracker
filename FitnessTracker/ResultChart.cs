@@ -51,6 +51,7 @@ namespace FitnessTracker
             MotivationMessage();
         }
 
+        //Display a motivational message based on the user's progress
         private void MotivationMessage()
         {
             int goalCalories = trackingClass.GetUserGoalCalories(username);
@@ -77,6 +78,7 @@ namespace FitnessTracker
             moti_label.Text = message;
         }
 
+        //Fill the chart with data
         private void FillChart()
         {
             try
