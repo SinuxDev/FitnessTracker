@@ -186,5 +186,25 @@ namespace FitnessTracker
                 Login_showPassword_checkBox.Text = "Show Password";
             }
         }
+
+        private void forget_password_click_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            //Instantiate the connectdb class
+            using (connectdb db = new connectdb())
+            {
+                //Get the connection string from connectdb class
+                string connectionString = db.getConnectionString();
+
+                //Show the ForgetPasswordForm and pass the connection string
+                forgetPasswordForm forgetPasswordForm = new forgetPasswordForm(connectionString);
+                forgetPasswordForm.Show();
+                this.Hide();
+            }
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

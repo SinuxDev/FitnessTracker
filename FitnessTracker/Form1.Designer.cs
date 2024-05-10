@@ -40,6 +40,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.Login_showPassword_checkBox = new System.Windows.Forms.CheckBox();
             this.attemptLabel = new System.Windows.Forms.Label();
+            this.forget_password_click = new System.Windows.Forms.LinkLabel();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -94,7 +95,7 @@
             // login_btn
             // 
             this.login_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.login_btn.Location = new System.Drawing.Point(357, 367);
+            this.login_btn.Location = new System.Drawing.Point(357, 407);
             this.login_btn.Name = "login_btn";
             this.login_btn.Size = new System.Drawing.Size(131, 55);
             this.login_btn.TabIndex = 5;
@@ -108,7 +109,7 @@
             this.label4.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.label4.Location = new System.Drawing.Point(146, 537);
+            this.label4.Location = new System.Drawing.Point(146, 568);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(212, 29);
             this.label4.TabIndex = 7;
@@ -119,7 +120,7 @@
             this.login_registerHere.AutoSize = true;
             this.login_registerHere.Cursor = System.Windows.Forms.Cursors.Hand;
             this.login_registerHere.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.login_registerHere.Location = new System.Drawing.Point(455, 537);
+            this.login_registerHere.Location = new System.Drawing.Point(455, 568);
             this.login_registerHere.Name = "login_registerHere";
             this.login_registerHere.Size = new System.Drawing.Size(258, 29);
             this.login_registerHere.TabIndex = 8;
@@ -146,6 +147,7 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(836, 45);
             this.panel1.TabIndex = 10;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown);
             this.panel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseMove);
             this.panel1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseUp);
@@ -167,18 +169,33 @@
             this.attemptLabel.AutoSize = true;
             this.attemptLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.attemptLabel.ForeColor = System.Drawing.Color.Red;
-            this.attemptLabel.Location = new System.Drawing.Point(111, 466);
+            this.attemptLabel.Location = new System.Drawing.Point(111, 492);
             this.attemptLabel.Name = "attemptLabel";
             this.attemptLabel.Size = new System.Drawing.Size(148, 22);
             this.attemptLabel.TabIndex = 12;
             this.attemptLabel.Text = "Attempt Message";
+            // 
+            // forget_password_click
+            // 
+            this.forget_password_click.AutoSize = true;
+            this.forget_password_click.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.forget_password_click.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.forget_password_click.LinkColor = System.Drawing.Color.Black;
+            this.forget_password_click.Location = new System.Drawing.Point(192, 351);
+            this.forget_password_click.Name = "forget_password_click";
+            this.forget_password_click.Size = new System.Drawing.Size(175, 25);
+            this.forget_password_click.TabIndex = 13;
+            this.forget_password_click.TabStop = true;
+            this.forget_password_click.Text = "Forget Password ?";
+            this.forget_password_click.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.forget_password_click_LinkClicked);
             // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(836, 619);
+            this.ClientSize = new System.Drawing.Size(836, 658);
+            this.Controls.Add(this.forget_password_click);
             this.Controls.Add(this.attemptLabel);
             this.Controls.Add(this.Login_showPassword_checkBox);
             this.Controls.Add(this.panel1);
@@ -216,6 +233,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.CheckBox Login_showPassword_checkBox;
         private System.Windows.Forms.Label attemptLabel;
+        private System.Windows.Forms.LinkLabel forget_password_click;
     }
 }
 
