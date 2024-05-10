@@ -29,7 +29,7 @@ namespace FitnessTracker
             }
         }
 
-        //function a function to return the connection
+        //function to return the connection
         public MySqlConnection getConnection()
         {
             return connection;
@@ -49,6 +49,12 @@ namespace FitnessTracker
             {
                 connection?.Dispose();
             }
+        }
+
+        //Provide method to get connection string
+        public string getConnectionString()
+        {
+            return connection.ConnectionString;
         }
     }
 }
