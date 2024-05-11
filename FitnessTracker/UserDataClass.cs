@@ -31,7 +31,7 @@ namespace FitnessTracker
                 {
                     connection.Open();
 
-                    string query = "SELECT activity, SUM(calories_burned) As total_calories_burned FROM record_activities WHERE user_name = @username GROUP BY activity";
+                    string query = "SELECT activity_name, SUM(calories_burned) As total_calories_burned FROM record_activities WHERE user_name = @username GROUP BY activity_name";
 
                     using(var command = new MySqlCommand(query, connection))
                     {
@@ -45,7 +45,7 @@ namespace FitnessTracker
 
                             while (reader.Read())
                             {
-                                string activity = reader["activity"].ToString();
+                                string activity = reader["activity_name"].ToString();
                                 double caloriesBurned = Convert.ToDouble(reader["total_calories_burned"]);
 
                                 //Add data to chart
@@ -119,13 +119,13 @@ namespace FitnessTracker
         //Fill the DataGridView with user records activity
         public DataTable FillUserRecordsDGV(string username)
         {
-            return GetUserData(username, "SELECT user_name,activity,calories_burned FROM record_activities WHERE user_name = @username");
+            return GetUserData(username, "SELECT user_name,activity_name,time_minutes,repetitions,calories_burned FROM record_activities WHERE user_name = @username");
         }
 
         //Fill the DataGridView with user records activity (Reload)
         public void doRefreshRecords(string username, DataGridView dataGrid)
         {
-            dataGrid.DataSource = GetUserData(username, "SELECT user_name,activity,calories_burned FROM record_activities WHERE user_name = @username");
+            dataGrid.DataSource = GetUserData(username, "SELECT user_name,activity_name,time_minutes,repetitions,calories_burned FROM record_activities WHERE user_name = @username");
         }
 
         //Delete a user goal from the database
