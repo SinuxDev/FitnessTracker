@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.VisualBasic.ApplicationServices;
 using MySql.Data.MySqlClient;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using static Mysqlx.Datatypes.Scalar.Types;
@@ -94,45 +95,48 @@ namespace FitnessTracker
         //Calculate calories button
         private void CaloriesCal_Btn_Click(object sender, EventArgs e)
         {
-            // Validate and parse duration
-            if (!double.TryParse(exe_duration_textBox.Text, out double duration) || duration <= 0)
+            // Validate and parse weight
+            if (!double.TryParse(exe_weight_textBox.Text, out double weight) || weight <= 0)
             {
-                ShowErrorMessage("Please enter a valid positive value for duration.");
+                ShowErrorMessage("Please enter a valid positive value for weight.");
                 return;
             }
 
-            double times = 1;
-            if(exe_ComboList.Text != "Walking")
+            // Disable repetitions_textBox initially (assuming walking is the default selection)
+            repetitions_textBox.Enabled = exe_ComboList.Text != "Walking";
+
+            double timeInput = 1;
+            
+            if (!double.TryParse(times_textBox.Text, out timeInput) || timeInput <= 0)
             {
-                if(!double.TryParse(times_textBox.Text, out times) || times <= 0)
+                ShowErrorMessage("Please enter a valid value for steps.");
+                return;
+            }
+                
+            double repsInput = 1;
+            // Validate repetitions only if needed (not for Walking)
+            if (exe_ComboList.Text != "Walking")
+            {
+                if (!double.TryParse(times_textBox.Text, out repsInput) || repsInput <= 0)
                 {
                     ShowErrorMessage("Please enter a valid positive value for times.");
                     return;
                 }
             }
 
-            double steps = 1;
-            if(ShouldValidateSteps(exe_ComboList.Text))
-            {
-                if(!double.TryParse(step_textBox.Text, out steps))
-                {
-                    ShowErrorMessage("Please enter a valid value for steps.");
-                    return;
-                }
-            }
-
             string selectedExercise = exe_ComboList.Text;
 
-            CaloriesCalClass calories = new CaloriesCalClass(selectedExercise, times, steps, duration);
+            CaloriesCalClass calories = new CaloriesCalClass(selectedExercise, timeInput, repsInput, weight);
+            double caloriesBurned = calories.CalculateCaloriesBurned();
+            trackingClass.RecordActivity(_userId, _name, selectedExercise, timeInput, repsInput, caloriesBurned);
 
-            trackingClass.RecordActiviyAndCalculateCalories(_userId, _name, calories);
             userDataClass.doRefreshRecords(_name, user_recordActivities_DGV);
             MessageBox.Show("Data have been saved!");
 
             //Clear the textboxes after the process
-            exe_duration_textBox.Text = "";
+            exe_weight_textBox.Text = "";
+            repetitions_textBox.Text = "";
             times_textBox.Text = "";
-            step_textBox.Text = "";
         }
 
         //Show error message
@@ -152,11 +156,8 @@ namespace FitnessTracker
         {
             string selectedExercise = exe_ComboList.Text;
 
-            //Enable times_textBox only for exercises that require it
-            times_textBox.Enabled = new List<string> { "Swimming", "Squat", "Anaerobic", "Push up", "Pull up" }.Contains(selectedExercise);
-
-            //Enable step_textBox only for Walking exercise
-            step_textBox.Enabled = selectedExercise == "Walking";
+            //Enable repetitions_textBox only for exercises that require it
+            repetitions_textBox.Enabled = new List<string> { "Swimming", "Squat", "Anaerobic", "Push up", "Pull up" }.Contains(selectedExercise);
         }
 
         //Close button
