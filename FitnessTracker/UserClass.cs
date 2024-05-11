@@ -17,34 +17,43 @@ namespace FitnessTracker
         public string Password { get; set; }
 
         //Constructor to initialize the properties
-        public UserClass(string firstName, string lastName, string emailAddress, string username, string password)
+        public UserClass(string firstName, string lastName, string emailAddress, string userName, string password)
         {
             this.FirstName = firstName;
             this.LastName = lastName;
             this.EmailAddress = emailAddress;
-            this.UserName = username;
+            this.UserName = userName;
             this.Password = password;
         }
 
-        //Method to validate the user's email format
-        public Boolean ValidateEmail()
+        public string GetAndSetFirstName
         {
-            string pattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
-            return Regex.IsMatch(this.EmailAddress, pattern);
+            get => FirstName;
+            set => FirstName = value;
         }
 
-        //Method to check if username contains special characters
-        public Boolean CheckUsernameSpecialChars()
+        public string GetAndSetLastName
         {
-            string pattern = @"^[a-zA-Z0-9]*$";
-            return Regex.IsMatch(this.UserName, pattern);
+            get => LastName;
+            set => LastName = value;
         }
 
-        //Method to validate the password format
-        public Boolean ValidatePassword()
+        public string GetAndSetEmailAddress
         {
-            string pattern = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,15}$";
-            return Regex.IsMatch(this.Password, pattern);
+            get => EmailAddress;
+            set => EmailAddress = value;
+        }
+
+        public string GetAndSetUserName
+        {
+            get => UserName;
+            set => UserName = value;
+        }
+
+        public string GetAndSetPassword
+        {
+            get => Password;
+            set => Password = value;
         }
     }
 }
