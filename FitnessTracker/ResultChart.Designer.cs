@@ -31,7 +31,7 @@
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.result_chart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.lastCal_txt = new System.Windows.Forms.Label();
@@ -46,26 +46,26 @@
             this.show_userName = new System.Windows.Forms.Label();
             this.show_eamiladdress = new System.Windows.Forms.Label();
             this.logOut_btn = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.result_chart)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // chart1
+            // result_chart
             // 
             chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
+            this.result_chart.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(698, 82);
-            this.chart1.Name = "chart1";
+            this.result_chart.Legends.Add(legend1);
+            this.result_chart.Location = new System.Drawing.Point(698, 82);
+            this.result_chart.Name = "result_chart";
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StackedColumn;
             series1.Legend = "Legend1";
             series1.Name = "Calories";
-            this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(662, 409);
-            this.chart1.TabIndex = 0;
-            this.chart1.Text = "chart1";
+            this.result_chart.Series.Add(series1);
+            this.result_chart.Size = new System.Drawing.Size(662, 409);
+            this.result_chart.TabIndex = 0;
+            this.result_chart.Text = "chart1";
             // 
             // label1
             // 
@@ -232,13 +232,13 @@
             this.Controls.Add(this.lastCal_txt);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.chart1);
+            this.Controls.Add(this.result_chart);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "ResultChart";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ResultChart";
             this.Load += new System.EventHandler(this.ResultChart_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.result_chart)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
@@ -248,7 +248,7 @@
 
         #endregion
 
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.DataVisualization.Charting.Chart result_chart;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lastCal_txt;

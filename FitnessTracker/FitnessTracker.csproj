@@ -138,6 +138,7 @@
     </Compile>
     <Compile Include="TrackingClass.cs" />
     <Compile Include="UserClass.cs" />
+    <Compile Include="UserDataClass.cs" />
     <Compile Include="UserServiceClass.cs" />
     <Compile Include="ValidationServiceClass.cs" />
     <EmbeddedResource Include="forgetPasswordForm.resx">

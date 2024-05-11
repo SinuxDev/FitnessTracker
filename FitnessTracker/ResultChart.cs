@@ -47,7 +47,9 @@ namespace FitnessTracker
 
         private void ResultChart_Load(object sender, EventArgs e)
         {
-            FillChart();
+            UserDataClass userDataClass = new UserDataClass();
+            string currentUsername = getUsername();
+            userDataClass.FillChart(currentUsername, result_chart);
             MotivationMessage();
         }
 
@@ -76,62 +78,6 @@ namespace FitnessTracker
             }
 
             moti_label.Text = message;
-        }
-
-        //Fill the chart with data
-        private void FillChart()
-        {
-            try
-            {
-                db.openConnection();
-
-                string query = "SELECT activity, SUM(calories_burned) As total_calories_burned FROM record_activities WHERE user_name = @username GROUP BY activity";
-
-                using (var command = new MySqlCommand(query, db.getConnection()))
-                {
-                    command.Parameters.AddWithValue("@username", username);
-
-                    chart1.Series["Calories"].Points.Clear();
-
-                    using (var reader = command.ExecuteReader())
-                    {
-
-                        bool dataAdded = false; //Check if data is added to the chart
-
-                        while (reader.Read())
-                        {
-                            string activity = reader["activity"].ToString();
-                            double caloriesBurned = Convert.ToDouble(reader["total_calories_burned"]);
-
-                            //Add data to chart
-                            chart1.Series["Calories"].Points.AddXY(activity, caloriesBurned);
-                            dataAdded = true;
-                        }
-
-                        //Add a title to the chart
-                        chart1.Titles.Add("Calories Burned By Activity");
-                        chart1.Titles[0].ForeColor = Color.Red;
-                        chart1.Titles[0].Font = new Font("Arial", 16, FontStyle.Bold);
-
-                        if (!dataAdded)
-                        {
-                            //Show a placeholder message on the chart
-                            chart1.Titles.Add("No Data Available");
-                            chart1.Titles[0].Alignment = ContentAlignment.MiddleCenter;
-                            chart1.Titles[0].ForeColor = Color.Red;
-                            chart1.Titles[0].Font = new Font("Arial", 14, FontStyle.Bold);
-                        }
-                    }
-                }
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                db.closeConnection();
-            }
         }
 
         private void toBackBtn_Click(object sender, EventArgs e)
