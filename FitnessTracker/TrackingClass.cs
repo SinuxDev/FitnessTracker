@@ -17,27 +17,19 @@ namespace FitnessTracker
             _connectionString = connectionString;
         }
 
-        public void RecordActiviyAndCalculateCalories(int userID,string userName,CaloriesCalClass calories)
-        {
-            double caloriesBurned = calories.CalculateCaloriesBurned();
-            
-            RecordActivity(userID, userName, calories.Name, caloriesBurned);
-        }
-
         // Record the activity in the database
-        private void RecordActivity(int userID,string userName,string activityName,double caloriesBurned)
+        public void RecordActivity(int userID,string userName,string activityName,double timeInMinutes,double repetitions, double caloriesBurned)
         {
+            string query = "INSERT INTO record_activities (user_ID, user_name, activity_name, time_minutes, repetitions, calories_burned) VALUES (@userID, @username, @activity, @timeMinutes, @repetitions, @caloriesBurned)";
+
             using (var connection = new MySqlConnection(_connectionString))
-            using (var command = connection.CreateCommand())
+            using (var command = new  MySqlCommand(query,connection))
             {
-                string query = "INSERT INTO record_activities (user_ID, user_name, activity, calories_burned) VALUES (@userID, @username, @activity, @caloriesBurned)";
-
-                command.CommandText = query;
-                command.Connection = connection;
-
                 command.Parameters.AddWithValue("@userID", userID);
                 command.Parameters.AddWithValue("@username", userName);
                 command.Parameters.AddWithValue("@activity", activityName);
+                command.Parameters.AddWithValue("@timeMinutes", timeInMinutes);
+                command.Parameters.AddWithValue("@repetitions", repetitions);
                 command.Parameters.AddWithValue("@caloriesBurned", caloriesBurned);
 
                 try
@@ -47,7 +39,7 @@ namespace FitnessTracker
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Error while recording activity: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"Error while setting fitness goal: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
