@@ -77,7 +77,7 @@ namespace FitnessTracker
         }
 
         //Get user goals from the database
-        private DataTable GetUserGoals(string username, string query)
+        private DataTable GetUserData(string username, string query)
         {
             try
             {
@@ -107,13 +107,86 @@ namespace FitnessTracker
         //Fill the DataGridView with user goals
         public DataTable FillUserGoalsDGV(string username)
         {
-            return GetUserGoals(username, "SELECT goal_calories FROM user_goals WHERE username = @username");
+            return GetUserData(username, "SELECT goal_calories FROM user_goals WHERE username = @username");
         }
 
-        //Fill the DataGridView with user goals
+        //Fill the DataGridView with user goals (Reload)
         public void doRefreshGoals(string username,DataGridView dataGrid) 
         {
-            dataGrid.DataSource = GetUserGoals(username, "SELECT username,goal_calories FROM user_goals WHERE username = @username");
+            dataGrid.DataSource = GetUserData(username, "SELECT username,goal_calories FROM user_goals WHERE username = @username");
         }
+
+        //Fill the DataGridView with user records activity
+        public DataTable FillUserRecordsDGV(string username)
+        {
+            return GetUserData(username, "SELECT user_name,activity,calories_burned FROM record_activities WHERE user_name = @username");
+        }
+
+        //Fill the DataGridView with user records activity (Reload)
+        public void doRefreshRecords(string username, DataGridView dataGrid)
+        {
+            dataGrid.DataSource = GetUserData(username, "SELECT user_name,activity,calories_burned FROM record_activities WHERE user_name = @username");
+        }
+
+        //Delete a user goal from the database
+        public bool DeleteUserGoal(string username, double goalCalories)
+        {
+            int rowsAffected = 0;
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    string query = "DELETE FROM user_goals WHERE username = @username AND goal_calories = @goalCalories";
+                    MySqlCommand command = new MySqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@username", username);
+                    command.Parameters.AddWithValue("@goalCalories", goalCalories);
+
+                    connection.Open();
+                    rowsAffected = command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error deleting goal: " + ex.Message);
+                }
+
+                connection.Close();
+            }
+
+            return rowsAffected > 0; // Return true if at least one row was affected
+        }
+
+        //Delete a user record activity from the database
+        public bool DeleteUserRecord(string username, string activity, double caloriesBurned)
+        {
+            bool isDeleted = false;
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    string query = "DELETE FROM record_activities WHERE user_name = @un AND activity = @an AND calories_burned = @cb";
+                    MySqlCommand command = new MySqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@un", username);
+                    command.Parameters.AddWithValue("@an", activity);
+                    command.Parameters.AddWithValue("@cb", caloriesBurned);
+
+                    connection.Open();
+                    int rowsAffected = command.ExecuteNonQuery();
+                    isDeleted = rowsAffected > 0; // Record deleted if rowsAffected > 0
+                }
+                catch (Exception ex)
+                {
+                    // Handle potential database errors
+                    Console.WriteLine("Error deleting record activity: " + ex.Message); // Or use a logging mechanism
+                }
+
+                connection.Close();
+            }
+
+            return isDeleted;
+        }
+
+
     }
 }

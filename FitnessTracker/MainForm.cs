@@ -55,8 +55,7 @@ namespace FitnessTracker
 
             //Get the user's fitness goal
             DataTable userGoalsTable = userDataClass.FillUserGoalsDGV(currentUsername);
-            user_goals_dataGrid.DataSource = userGoalsTable;
-
+            
             if(userGoalsTable != null)
             {
                 user_goals_dataGrid.DataSource = userGoalsTable;
@@ -66,11 +65,23 @@ namespace FitnessTracker
                 MessageBox.Show("Failed to load user goals");
             }
 
+            //Get the user's record activities
+            DataTable userRecordTable = userDataClass.FillUserRecordsDGV(currentUsername);
+            
+            if(userRecordTable != null)
+            {
+                user_recordActivities_DGV.DataSource = userRecordTable;
+            }
+            else
+            {
+                MessageBox.Show("Failed to load user record activities");
+            }
+
             //Reload the User Goals
             userDataClass.doRefreshGoals(currentUsername, user_goals_dataGrid);
 
-            FillRecordActivities(_userId);
-            doRefreshRecord();
+            //Reload the User Records
+            userDataClass.doRefreshRecords(currentUsername, user_recordActivities_DGV);
         }
 
         private void Result_Btn_Click(object sender, EventArgs e)
@@ -83,8 +94,6 @@ namespace FitnessTracker
         //Calculate calories button
         private void CaloriesCal_Btn_Click(object sender, EventArgs e)
         {
-            TrackingClass trackingClass = new TrackingClass(dbString);
-            
             // Validate and parse duration
             if (!double.TryParse(exe_duration_textBox.Text, out double duration) || duration <= 0)
             {
@@ -117,7 +126,7 @@ namespace FitnessTracker
             CaloriesCalClass calories = new CaloriesCalClass(selectedExercise, times, steps, duration);
 
             trackingClass.RecordActiviyAndCalculateCalories(_userId, _name, calories);
-            doRefreshRecord();
+            userDataClass.doRefreshRecords(_name, user_recordActivities_DGV);
             MessageBox.Show("Data have been saved!");
 
             //Clear the textboxes after the process
@@ -190,17 +199,37 @@ namespace FitnessTracker
         //Delete record activity button
         private void Delete_acti_record_btn_Click(object sender, EventArgs e)
         {
-            //Check if any row is selected
-            if (dataGridView2.SelectedRows.Count > 0)
-            {
-                //Get the index of selected row
-                int rowIndex = dataGridView2.SelectedRows[0].Index;
+            DataGridViewRow selectedRow = user_recordActivities_DGV.SelectedRows[0]; // Assuming single row selection
 
-                DeleteRecordActivity(rowIndex);
+            if (selectedRow != null)
+            {
+                string userName = selectedRow.Cells["user_name"].Value?.ToString() ?? "";
+                string activityName = selectedRow.Cells["activity"].Value?.ToString() ?? "";
+                double caloriesBurned;
+
+                if (double.TryParse(selectedRow.Cells["calories_burned"].Value?.ToString(), out caloriesBurned))
+                {
+                    if (MessageBox.Show("Are you sure you want to delete this record?", "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        if (userDataClass.DeleteUserRecord(userName, activityName, caloriesBurned))
+                        {
+                            MessageBox.Show("Record deleted successfully!");
+                            userDataClass.doRefreshRecords(_name, user_recordActivities_DGV); // Refresh data grid (assuming function exists)
+                        }
+                        else
+                        {
+                            MessageBox.Show("Failed to delete record.");
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Invalid calories values", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else
             {
-                MessageBox.Show("Please select a row to delete");
+                MessageBox.Show("Please select a record to delete", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -221,188 +250,35 @@ namespace FitnessTracker
             }
         }
 
-        //Delete goals from database
-        private int DeleteGoalsFromDatabase(string username, double goalCalories)
-        {
-            int rowsAffected = 0;
-
-            using (MySqlConnection connection = new MySqlConnection(dbString))
-            {
-                try
-                {
-                    string query = "DELETE FROM user_goals WHERE username = @username AND goal_calories = @goalCalories";
-                    MySqlCommand command = new MySqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@username", username);
-                    command.Parameters.AddWithValue("@goalCalories", goalCalories);
-
-                    connection.Open();
-                    rowsAffected = command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error deleting goal: " + ex.Message);
-                }
-
-                connection.Close();
-            }
-
-            return rowsAffected;
-        }
-
         //Delete user goals
         private void DeleteUserGoals(int rowIndex)
         {
-            //Check if the index is valid
-            if(rowIndex >= 0 && rowIndex < user_goals_dataGrid.Rows.Count)
+            if (rowIndex >= 0 && rowIndex < user_goals_dataGrid.Rows.Count)
             {
-                //Get the selected row's username and goal_calories
                 DataGridViewRow selectedRow = user_goals_dataGrid.Rows[rowIndex];
+                double goalCalories;
 
-                //Confirmation dialog
-                DialogResult result = MessageBox.Show("Are you sure you want to delete this goal?", "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                //If user confirms deletion
-                if (result == DialogResult.Yes)
+                if (double.TryParse(selectedRow.Cells["goal_calories"].Value?.ToString(), out goalCalories))
                 {
-                    string username = selectedRow.Cells["username"].Value.ToString();
-                    double goalCalories = Convert.ToDouble(selectedRow.Cells["goal_calories"].Value);
+                    DialogResult result = MessageBox.Show("Are you sure you want to delete this goal?", "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-                    int rowsAffected = DeleteGoalsFromDatabase(username, goalCalories);
-
-                    //Check if the deletion was successful
-                    if (rowsAffected > 0)
+                    if (result == DialogResult.Yes)
                     {
-                        MessageBox.Show("Goal deleted successfully!");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Failed to delete goal.");
-                    }
-
-                    userDataClass.doRefreshGoals(_name, user_goals_dataGrid);
-                }
-            }
-        }
-
-        //Delete record activity
-        private void DeleteRecordActivity(int rowIndex)
-        {
-            if (rowIndex >= 0 && rowIndex < dataGridView2.Rows.Count)
-            {
-                string userName = dataGridView2.Rows[rowIndex].Cells["user_name"].Value.ToString();
-                string activityName = dataGridView2.Rows[rowIndex].Cells["activity"].Value.ToString();
-
-                //Check the username and activityname have values
-                if(userName != null && activityName != null)
-                {
-                    double caloriesBurned;
-                    if (double.TryParse(dataGridView2.Rows[rowIndex].Cells["calories_burned"].Value.ToString(), out caloriesBurned))
-                    {
-                        if(MessageBox.Show("Are you sure want to delete this record?", "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                        if (userDataClass.DeleteUserGoal(_name, goalCalories)) // Call function with username and goalCalories
                         {
-                            using(MySqlConnection connection = new MySqlConnection(dbString))
-                            {
-                                try
-                                {
-                                    string query = "DELETE FROM record_activities WHERE user_name = @un AND activity = @an AND calories_burned = @cb";
-                                    MySqlCommand command = new MySqlCommand(query, connection);
-                                    command.Parameters.AddWithValue("@un", userName);
-                                    command.Parameters.AddWithValue("@an", activityName);
-                                    command.Parameters.AddWithValue("@cb", caloriesBurned);
-                                    connection.Open();
-                                    int rowsAffected = command.ExecuteNonQuery();
-
-                                    if (rowsAffected > 0)
-                                    {
-                                        MessageBox.Show("Record deleted successfully!");
-                                    }
-                                    else
-                                    {
-                                        MessageBox.Show("Failed to delete record.");
-                                    }
-                                }
-                                catch(Exception ex)
-                                {
-                                    MessageBox.Show("Error deleting record: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                }
-
-                                connection.Close();
-                                doRefreshRecord();
-                            }
+                            MessageBox.Show("Goal deleted successfully!");
+                            userDataClass.doRefreshGoals(_name, user_goals_dataGrid); // Refresh data grid
                         }
-                    }
-                    else
-                    {
-                        MessageBox.Show("Invalid calories values", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        else
+                        {
+                            MessageBox.Show("Failed to delete goal.");
+                        }
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Invalid username or activity name", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Invalid goal calorie value."); // Handle invalid conversion
                 }
-            }
-            else
-            {
-                MessageBox.Show("Invalid row index", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        //Fill the record activities
-        private void FillRecordActivities(int userID)
-        {
-            try
-            {
-                //Open the database connection
-                db.openConnection();
-
-                string query = "SELECT user_name,activity,calories_burned FROM record_activities WHERE user_ID = @userID";
-                MySqlCommand command = new MySqlCommand(query, db.getConnection());
-                command.Parameters.AddWithValue("@userID", userID);
-
-                MySqlDataAdapter dataAdapter = new MySqlDataAdapter(command);
-                DataTable dataTable = new DataTable();
-                dataAdapter.Fill(dataTable);
-                dataGridView2.DataSource = dataTable;
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show("Error on Loading record activities" + ex.Message);
-            }
-            finally
-            {
-                //Close the database connection
-                db.closeConnection();
-            }
-        }
-
-        //Refresh the record
-        public void doRefreshRecord()
-        {
-            dataGridView2.DataSource = null;
-            dataGridView2.Rows.Clear();
-
-            try
-            {
-                //Open the database connection
-                db.openConnection();
-                string query = "SELECT user_name,activity,calories_burned FROM record_activities WHERE user_ID = @userID";
-                MySqlCommand command = new MySqlCommand(query, db.getConnection());
-                command.Parameters.AddWithValue("@userID", _userId);
-
-                MySqlDataAdapter mySqlDataAdapter = new MySqlDataAdapter(command);
-                DataTable dataTable = new DataTable();
-                mySqlDataAdapter.Fill(dataTable);
-
-                dataGridView2.DataSource = dataTable;
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show("Error on refreshing record" + ex.Message);
-            }
-            finally
-            {
-                //Close the database connection
-                db.closeConnection();
             }
         }
 

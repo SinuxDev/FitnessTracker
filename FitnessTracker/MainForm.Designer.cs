@@ -30,6 +30,8 @@
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.exe_ComboList = new System.Windows.Forms.ComboBox();
@@ -46,25 +48,25 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.step_textBox = new System.Windows.Forms.TextBox();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.DelectGoals_btn = new System.Windows.Forms.Button();
             this.Delete_acti_record_btn = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.Logout_btn = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
             this.Result_Btn = new System.Windows.Forms.Button();
+            this.user_recordActivities_DGV = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.user_goals_dataGrid)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.user_recordActivities_DGV)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(634, 122);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(1183, 101);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(327, 36);
+            this.label1.Size = new System.Drawing.Size(350, 36);
             this.label1.TabIndex = 0;
             this.label1.Text = "Calculate Your Calories";
             // 
@@ -72,7 +74,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(635, 203);
+            this.label2.Location = new System.Drawing.Point(1131, 182);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(193, 25);
             this.label2.TabIndex = 1;
@@ -88,9 +90,9 @@
             "Push up",
             "Pull up",
             "Anaerobic"});
-            this.exe_ComboList.Location = new System.Drawing.Point(877, 207);
+            this.exe_ComboList.Location = new System.Drawing.Point(1155, 242);
             this.exe_ComboList.Name = "exe_ComboList";
-            this.exe_ComboList.Size = new System.Drawing.Size(121, 24);
+            this.exe_ComboList.Size = new System.Drawing.Size(150, 24);
             this.exe_ComboList.TabIndex = 2;
             this.exe_ComboList.SelectedIndexChanged += new System.EventHandler(this.exe_ComboList_SelectedIndexChanged);
             // 
@@ -98,7 +100,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(635, 262);
+            this.label3.Location = new System.Drawing.Point(1441, 182);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(131, 25);
             this.label3.TabIndex = 3;
@@ -106,13 +108,16 @@
             // 
             // CaloriesCal_Btn
             // 
+            this.CaloriesCal_Btn.BackColor = System.Drawing.Color.FloralWhite;
+            this.CaloriesCal_Btn.Cursor = System.Windows.Forms.Cursors.Hand;
             this.CaloriesCal_Btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CaloriesCal_Btn.Location = new System.Drawing.Point(765, 462);
+            this.CaloriesCal_Btn.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.CaloriesCal_Btn.Location = new System.Drawing.Point(1282, 447);
             this.CaloriesCal_Btn.Name = "CaloriesCal_Btn";
-            this.CaloriesCal_Btn.Size = new System.Drawing.Size(125, 52);
+            this.CaloriesCal_Btn.Size = new System.Drawing.Size(166, 61);
             this.CaloriesCal_Btn.TabIndex = 5;
-            this.CaloriesCal_Btn.Text = "Calculate";
-            this.CaloriesCal_Btn.UseVisualStyleBackColor = true;
+            this.CaloriesCal_Btn.Text = "Calculate Calories";
+            this.CaloriesCal_Btn.UseVisualStyleBackColor = false;
             this.CaloriesCal_Btn.Click += new System.EventHandler(this.CaloriesCal_Btn_Click);
             // 
             // label4
@@ -120,7 +125,7 @@
             this.label4.AutoSize = true;
             this.label4.Cursor = System.Windows.Forms.Cursors.Hand;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(1721, 9);
+            this.label4.Location = new System.Drawing.Point(1599, 9);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(33, 32);
             this.label4.TabIndex = 6;
@@ -157,13 +162,15 @@
             // 
             // setGoal_btn
             // 
+            this.setGoal_btn.BackColor = System.Drawing.Color.FloralWhite;
             this.setGoal_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.setGoal_btn.Location = new System.Drawing.Point(169, 285);
+            this.setGoal_btn.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.setGoal_btn.Location = new System.Drawing.Point(156, 276);
             this.setGoal_btn.Name = "setGoal_btn";
-            this.setGoal_btn.Size = new System.Drawing.Size(121, 44);
+            this.setGoal_btn.Size = new System.Drawing.Size(130, 53);
             this.setGoal_btn.TabIndex = 10;
             this.setGoal_btn.Text = "Set Goals";
-            this.setGoal_btn.UseVisualStyleBackColor = true;
+            this.setGoal_btn.UseVisualStyleBackColor = false;
             this.setGoal_btn.Click += new System.EventHandler(this.setGoal_btn_Click);
             // 
             // user_goals_dataGrid
@@ -183,7 +190,7 @@
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.user_goals_dataGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.user_goals_dataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.user_goals_dataGrid.Location = new System.Drawing.Point(71, 382);
+            this.user_goals_dataGrid.Location = new System.Drawing.Point(71, 373);
             this.user_goals_dataGrid.Name = "user_goals_dataGrid";
             this.user_goals_dataGrid.RowHeadersWidth = 51;
             this.user_goals_dataGrid.RowTemplate.Height = 24;
@@ -192,23 +199,23 @@
             // 
             // exe_duration_textBox
             // 
-            this.exe_duration_textBox.Location = new System.Drawing.Point(877, 265);
+            this.exe_duration_textBox.Location = new System.Drawing.Point(1427, 242);
             this.exe_duration_textBox.Name = "exe_duration_textBox";
-            this.exe_duration_textBox.Size = new System.Drawing.Size(121, 22);
+            this.exe_duration_textBox.Size = new System.Drawing.Size(150, 22);
             this.exe_duration_textBox.TabIndex = 14;
             // 
             // times_textBox
             // 
-            this.times_textBox.Location = new System.Drawing.Point(877, 320);
+            this.times_textBox.Location = new System.Drawing.Point(1427, 352);
             this.times_textBox.Name = "times_textBox";
-            this.times_textBox.Size = new System.Drawing.Size(121, 22);
+            this.times_textBox.Size = new System.Drawing.Size(150, 22);
             this.times_textBox.TabIndex = 15;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(635, 317);
+            this.label8.Location = new System.Drawing.Point(1188, 304);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(66, 25);
             this.label8.TabIndex = 16;
@@ -218,7 +225,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(635, 372);
+            this.label9.Location = new System.Drawing.Point(1470, 304);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(63, 25);
             this.label9.TabIndex = 17;
@@ -226,41 +233,38 @@
             // 
             // step_textBox
             // 
-            this.step_textBox.Location = new System.Drawing.Point(877, 376);
+            this.step_textBox.Location = new System.Drawing.Point(1155, 352);
             this.step_textBox.Name = "step_textBox";
-            this.step_textBox.Size = new System.Drawing.Size(121, 22);
+            this.step_textBox.Size = new System.Drawing.Size(150, 22);
             this.step_textBox.TabIndex = 18;
-            // 
-            // dataGridView2
-            // 
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(1169, 372);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.RowHeadersWidth = 51;
-            this.dataGridView2.RowTemplate.Height = 24;
-            this.dataGridView2.Size = new System.Drawing.Size(463, 185);
-            this.dataGridView2.TabIndex = 19;
             // 
             // DelectGoals_btn
             // 
+            this.DelectGoals_btn.BackColor = System.Drawing.Color.FloralWhite;
+            this.DelectGoals_btn.Cursor = System.Windows.Forms.Cursors.Hand;
             this.DelectGoals_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DelectGoals_btn.Location = new System.Drawing.Point(143, 619);
+            this.DelectGoals_btn.ForeColor = System.Drawing.Color.Red;
+            this.DelectGoals_btn.Location = new System.Drawing.Point(131, 607);
             this.DelectGoals_btn.Name = "DelectGoals_btn";
-            this.DelectGoals_btn.Size = new System.Drawing.Size(147, 48);
+            this.DelectGoals_btn.Size = new System.Drawing.Size(198, 61);
             this.DelectGoals_btn.TabIndex = 25;
-            this.DelectGoals_btn.Text = "Delete Goals";
-            this.DelectGoals_btn.UseVisualStyleBackColor = true;
+            this.DelectGoals_btn.Text = "Delete User\'s Goals";
+            this.DelectGoals_btn.UseVisualStyleBackColor = false;
             this.DelectGoals_btn.Click += new System.EventHandler(this.DelectGoals_btn_Click);
             // 
             // Delete_acti_record_btn
             // 
+            this.Delete_acti_record_btn.BackColor = System.Drawing.Color.FloralWhite;
+            this.Delete_acti_record_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.Delete_acti_record_btn.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Delete_acti_record_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Delete_acti_record_btn.Location = new System.Drawing.Point(1333, 604);
+            this.Delete_acti_record_btn.ForeColor = System.Drawing.Color.Red;
+            this.Delete_acti_record_btn.Location = new System.Drawing.Point(703, 595);
             this.Delete_acti_record_btn.Name = "Delete_acti_record_btn";
-            this.Delete_acti_record_btn.Size = new System.Drawing.Size(147, 48);
+            this.Delete_acti_record_btn.Size = new System.Drawing.Size(232, 73);
             this.Delete_acti_record_btn.TabIndex = 26;
-            this.Delete_acti_record_btn.Text = "Delete Record";
-            this.Delete_acti_record_btn.UseVisualStyleBackColor = true;
+            this.Delete_acti_record_btn.Text = "Delete User\'s Records";
+            this.Delete_acti_record_btn.UseVisualStyleBackColor = false;
             this.Delete_acti_record_btn.Click += new System.EventHandler(this.Delete_acti_record_btn_Click);
             // 
             // panel1
@@ -269,7 +273,7 @@
             this.panel1.Controls.Add(this.label4);
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1767, 47);
+            this.panel1.Size = new System.Drawing.Size(1643, 47);
             this.panel1.TabIndex = 27;
             this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown);
             this.panel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseMove);
@@ -277,21 +281,24 @@
             // 
             // Logout_btn
             // 
+            this.Logout_btn.BackColor = System.Drawing.Color.FloralWhite;
+            this.Logout_btn.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Logout_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Logout_btn.Location = new System.Drawing.Point(560, 666);
+            this.Logout_btn.ForeColor = System.Drawing.Color.Red;
+            this.Logout_btn.Location = new System.Drawing.Point(467, 717);
             this.Logout_btn.Name = "Logout_btn";
-            this.Logout_btn.Size = new System.Drawing.Size(125, 52);
+            this.Logout_btn.Size = new System.Drawing.Size(135, 58);
             this.Logout_btn.TabIndex = 29;
             this.Logout_btn.Text = "Logout";
-            this.Logout_btn.UseVisualStyleBackColor = true;
+            this.Logout_btn.UseVisualStyleBackColor = false;
             this.Logout_btn.Click += new System.EventHandler(this.Logout_btn_Click);
             // 
             // label11
             // 
             this.label11.Font = new System.Drawing.Font("Stencil", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(1153, 90);
+            this.label11.Location = new System.Drawing.Point(558, 103);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(500, 220);
+            this.label11.Size = new System.Drawing.Size(500, 226);
             this.label11.TabIndex = 30;
             this.label11.Text = "Every drop of\r\nsweat is a step \r\ncloser to your goals\r\nKeep pushing \r\nKeep strivi" +
     "ng\r\nNever give up";
@@ -299,28 +306,55 @@
             // 
             // Result_Btn
             // 
+            this.Result_Btn.BackColor = System.Drawing.Color.FloralWhite;
+            this.Result_Btn.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Result_Btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Result_Btn.Location = new System.Drawing.Point(939, 660);
+            this.Result_Btn.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.Result_Btn.Location = new System.Drawing.Point(1136, 717);
             this.Result_Btn.Name = "Result_Btn";
             this.Result_Btn.Size = new System.Drawing.Size(157, 58);
             this.Result_Btn.TabIndex = 31;
             this.Result_Btn.Text = "Show Results";
-            this.Result_Btn.UseVisualStyleBackColor = true;
+            this.Result_Btn.UseVisualStyleBackColor = false;
             this.Result_Btn.Click += new System.EventHandler(this.Result_Btn_Click);
+            // 
+            // user_recordActivities_DGV
+            // 
+            this.user_recordActivities_DGV.AllowUserToOrderColumns = true;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Gray;
+            this.user_recordActivities_DGV.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+            this.user_recordActivities_DGV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.user_recordActivities_DGV.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.user_recordActivities_DGV.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.user_recordActivities_DGV.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            this.user_recordActivities_DGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.user_recordActivities_DGV.Location = new System.Drawing.Point(607, 373);
+            this.user_recordActivities_DGV.Name = "user_recordActivities_DGV";
+            this.user_recordActivities_DGV.RowHeadersWidth = 51;
+            this.user_recordActivities_DGV.RowTemplate.Height = 24;
+            this.user_recordActivities_DGV.Size = new System.Drawing.Size(427, 175);
+            this.user_recordActivities_DGV.TabIndex = 32;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(1766, 867);
+            this.ClientSize = new System.Drawing.Size(1644, 810);
+            this.Controls.Add(this.user_recordActivities_DGV);
             this.Controls.Add(this.Result_Btn);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.Logout_btn);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.Delete_acti_record_btn);
             this.Controls.Add(this.DelectGoals_btn);
-            this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.step_textBox);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
@@ -342,9 +376,9 @@
             this.Text = "MainForm";
             this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.user_goals_dataGrid)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.user_recordActivities_DGV)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -368,12 +402,12 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox step_textBox;
-        private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.Button DelectGoals_btn;
         private System.Windows.Forms.Button Delete_acti_record_btn;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button Logout_btn;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Button Result_Btn;
+        private System.Windows.Forms.DataGridView user_recordActivities_DGV;
     }
 }
