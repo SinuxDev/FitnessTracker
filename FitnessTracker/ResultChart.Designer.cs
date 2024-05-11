@@ -52,6 +52,8 @@
             // 
             // result_chart
             // 
+            this.result_chart.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.result_chart.BorderlineColor = System.Drawing.Color.DarkOrange;
             chartArea1.Name = "ChartArea1";
             this.result_chart.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Windows.Forms;
+using System.Data;
 
 namespace FitnessTracker
 {
@@ -73,6 +74,46 @@ namespace FitnessTracker
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        //Get user goals from the database
+        private DataTable GetUserGoals(string username, string query)
+        {
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    MySqlCommand command = new MySqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@username", username);
+
+                    DataTable dataTable = new DataTable();
+                    using (MySqlDataAdapter adapter = new MySqlDataAdapter(command))
+                    {
+                        adapter.Fill(dataTable);
+                    }
+
+                    return dataTable;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error retrieving data: " + ex.Message);
+                return null;
+            }
+        }
+
+        //Fill the DataGridView with user goals
+        public DataTable FillUserGoalsDGV(string username)
+        {
+            return GetUserGoals(username, "SELECT goal_calories FROM user_goals WHERE username = @username");
+        }
+
+        //Fill the DataGridView with user goals
+        public void doRefreshGoals(string username,DataGridView dataGrid) 
+        {
+            dataGrid.DataSource = GetUserGoals(username, "SELECT username,goal_calories FROM user_goals WHERE username = @username");
         }
     }
 }

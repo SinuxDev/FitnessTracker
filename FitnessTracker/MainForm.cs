@@ -18,6 +18,7 @@ namespace FitnessTracker
         static string dbString = "server=localhost;port=3306;uid=root;password=root;database=fitnessapp";
         connectdb db = new connectdb();
         TrackingClass trackingClass = new TrackingClass(dbString);
+        UserDataClass userDataClass = new UserDataClass();
 
         private int _userId;
         private string _name;
@@ -50,9 +51,25 @@ namespace FitnessTracker
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            FillUserGoalsDGV(_name);
+            string currentUsername = GetName();
+
+            //Get the user's fitness goal
+            DataTable userGoalsTable = userDataClass.FillUserGoalsDGV(currentUsername);
+            user_goals_dataGrid.DataSource = userGoalsTable;
+
+            if(userGoalsTable != null)
+            {
+                user_goals_dataGrid.DataSource = userGoalsTable;
+            }
+            else
+            {
+                MessageBox.Show("Failed to load user goals");
+            }
+
+            //Reload the User Goals
+            userDataClass.doRefreshGoals(currentUsername, user_goals_dataGrid);
+
             FillRecordActivities(_userId);
-            doRefreshGoals();
             doRefreshRecord();
         }
 
@@ -156,9 +173,9 @@ namespace FitnessTracker
                 {
                      trackingClass.SetFitnessGoal(_name, calories);
                      MessageBox.Show("Goal set successfully","Set Goals",MessageBoxButtons.OK, MessageBoxIcon.Information);
-                     doRefreshGoals();
+                     userDataClass.doRefreshGoals(_name, user_goals_dataGrid);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     MessageBox.Show("An Error Occured: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
@@ -191,10 +208,10 @@ namespace FitnessTracker
         private void DelectGoals_btn_Click(object sender, EventArgs e)
         {
             //Check if any row is selected
-            if(dataGridView1.SelectedRows.Count > 0)
+            if(user_goals_dataGrid.SelectedRows.Count > 0)
             {
                 //Get the index of selected row
-                int rowIndex = dataGridView1.SelectedRows[0].Index;
+                int rowIndex = user_goals_dataGrid.SelectedRows[0].Index;
 
                 DeleteUserGoals(rowIndex);
             }
@@ -236,10 +253,10 @@ namespace FitnessTracker
         private void DeleteUserGoals(int rowIndex)
         {
             //Check if the index is valid
-            if(rowIndex >= 0 && rowIndex < dataGridView1.Rows.Count)
+            if(rowIndex >= 0 && rowIndex < user_goals_dataGrid.Rows.Count)
             {
                 //Get the selected row's username and goal_calories
-                DataGridViewRow selectedRow = dataGridView1.Rows[rowIndex];
+                DataGridViewRow selectedRow = user_goals_dataGrid.Rows[rowIndex];
 
                 //Confirmation dialog
                 DialogResult result = MessageBox.Show("Are you sure you want to delete this goal?", "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -262,7 +279,7 @@ namespace FitnessTracker
                         MessageBox.Show("Failed to delete goal.");
                     }
 
-                    doRefreshGoals();
+                    userDataClass.doRefreshGoals(_name, user_goals_dataGrid);
                 }
             }
         }
@@ -330,34 +347,6 @@ namespace FitnessTracker
             }
         }
 
-        //Fill the user goals
-        private void FillUserGoalsDGV(string username)
-        {
-            try
-            {
-                //Open the database connection
-                db.openConnection();
-
-                string query = "SELECT username,goal_calories FROM user_goals WHERE username = @username";
-                MySqlCommand command = new MySqlCommand(query, db.getConnection());
-                command.Parameters.AddWithValue("@username", username);
-
-                MySqlDataAdapter da = new MySqlDataAdapter(command);
-                DataTable dataTable = new DataTable();
-                da.Fill(dataTable);
-                dataGridView1.DataSource = dataTable;
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show("Error on Loading user goals" + ex.Message);
-            }
-            finally
-            {
-                //Close the database connection
-                db.closeConnection();
-            }
-        }
-
         //Fill the record activities
         private void FillRecordActivities(int userID)
         {
@@ -378,37 +367,6 @@ namespace FitnessTracker
             catch(Exception ex)
             {
                 MessageBox.Show("Error on Loading record activities" + ex.Message);
-            }
-            finally
-            {
-                //Close the database connection
-                db.closeConnection();
-            }
-        }
-
-        //Refresh the goals
-        public void doRefreshGoals()
-        {
-            dataGridView1.DataSource = null;
-            dataGridView1.Rows.Clear();
-
-            try
-            {
-                //Open the database connection
-                db.openConnection();
-                string query = "SELECT username,goal_calories FROM user_goals WHERE username = @username";
-                MySqlCommand command = new MySqlCommand(query, db.getConnection());
-                command.Parameters.AddWithValue("@username", _name);
-
-                MySqlDataAdapter adapter = new MySqlDataAdapter(command);
-                DataTable dataTable = new DataTable();
-                adapter.Fill(dataTable);
-
-                dataGridView1.DataSource = dataTable;
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show("Error on Refreshing Goals" + ex.Message);
             }
             finally
             {
