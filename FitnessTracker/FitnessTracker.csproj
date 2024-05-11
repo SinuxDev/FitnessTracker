@@ -137,6 +137,7 @@
       <DependentUpon>ResultChart.cs</DependentUpon>
     </Compile>
     <Compile Include="TrackingClass.cs" />
+    <Compile Include="UserClass.cs" />
     <EmbeddedResource Include="forgetPasswordForm.resx">
       <DependentUpon>forgetPasswordForm.cs</DependentUpon>
     </EmbeddedResource>
