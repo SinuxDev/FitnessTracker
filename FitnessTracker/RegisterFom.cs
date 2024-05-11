@@ -9,21 +9,27 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using System.Text.RegularExpressions;
+using Microsoft.VisualBasic.ApplicationServices;
+using FitnessTracker;
 
 namespace FitnessTracker
 {
     public partial class RegisterFom : Form
     {
         //For redirect to login form
-        Login login = new Login();
+        private readonly Login login = new Login();
+
+        private readonly UserServiceClass userService;
 
         //Form move
         int mov;
         int movX;
         int movY;
-        public RegisterFom()
+
+        public RegisterFom(UserServiceClass userService)
         {
             InitializeComponent();
+            this.userService = userService;
         }
 
         private void RegisterFom_Load(object sender, EventArgs e)
@@ -55,7 +61,9 @@ namespace FitnessTracker
 
             try
             {
-                HashAndSaveUser(firstName, lastName, email, userName, password);
+                UserClass user = new UserClass(firstName, lastName, email, userName, password);
+                userService.RegisterUser(user); // Call UserService to register
+
                 MessageBox.Show("Your Account Has Been Created", "Account Created", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 ClearInputFileds();
@@ -76,13 +84,6 @@ namespace FitnessTracker
                 return false;
             }
 
-            //Check if the password meet the requirement
-            if (!ValidatePassword())
-            {
-                MessageBox.Show("Password must be 12 characters long and contain at least one uppercase and one lowercase letter", "Invalid Password", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false ;
-            }
-
             //Check if the password and confirm password match
             if (reg_password.Text != reg_confirmPassword.Text)
             {
@@ -90,61 +91,7 @@ namespace FitnessTracker
                 return false;
             }
 
-            //Check if the username containes special characters
-            if (!checkUsernameSpecialChar())
-            {
-                MessageBox.Show("Username can only contain letters and numbers", "Invalid Username", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-
-            //Check if the username already exists
-            if (checkUsername())
-            {
-                MessageBox.Show("This Username Already Exists, Select A Different One", "Duplicate Username", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-
-            //Check if the email format is valid
-            if (!checkEmailFormat())
-            {
-                MessageBox.Show("Invalid Email Format", "Invalid Email", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-
-            //Check if the email already exists
-            if (checkEmailExits())
-            {
-                MessageBox.Show("This Email Already Exists, Select A Different One", "Duplicate Email", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-
             return true;
-        }
-
-        //Hash the password and save the user into the database
-        private void HashAndSaveUser(string firstname, string lastName, string email, string userName, string password)
-        {
-            //Hash the password
-            PasswordHash passwordHash = new PasswordHash(password);
-            string hashedPassword = passwordHash.HashedPassword;
-
-            //Add new user into the database
-            using (connectdb db = new connectdb())
-            {
-                MySqlCommand cmd = new MySqlCommand("INSERT INTO `users`(`firstname`, `lastname`, `emailaddress`, `username`, `password`) VALUES (@fn, @ln, @em, @un, @pass)", db.getConnection());
-                cmd.Parameters.AddWithValue("@fn", firstname);
-                cmd.Parameters.AddWithValue("@ln", lastName);
-                cmd.Parameters.AddWithValue("@em", email);
-                cmd.Parameters.AddWithValue("@un", userName);
-                cmd.Parameters.AddWithValue("@pass", hashedPassword);
-
-                db.openConnection();
-
-                if(cmd.ExecuteNonQuery() != 1)
-                {
-                    throw new Exception("Failed to create your account");
-                }
-            }
         }
 
         //Clear the input fields
@@ -165,95 +112,6 @@ namespace FitnessTracker
             this.Hide();
         }
 
-        //check if the username already exists
-        public Boolean checkUsername()
-        {
-            string username = reg_userName.Text;
-            using (connectdb db = new connectdb())
-            {
-                MySqlCommand command = new MySqlCommand("SELECT * FROM `users` WHERE `username` = @usn", db.getConnection());
-                command.Parameters.AddWithValue("@usn", username);
-
-                try
-                {
-                    db.openConnection();
-                    int count = Convert.ToInt32(command.ExecuteScalar());
-                    return count > 0; // Assuming username is exists
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error on checking username : " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false; // Assuming username is not exists
-                }
-                finally
-                {
-                    db.closeConnection();
-                }
-            }
-        }
-
-        //Check if the username contain the special characters
-        public Boolean checkUsernameSpecialChar()
-        {
-            String userNameInput= reg_userName.Text;
-
-            //Define regular expression 
-            string pattern = @"^[a-zA-Z0-9]+$";
-
-            //Use Regex.Match method to check if the username contains special characters
-            if (!Regex.IsMatch(userNameInput, pattern))
-            {
-                return false; // Sepecial characters found
-            }
-
-            return true; // No special characters
-        }
-
-        //Check if the emails is already exitst or not 
-        public Boolean checkEmailExits()
-        {
-            string email = reg_email.Text;
-            using (connectdb db = new connectdb())
-            {
-                MySqlCommand cmd = new MySqlCommand("SELECT * FROM `users` WHERE `emailaddress` = @em", db.getConnection());
-                cmd.Parameters.AddWithValue("@em", email);
-
-                try
-                {
-                    db.openConnection();
-                    int count = Convert.ToInt32(cmd.ExecuteScalar());
-                    return count > 0;
-                }
-                catch (MySqlException ex)
-                {
-                    //Handle specific database connection error 
-                    MessageBox.Show("Error on checking email : " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return true; // Assume the email exists
-                }
-                finally
-                {
-                    db.closeConnection();
-                }
-            }
-        }
-
-        // Check the email format
-        public Boolean checkEmailFormat()
-        {
-            string email = reg_email.Text;
-
-            //Define regular expression for email format
-            string pattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
-
-            //Use Regex.Match method to check if the email format is valid
-            if (!Regex.IsMatch(email, pattern))
-            {
-                return false; // Invalid email format
-            }
-
-            return true; // Valid email format
-        }
-
         //check if the textboxes has values
         public Boolean checkTextBoxesValues()
         {
@@ -265,23 +123,6 @@ namespace FitnessTracker
             string confirmPassword = reg_confirmPassword.Text.Trim();
 
             return string.IsNullOrWhiteSpace(firstName) || string.IsNullOrWhiteSpace(lastName) || string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(userName) || string.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(confirmPassword);
-        }
-
-        // check if the password meet the requirement
-        public Boolean ValidatePassword()
-        {
-            string password = reg_password.Text;
-
-            //Define regular expression for password format
-            string pattern = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{12,}$";
-
-            //Use Regex.Match method to check if the password format is valid
-            if (!Regex.IsMatch(password, pattern))
-            {
-                return false; // Invalid password format
-            }
-
-            return true; // Valid password format
         }
 
         //Close the application
