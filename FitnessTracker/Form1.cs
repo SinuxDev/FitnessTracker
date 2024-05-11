@@ -34,7 +34,9 @@ namespace FitnessTracker
         //show the Register Form
         private void login_registerHere_Click(object sender, EventArgs e)
         {
-            RegisterFom registerFom = new RegisterFom();
+            UserServiceClass userService = new UserServiceClass(new ValidationServiceClass());
+
+            RegisterFom registerFom = new RegisterFom(userService);
             registerFom.Show();
             this.Hide();
         }
