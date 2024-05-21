@@ -9,12 +9,11 @@ namespace FitnessTracker
 {
     public class UserClass
     {
-        //Properties with automatic getters and setters
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string EmailAddress { get; set; }
-        public string UserName { get; set; }
-        public string Password { get; set; }
+        private string FirstName;
+        private string LastName;
+        private string EmailAddress;
+        private string UserName;
+        private string Password;
 
         //Constructor to initialize the properties
         public UserClass(string firstName, string lastName, string emailAddress, string userName, string password)
@@ -26,34 +25,75 @@ namespace FitnessTracker
             this.Password = password;
         }
 
-        public string GetAndSetFirstName
+        public string GetFirstName()
         {
-            get => FirstName;
-            set => FirstName = value;
+            return this.FirstName;
         }
 
-        public string GetAndSetLastName
+        public void SetFirstName(string firstName)
         {
-            get => LastName;
-            set => LastName = value;
+            if(firstName.Length > 50)
+            {
+                throw new Exception("First name cannot be more than 50 characters");
+            }
+            this.FirstName = firstName;
         }
 
-        public string GetAndSetEmailAddress
+
+        public string GetLastName()
         {
-            get => EmailAddress;
-            set => EmailAddress = value;
+            return this.LastName;
         }
 
-        public string GetAndSetUserName
+        public void SetLastName(string lastName)
         {
-            get => UserName;
-            set => UserName = value;
+            if (lastName.Length > 50)
+            {
+                throw new Exception("Last name cannot be more than 50 characters");
+            }
+            this.LastName = lastName;
         }
 
-        public string GetAndSetPassword
+        public string GetEmailAddress()
         {
-            get => Password;
-            set => Password = value;
+            return this.EmailAddress;
+        }
+
+        public void SetEmailAddress(string emailAddress)
+        {
+            if (!Regex.IsMatch(emailAddress, @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$"))
+            {
+                throw new Exception("Invalid email format");
+            }
+            this.EmailAddress = emailAddress;
+        }
+
+        public string GetUserName()
+        {
+            return this.UserName;
+        }
+
+        public void SetUserName(string userName)
+        {
+            if (userName.Length > 50)
+            {
+                throw new Exception("Username cannot be more than 50 characters");
+            }
+            this.UserName = userName;
+        }
+
+        public string GetPassword()
+        {
+            return this.Password;
+        }
+
+        public void SetPassword(string password)
+        {
+            if (!Regex.IsMatch(password, @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{12}$"))
+            {
+                throw new Exception("Password must contain 12 characters, one uppercase letter, one lowercase letter and one number");
+            }
+            this.Password = password;
         }
     }
 }

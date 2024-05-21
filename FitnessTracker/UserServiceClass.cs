@@ -25,37 +25,37 @@ namespace FitnessTracker
         public void RegisterUser(UserClass user)
         {
             //Check password format
-            if (!validationService.ValidatePassword(user.Password))
+            if (!validationService.ValidatePassword(user.GetPassword()))
             {
                 throw new Exception("Password must contain at least 12 characters, one uppercase letter, one lowercase letter and one number");
             }
 
             //Check the username contains special characters
-            if (!validationService.CheckUsernameSpecialChars(user.UserName))
+            if (!validationService.CheckUsernameSpecialChars(user.GetUserName()))
             {
                 throw new Exception("Username must not contain special characters");
             }
 
             //Check the username exists or not 
-            if (checkUsername(user.UserName))
+            if (checkUsername(user.GetUserName()))
             {
                 throw new Exception("Username already exists");
             }
 
             //Check the email exists or not
-            if (checkEmailExits(user.EmailAddress))
+            if (checkEmailExits(user.GetEmailAddress()))
             {
                 throw new Exception("Email already exists");
             }
 
             //Check the email format
-            if (!validationService.ValidateEmail(user.EmailAddress))
+            if (!validationService.ValidateEmail(user.GetEmailAddress()))
             {
                 throw new Exception("Invalid email format");
             }
 
             //Hash password
-            PasswordHash passwordHash = new PasswordHash(user.Password);
+            PasswordHash passwordHash = new PasswordHash(user.GetPassword());
             string hashedPassword = passwordHash.HashedPassword;
 
             //Save the user to the database using the connection string
@@ -63,10 +63,10 @@ namespace FitnessTracker
             {
                 connection.Open();
                 MySqlCommand cmd = new MySqlCommand("INSERT INTO `users`(`firstname`, `lastname`, `emailaddress`, `username`, `password`) VALUES (@fn, @ln, @em, @un, @pass)", connection);
-                cmd.Parameters.AddWithValue("@fn", user.FirstName);
-                cmd.Parameters.AddWithValue("@ln", user.LastName);
-                cmd.Parameters.AddWithValue("@em", user.EmailAddress);
-                cmd.Parameters.AddWithValue("@un", user.UserName);
+                cmd.Parameters.AddWithValue("@fn", user.GetFirstName());
+                cmd.Parameters.AddWithValue("@ln", user.GetLastName());
+                cmd.Parameters.AddWithValue("@em", user.GetEmailAddress());
+                cmd.Parameters.AddWithValue("@un", user.GetUserName());
                 cmd.Parameters.AddWithValue("@pass", hashedPassword);
 
                 if (cmd.ExecuteNonQuery() != 1)
