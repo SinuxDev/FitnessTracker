@@ -67,52 +67,38 @@ namespace FitnessTracker
             }
         }
 
-        public int GetTotalCaloriesBurned(string username)
+        // Get User Calories
+        private int GetUserCalories(string username, string query)
         {
-            int totalCaloriesBurned = 0;
-
             using (var connection = new MySqlConnection(_connectionString))
             using (var command = connection.CreateCommand())
             {
                 connection.Open();
 
-                string query = "SELECT COALESCE(SUM(calories_burned), 0) AS total_calories_burned FROM record_activities WHERE user_name = @username";
+                MySqlCommand cmd = connection.CreateCommand();
+                cmd.CommandText = query;
+                cmd.Parameters.AddWithValue("@username", username);
 
-                command.CommandText = query;
-                command.Parameters.AddWithValue("@username", username);
-
-                var result = command.ExecuteScalar();
+                var result = cmd.ExecuteScalar();
                 if (result != null && result != DBNull.Value)
                 {
-                    totalCaloriesBurned = Convert.ToInt32(result);
+                    return Convert.ToInt32(result);
                 }
             }
 
-            return totalCaloriesBurned;
+            return 0;
         }
 
+        // Get total calories burned by the user
+        public int GetTotalCaloriesBurned(string username)
+        {
+            return GetUserCalories(username, "SELECT COALESCE(SUM(calories_burned), 0) AS total_calories_burned FROM record_activities WHERE user_name = @username");
+        }
+
+        //Get User Goal Calories
         public int GetUserGoalCalories(string username)
         {
-            int goalCalories = 0;
-
-            using (var connection = new MySqlConnection(_connectionString))
-            using (var command = connection.CreateCommand())
-            {
-                connection.Open();
-
-                string query = "SELECT COALESCE(goal_calories, 0) FROM user_goals WHERE username = @username ORDER BY created_at DESC LIMIT 1";
-
-                command.CommandText = query;
-                command.Parameters.AddWithValue("@username", username);
-
-                var result = command.ExecuteScalar();
-                if (result != null && result != DBNull.Value)
-                {
-                    goalCalories = Convert.ToInt32(result);
-                }
-            }
-
-            return goalCalories;
+            return GetUserCalories(username, "SELECT COALESCE(goal_calories, 0) FROM user_goals WHERE username = @username ORDER BY created_at DESC LIMIT 1");
         }
     }
 }

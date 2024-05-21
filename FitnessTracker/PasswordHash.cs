@@ -10,14 +10,10 @@ namespace FitnessTracker
 {
     public class PasswordHash
     {
-        public string HashedPassword { get; set; }
+        public string hashedPassword;
 
-        public PasswordHash(string password)
-        {
-            this.HashedPassword = HashPassword(password);
-        }
-
-        private string HashPassword(string password)
+        //Constructor to create a hash of the password
+        private PasswordHash(string password)
         {
             using (SHA256 sha256 = SHA256.Create())
             {
@@ -27,9 +23,23 @@ namespace FitnessTracker
                 {
                     sb.Append(b.ToString("x2"));
                 }
-                return sb.ToString();
+                hashedPassword = sb.ToString();
             }
         }
 
+        //Method to create a hash of the password
+        public static PasswordHash CreateHash(string password)
+        {
+            return new PasswordHash(password);
+        }
+
+        //Getter for hashed password
+        public string HashedPassword
+        {
+            get
+            {
+                return hashedPassword;
+            }
+        }
     }
 }

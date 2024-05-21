@@ -69,7 +69,7 @@ namespace FitnessTracker
                         if(table.Rows.Count > 0)
                         {
                             string hashedPasswordFromDatabase = table.Rows[0]["password"].ToString(); //Get the hashed password from database
-                            PasswordHash passwordHash = new PasswordHash(password); //Hash the input password
+                            PasswordHash passwordHash = PasswordHash.CreateHash(password); //Hash the input password
                             string hashedInputPassword = passwordHash.HashedPassword; //Get the hashed input password
 
                             if (hashedPasswordFromDatabase == hashedInputPassword)

@@ -55,7 +55,7 @@ namespace FitnessTracker
             }
 
             //Hash password
-            PasswordHash passwordHash = new PasswordHash(user.GetPassword());
+            PasswordHash passwordHash = PasswordHash.CreateHash(user.GetPassword());
             string hashedPassword = passwordHash.HashedPassword;
 
             //Save the user to the database using the connection string
